@@ -11,10 +11,10 @@ export interface IUserModel extends app.i.IUser, mongoose.Document {
 let userSchema = new mongoose.Schema({
     email: { type: String, lowercase: true, trim: true, unique: true, sparse: true },
     password: { type: String },
-    firstName: {type: String, required: true},
-    lastName: {type: String, required: true},
+    name: {type: String, required: true},
+    facebook: {id: String, token: String},
     loc: {type: [Number], index: '2dsphere'},
-    branchService: {type: String, required: true},
+    branch: {type: String, required: true},
     campaign: {type: String, required: true},
     imgUrl: {type: String},
     maxDist: {type: Number},

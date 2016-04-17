@@ -3,13 +3,13 @@ namespace app.i {
         _id: any;
         email: string;
         password: string;
-        firstName: string;
-        lastName: string;
+        name: string;
+        facebook: {id:string, token: string};
         /**
          * loc: [lng,lat]
          */
         loc: [number];
-        branchService: string;
+        branch: string;
         campaign: string;
         imgUrl?: string;
         maxDist?: number;

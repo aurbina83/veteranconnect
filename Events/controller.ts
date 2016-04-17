@@ -39,7 +39,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
                 }
             }
         })
-        .populate('eventCreator', 'firstName lastName branchService')
+        .populate('eventCreator', 'name branchService')
         .exec((err, events) => {
             if (err) return next(err);
             res.json(200, events);
@@ -49,11 +49,11 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     function findOne(req: express.Request, res: express.Response, next: Function){
         Event.findOne({_id: req.params.id})
         .populate('comments', '-event')
-        .populate('user', 'firstName')
-        .populate('eventCreator', 'firstName lastName branchService')
+        .populate('user', 'name')
+        .populate('eventCreator', 'name branchService')
         .exec((err, data) => {
             if(err) return next(err);
-            Comment.populate(data.comments, { path: 'user', select: 'firstName', model: 'User' }, (err, response) => {
+            Comment.populate(data.comments, { path: 'user', select: 'name', model: 'User' }, (err, response) => {
               if (err) return next(err);
               res.json(data);
             });
@@ -62,7 +62,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
 
     function findMine(req: express.Request, res: express.Response, next: Function){
         Event.find({eventCreator: req['payload']._id})
-        .populate('eventCreator', 'firstName lastName branchService')
+        .populate('eventCreator', 'name branchService')
         .exec((err, data) => {
             if(err) return next(err);
             res.json(data);
@@ -71,7 +71,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
 
     function findAttending(req: express.Request, res: express.Response, next: Function){
         Event.find({attending: req['payload']._id})
-        .populate('eventCreator', 'firstName lastName branchService')
+        .populate('eventCreator', 'name branchService')
         .exec((err, data) => {
             if(err) return next(err);
             res.json(data);

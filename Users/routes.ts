@@ -14,6 +14,13 @@ router.post('/login', ctrl.login);
 //POST /api/v1/users/register
 router.post('/register', ctrl.register);
 
+//FACEBOOK
+router.get('/auth/facebook',passport.authenticate('facebook',{session:false}));
+
+router.get('/auth/facebook/callback',passport.authenticate('facebook',{session:false}),(req,res,next) => {
+  res.redirect('/?code=' + req['tempUser'].generateJWT());
+});
+
 //GET /api/v1/users/:id
 router.get('/:id', ctrl.findOne)
 

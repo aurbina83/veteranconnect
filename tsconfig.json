@@ -32,6 +32,7 @@
     "Comments/interface.ts",
     "Comments/model.ts",
     "Comments/routes.ts",
+    "config/passport.ts",
     "Events/controller.ts",
     "Events/interface.ts",
     "Events/model.ts",

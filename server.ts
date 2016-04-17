@@ -5,11 +5,13 @@ import logger = require('morgan');
 import cookieParser = require('cookie-parser');
 import bodyParser = require('body-parser');
 import mongoose = require('mongoose');
+import passport = require('./config/passport');
 const app = express();
 
 require('./Events/model');
 require('./Comments/model');
 require('./Users/model');
+require('./config/passport');
 
 mongoose.connect('mongodb://localhost/vc', (err) => {
   if (err) console.error(err);
