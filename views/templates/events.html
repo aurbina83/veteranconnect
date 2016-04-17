@@ -1,0 +1,35 @@
+<div class="load" ng-show="!vm.status.lng">
+    <img src="images/ring-alt.svg" alt="" width="100px" height="100px">
+</div>
+
+<div class="container" ng-show="vm.status.lng">
+    <div class="row">
+        <div class="col col-md-9 col-md-offset-2 well">
+            <label>Miles</label>
+            <select ng-model="vm.distance" ng-change="vm.setDistance()">
+                <option value="1">1</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="50">50</option>
+                <option value="300">300</option>
+            </select>
+            <div class="col col-md-7 col-md-offset-2">
+                <div class="panel panel-default" ng-repeat="e in vm.events">
+                    <a ui-sref="Event Details({id: e._id})">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{e.title}}</h3>
+                        </div>
+                        <div class="panel-body">
+                            {{e.eventCreator.branchService}}
+                        </div>
+                        <div class="panel-footer">
+                            <h3 class="panel-title">{{e.name}}</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
