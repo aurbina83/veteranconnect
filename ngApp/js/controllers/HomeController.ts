@@ -6,8 +6,7 @@ namespace app.Controllers {
             private UserService: app.Services.UserService,
             private $state: ng.ui.IStateService,
             private $http: ng.IHttpService,
-            private $location: ng.ILocationService,
-            private $timeout: ng.ITimeoutService
+            private $location: ng.ILocationService
         ) {
             if($location.search().code) {
               UserService.setToken($location.search().code);
@@ -16,12 +15,12 @@ namespace app.Controllers {
               $location.search('');
               if ($location.hash()) $location.hash('');
             }
-            this.status = UserService.status;
-            $timeout(()=>{
+            UserService.setUser().then(()=> {
+                this.status = UserService.status;
                 if((this.status._id) && (!this.status.branch)) {
                     this.$state.go('Register');
                 }
-            }, 10)
+            });
         }
     }
     angular.module('app').controller('HomeController', HomeController);

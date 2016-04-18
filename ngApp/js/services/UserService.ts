@@ -1,6 +1,6 @@
 namespace app.Services {
     export class UserService {
-        public status = { _id: null, name: null, branch: null, imgUrl: null, branchImg: null, lng: null, lat: null, maxDist: 80.5};
+        public status = { _id: null, name: null, branch: null, imgUrl: null, lng: null, lat: null, maxDist: 80.5};
         private user;
 
         private getUser(id: string) {
@@ -45,16 +45,17 @@ namespace app.Services {
         }
 
         public setUser() {
+          let q = this.$q.defer();
           let token = this.getToken();
           let u = JSON.parse( atob( token.split('.')[1] ) );
           this.getUser(u._id).then(()=>{
               this.status._id = u._id;
               this.status.name = u.firstName + " " + u.lastName;
+              this.status.imgUrl = u.imgUrl;
               this.status.branch = this.user.branch;
-              this.status.imgUrl = this.user.imgUrl;
-              this.status.branchImg = this.user.branchImg;
+              q.resolve();
           });
-
+          return q.promise;
         }
 
 

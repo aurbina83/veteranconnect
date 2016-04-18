@@ -49,6 +49,8 @@
     "ngApp/js/controllers/NavController.ts",
     "ngApp/js/controllers/UserLoginController.ts",
     "ngApp/js/controllers/UserRegistrationController.ts",
+    "ngApp/js/factory/register.ts",
+    "ngApp/js/factory/yelp.ts",
     "ngApp/js/services/AuthInterceptor.ts",
     "ngApp/js/services/CommentService.ts",
     "ngApp/js/services/EventService.ts",

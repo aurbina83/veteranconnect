@@ -45,6 +45,7 @@ userSchema.method('comparePassword', function(password, done) {
 
 userSchema.method('generateJWT', function() {
   return jwt.sign({
+    imgUrl: this.imgUrl,
     firstName: this.firstName,
     lastName: this.lastName,
     email: this.email,

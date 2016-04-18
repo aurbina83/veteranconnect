@@ -2,7 +2,7 @@
 <html ng-app="app">
 
 <head>
-    <title>veteran-connect</title>
+    <title>Veteran Connect</title>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <base href="/" />
@@ -28,9 +28,9 @@
                     <div layout='row' flex layout-align="center" class='navtitle'>
                         <h1 style="font-family: 'Fjalla One', sans-serif;"> VETERAN CONNECT </h1>
                     </div>
-                    <md-button ng-show='nav.status._id' hide show-gt-sm ng-click="nav.logout()">
+                    <!-- <md-button ng-show='nav.status._id' hide show-gt-sm ng-click="nav.logout()">
                         Log out
-                    </md-button>
+                    </md-button> -->
                     <a ui-sref="Login">
                         <md-button class="md-raised" ng-show='!nav.status._id' hide show-gt-sm>
                             Login
@@ -87,14 +87,14 @@
                             </md-list-item>
                         </a>
                         <md-divider></md-divider>
-                        <md-toolbar class="md-whiteframe-z1" style="background-color: #820805;" hide-gt-sm>
+                        <md-toolbar class="md-whiteframe-z1" style="background-color: #820805;" >
                             <div class="md-toolbar-tools">
                                 <div layout="row" flex layout-align="center">
                                     <h1 style='font-style: italic;'>ACCOUNT</h1>
                                 </div>
                             </div>
                         </md-toolbar>
-                        <md-list-item hide-gt-sm>
+                        <md-list-item>
                             <md-button layout='row' flex md-ink-ripple='#2E4359' ng-click="nav.logout()">
                                 <h3 style="font-style: italic;">LOG OUT</h3>
                             </md-button>
