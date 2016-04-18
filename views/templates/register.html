@@ -1,7 +1,53 @@
-<form class="form-horizontal" ng-submit="vm.register()" name="registration">
+<div layout="column" ng-cloak >
+    <md-content layout-gt-sm="row" layout-padding layout-align="center" style="margin-top: 10%;">
+        <form name="userForm" flex-gt-sm="33" ng-submit="vm.register()">
+            <div layout-gt-sm="row">
+                <md-input-container class='md-block' flex-gt-sm>
+                    <label>Email</label>
+                    <input name="email" type="email" ng-model="vm.user.email" type="email" required='true'>
+                    <div ng-messages="userForm.email.$error">
+                        <div ng-message="required">*Required</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Branch of Service</label>
+                    <md-select ng-model="vm.user.branch" ng-change='vm.setMos()'>
+                        <md-option ng-repeat="branch in vm.branches" flex>
+                            {{branch}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+            <br />
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>{{vm.mos}}</label>
+                    <input name="mos" ng-model="vm.user.mos" ng-pattern="vm.pattern" md-maxlength='vm.max' required placeholder="Duty">
+                    <div ng-messages="userForm.mos.$error">
+                        <div ng-message="pattern">{{vm.patternMessage}}</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <br />
+            <div layout="row" flex layout-align="center">
+                <md-button  ng-disabled="userForm.$invalid" class="md-raised" type="submit" flex style='background-color: #820805; color: white; font-size: 20px; font-weight: 500' >
+                    Register
+                </md-button>
+            </div>
+        </form>
+    </md-content>
+</div>
+
+
+
+
+
+<!-- <form class="form-horizontal" ng-submit="vm.register()" name="registration">
 <fieldset>
 
-<!-- Text input-->
+
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">Email Address</label>
   <div class="col-md-4">
@@ -10,7 +56,7 @@
   </div>
 </div>
 
-<!-- Password input-->
+
 <div class="form-group">
   <label class="col-md-4 control-label" for="passwordinput">Password</label>
   <div class="col-md-4">
@@ -20,7 +66,7 @@
   </div>
 </div>
 
-<!-- Text input-->
+
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">First Name</label>
   <div class="col-md-4">
@@ -29,7 +75,7 @@
   </div>
 </div>
 
-<!-- Text input-->
+
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput">Last Name</label>
   <div class="col-md-4">
@@ -38,7 +84,7 @@
   </div>
 </div>
 
-<!-- Select Basic -->
+
 <div class="form-group">
   <label class="col-md-4 control-label" for="selectbasic">Branch of Service</label>
   <div class="col-md-4">
@@ -51,7 +97,7 @@
   </div>
 </div>
 
-<!-- Select Basic -->
+
 <div class="form-group">
   <label class="col-md-4 control-label" for="selectbasic">Campaign</label>
   <div class="col-md-4">
@@ -66,7 +112,7 @@
 </div>
 
 
-<!-- Button -->
+
 <div class="form-group">
   <label class="col-md-4 control-label" for="singlebutton"></label>
   <div class="col-md-4">
@@ -76,4 +122,4 @@
 </div>
 
 </fieldset>
-</form>
+</form> -->

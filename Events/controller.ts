@@ -39,7 +39,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
                 }
             }
         })
-        .populate('eventCreator', 'name branchService')
+        .populate('eventCreator', 'firstName lastName branch')
         .exec((err, events) => {
             if (err) return next(err);
             res.json(200, events);
@@ -49,20 +49,17 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     function findOne(req: express.Request, res: express.Response, next: Function){
         Event.findOne({_id: req.params.id})
         .populate('comments', '-event')
-        .populate('user', 'name')
-        .populate('eventCreator', 'name branchService')
+        .populate('user', 'firstName lastName')
+        .populate('eventCreator', 'firstName lastName branch')
         .exec((err, data) => {
             if(err) return next(err);
-            Comment.populate(data.comments, { path: 'user', select: 'name', model: 'User' }, (err, response) => {
-              if (err) return next(err);
-              res.json(data);
-            });
+            res.json(data);
           });
       }
 
     function findMine(req: express.Request, res: express.Response, next: Function){
         Event.find({eventCreator: req['payload']._id})
-        .populate('eventCreator', 'name branchService')
+        .populate('eventCreator', 'firstName lastName branch')
         .exec((err, data) => {
             if(err) return next(err);
             res.json(data);
@@ -71,7 +68,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
 
     function findAttending(req: express.Request, res: express.Response, next: Function){
         Event.find({attending: req['payload']._id})
-        .populate('eventCreator', 'name branchService')
+        .populate('eventCreator', 'firstName lastName branch')
         .exec((err, data) => {
             if(err) return next(err);
             res.json(data);

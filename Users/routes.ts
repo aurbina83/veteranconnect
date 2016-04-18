@@ -11,8 +11,6 @@ const passport = require('passport');
 //POST /api/v1/users/login
 router.post('/login', ctrl.login);
 
-//POST /api/v1/users/register
-router.post('/register', ctrl.register);
 
 //FACEBOOK
 router.get('/auth/facebook',passport.authenticate('facebook',{session:false}));
@@ -23,6 +21,9 @@ router.get('/auth/facebook/callback',passport.authenticate('facebook',{session:f
 
 //GET /api/v1/users/:id
 router.get('/:id', ctrl.findOne)
+
+//POST /api/v1/users/register
+router.put('/register/:id', ctrl.update);
 
 //PUT /api/v1/users/:id
 router.put('/:id', ctrl.update);

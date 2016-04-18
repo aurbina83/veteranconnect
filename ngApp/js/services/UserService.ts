@@ -1,6 +1,16 @@
 namespace app.Services {
     export class UserService {
-        public status = { _id: null, name: null, lng: null, lat: null, maxDist: 80.5};
+        public status = { _id: null, name: null, branch: null, imgUrl: null, branchImg: null, lng: null, lat: null, maxDist: 80.5};
+        private user;
+
+        private getUser(id: string) {
+            let q = this.$q.defer();
+            this.$http.get('/api/v1/users/' + id, null).then((res)=>{
+                this.user = res.data;
+                q.resolve();
+            })
+            return q.promise;
+        }
 
         public login(user){
             let q = this.$q.defer();
@@ -12,10 +22,9 @@ namespace app.Services {
             return q.promise;
         }
 
-        public register(user: app.i.IUser) {
+        public register(id, {email, branch, mos, branchImg}) {
           let q = this.$q.defer();
-          this.$http.post('/api/v1/users/register', user).then((res) => {
-            this.setToken(res.data['token']);
+          this.$http.put('/api/v1/users/register/' + id, {email: email, branch: branch, mos: mos, branchImg: branchImg}).then((res) => {
             this.setUser();
             q.resolve();
           });
@@ -38,8 +47,14 @@ namespace app.Services {
         public setUser() {
           let token = this.getToken();
           let u = JSON.parse( atob( token.split('.')[1] ) );
-          this.status._id = u._id;
-          this.status.name = u.name;
+          this.getUser(u._id).then(()=>{
+              this.status._id = u._id;
+              this.status.name = u.firstName + " " + u.lastName;
+              this.status.branch = this.user.branch;
+              this.status.imgUrl = this.user.imgUrl;
+              this.status.branchImg = this.user.branchImg;
+          });
+
         }
 
 
@@ -58,7 +73,6 @@ namespace app.Services {
                     this.status.lat = position.coords.latitude;
                     this.status.lng = position.coords.longitude;
                     console.log(this.status);
-                    console.log(position.coords.accuracy);
                     q.resolve();
                 })
             });
@@ -68,8 +82,10 @@ namespace app.Services {
         public clearUser() {
           this.status._id = null;
           this.status.name = null;
+          this.status.branch = null;
           this.status.lng = null;
           this.status.maxDist = null;
+          this.status.imgUrl = null;
         }
 
 
@@ -80,7 +96,6 @@ namespace app.Services {
             private $timeout: ng.ITimeoutService
         ){
             if(this.getToken()) this.setUser();
-            console.log(this.status);
             this.getLocation();
         }
     }

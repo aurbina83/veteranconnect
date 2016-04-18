@@ -6,7 +6,7 @@ namespace app.Controllers {
         this.$mdSidenav('left').toggle();
     };
 
-    constructor(private UserService: app.Services.UserService, private $mdSidenav) {
+    constructor(private UserService: app.Services.UserService, private $mdSidenav, private $state: ng.ui.IStateService) {
       this.status = UserService.status;
     }
   }
