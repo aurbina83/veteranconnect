@@ -39,6 +39,7 @@ export function controller(User: mongoose.Model<IUserModel>) {
 
     function findOne(req: express.Request, res: express.Response, next: Function) {
         User.findOne({_id: req.params.id})
+        .select('-facebook -email -attending -events')
         .exec((err, data) => {
             if (err) return next (err);
             res.json(data);

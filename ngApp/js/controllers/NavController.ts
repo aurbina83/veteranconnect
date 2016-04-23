@@ -8,6 +8,7 @@ namespace app.Controllers {
     }
 
 
+
     constructor(
         private UserService: app.Services.UserService,
         private $state: ng.ui.IStateService

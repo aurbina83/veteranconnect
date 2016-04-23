@@ -1,6 +1,6 @@
 'use strict';
 namespace app {
-  angular.module('app', ['ui.router', 'ngResource', 'uiGmapgoogle-maps', 'google.places', 'ngMessages', 'ngMaterial'])
+  angular.module('app', ['ui.router', 'ngResource', 'uiGmapgoogle-maps', 'google.places', 'ngMessages', 'ngMaterial' , 'ngMaterialDatePicker'])
     .config((
     $httpProvider: ng.IHttpProvider,
     $stateProvider: ng.ui.IStateProvider,

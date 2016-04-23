@@ -20,7 +20,6 @@ let userSchema = new mongoose.Schema({
     mos: {type: String},
     campaign: {type: String},
     imgUrl: {type: String},
-    maxDist: {type: Number},
 
     events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}],
     attending: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}]

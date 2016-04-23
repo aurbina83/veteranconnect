@@ -1,8 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
+    border: 1px solid red;
 }
 .loginbtn {
     width: 300px;
@@ -25,6 +24,12 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.imgClip {
+width: 300px;
+height: 300px;
+    overflow: hidden;
 }
 
 @media (max-width: 600px) {

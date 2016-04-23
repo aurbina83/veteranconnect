@@ -1,12 +1,13 @@
 namespace app.Services {
     export class UserService {
-        public status = { _id: null, name: null, branch: null, imgUrl: null, lng: null, lat: null, maxDist: 80.5};
-        private user;
+        public status = { _id: null, name: null, branch: null, imgUrl: null, maxDist: 80.5};
+        public user;
 
         private getUser(id: string) {
             let q = this.$q.defer();
             this.$http.get('/api/v1/users/' + id, null).then((res)=>{
                 this.user = res.data;
+                console.log(this.user);
                 q.resolve();
             })
             return q.promise;
@@ -47,12 +48,13 @@ namespace app.Services {
         public setUser() {
           let q = this.$q.defer();
           let token = this.getToken();
-          let u = JSON.parse( atob( token.split('.')[1] ) );
+          let u = JSON.parse(this.urlBase64Decode(this.getToken().split('.')[1]));
           this.getUser(u._id).then(()=>{
               this.status._id = u._id;
               this.status.name = u.firstName + " " + u.lastName;
               this.status.imgUrl = u.imgUrl;
               this.status.branch = this.user.branch;
+              this.getLocation();
               q.resolve();
           });
           return q.promise;
@@ -61,7 +63,7 @@ namespace app.Services {
 
         public update(id: string){
             let q = this.$q.defer();
-            this.$http.put('/api/v1/users/' + id, null).then((res) => {
+            this.$http.put('/api/v1/users/' + id, this.user).then((res) => {
                 q.resolve();
             });
             return q.promise;
@@ -70,13 +72,11 @@ namespace app.Services {
         public getLocation(){
             let q = this.$q.defer();
             navigator.geolocation.getCurrentPosition((position)=>{
-                this.$timeout(()=>{
-                    this.status.lat = position.coords.latitude;
-                    this.status.lng = position.coords.longitude;
-                    console.log(this.status);
-                    q.resolve();
+                    let lat = position.coords.latitude;
+                    let lng = position.coords.longitude;
+                    this.user.loc = [lng, lat];
+                    this.update(this.status._id);
                 })
-            });
             return q.promise;
         }
 
@@ -84,9 +84,21 @@ namespace app.Services {
           this.status._id = null;
           this.status.name = null;
           this.status.branch = null;
-          this.status.lng = null;
           this.status.maxDist = null;
           this.status.imgUrl = null;
+        }
+
+        public urlBase64Decode(str) {
+            var output = str.replace(/-/g, '+').replace(/_/g, '/');
+            switch (output.length % 4) {
+                case 0: { break; }
+                case 2: { output += '=='; break; }
+                case 3: { output += '='; break; }
+                default: {
+                    throw 'Illegal base64url string!';
+                }
+            }
+            return decodeURIComponent(encodeURIComponent(this.$window.atob(output))); //polifyll https://github.com/davidchambers/Base64.js
         }
 
 
@@ -97,7 +109,7 @@ namespace app.Services {
             private $timeout: ng.ITimeoutService
         ){
             if(this.getToken()) this.setUser();
-            this.getLocation();
+            console.log(this.user);
         }
     }
     angular.module('app').service('UserService', UserService);

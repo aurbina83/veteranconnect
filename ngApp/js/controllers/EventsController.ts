@@ -2,6 +2,7 @@ namespace app.Controllers{
     export class EventsController{
         public events;
         public status;
+        public user;
 
         public distance;
 
@@ -12,13 +13,12 @@ namespace app.Controllers{
 
         constructor(private EventService: app.Services.EventService, private $scope: ng.IScope, private UserService: app.Services.UserService){
             this.status = EventService.status;
-            if(this.status.lng){
-                this.events = EventService.getAll({lng: this.status.lng, lat: this.status.lat, maxDist: this.status.maxDist});
-            }
+            this.user = UserService.user
+            this.events = EventService.getAll({lng: this.user.loc[0], lat: this.user.loc[1], maxDist: this.status.maxDist});
             $scope.$watch(()=> this.status, (newValue, oldValue)=>{
                 console.log('watch');
                 if(newValue !== oldValue){
-                    this.events = EventService.getAll({lng: this.status.lng, lat: this.status.lat, maxDist: this.status.maxDist});
+                    this.events = EventService.getAll({lng: this.user.loc[0], lat: this.user.loc[1], maxDist: this.status.maxDist});
                 }
             }, true);
         }

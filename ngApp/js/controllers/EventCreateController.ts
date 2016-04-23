@@ -1,40 +1,57 @@
 namespace app.Controllers {
     export class EventCreateController {
         public event: app.i.IEvent;
-        public place;
-        public date;
-        public lat;
-        public lng;
+        public user;
+        public places;
+        public result;
+        public term;
+        public location;
+        public count;
+        public message;
 
-        public onTimeSet (newDate) {
-            this.date = newDate;
-            this.lat = this.place.geometry.access_points[0].location.lat;
-            this.lng = this.place.geometry.access_points[0].location.lng;
+        //Min date for DateTime Picker
+        public date = new Date();
+
+        public searchYelp(){
+            this.count = 0;
+            this.$http.get('/api/v1/yelp/search?term=' + this.term + "&location=" +
+            this.location + "&cll=" + this.user.loc[1] + "," + this.user.loc[0] +"&offset=" + this.count + "&limit = 20"
+        ).then((res)=>{
+                this.result = res.data;
+                this.result = this.result.businesses;
+                this.places = this.result;
+            },
+        (err)=>{
+            this.message = err.data.message;
+        })
         }
 
-        public autocompleteOptions = {
-            types: ['establishment']
+        public moreYelp(){
+            this.count += 20;
+            this.$http.get('/api/v1/yelp/search?term=' + this.term + "&location=" +
+            this.location + "&cll=" + this.user.loc[1] + "," + this.user.loc[0] +"&offset=" + this.count + "&limit = 20"
+        ).then((res)=>{
+                this.result = res.data;
+                this.result = this.result.businesses;
+                for(let i = 0; i < this.result.length; i++){
+                    this.places.push(this.result[i]);
+                }
+                this.count += 20;
+            },
+        (err)=>{
+            this.message = err.data.message;
+        })
         }
 
-        public create(){
-            this.event.dateTime = this.date;
-            this.event.loc = [this.lng, this.lat];
-            this.event.name = this.place.name;
-            this.event.eventAddress = this.place.formatted_address;
-            console.log(this.event);
 
-            this.EventService.createEvent(this.event).then((res)=>{
-                this.$state.go('My Events');
-            });
-        }
-
-        public dates(){
-            console.log(this.date);
-        }
         constructor(
             private EventService: app.Services.EventService,
-            private $state: ng.ui.IStateService
-        ){}
+            private $state: ng.ui.IStateService,
+            private UserService: app.Services.UserService,
+            private $http: ng.IHttpService
+        ){
+            this.user = UserService.user;
+        }
     }
     angular.module('app').controller('EventCreateController', EventCreateController);
 }
