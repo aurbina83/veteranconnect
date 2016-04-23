@@ -35,7 +35,7 @@ app.use('/templates', require('./routes/viewRoutes'));
 app.use(express.static('./ngApp'));
 app.use('/scripts', express.static('bower_components'));
 
-
+app.use('/api/v1/yelp', require('./YelpApi/routes'));
 app.use('/api/v1/users', require('./Users/routes'));
 app.use('/api/v1/comments', require('./Comments/routes'));
 app.use('/api/v1/events', require('./Events/routes'));

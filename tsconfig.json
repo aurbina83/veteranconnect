@@ -49,11 +49,12 @@
     "ngApp/js/controllers/NavController.ts",
     "ngApp/js/controllers/UserLoginController.ts",
     "ngApp/js/controllers/UserRegistrationController.ts",
-    "ngApp/js/factory/yelp.ts",
+    "ngApp/js/filters/truncate.ts",
     "ngApp/js/services/AuthInterceptor.ts",
     "ngApp/js/services/CommentService.ts",
     "ngApp/js/services/EventService.ts",
     "ngApp/js/services/UserService.ts",
+    "ngApp/js/services/YelpService.ts",
     "routes/viewRoutes.ts",
     "server.ts",
     "typings/browser.d.ts",
@@ -80,7 +81,8 @@
     "Users/controller.ts",
     "Users/interface.ts",
     "Users/model.ts",
-    "Users/routes.ts"
+    "Users/routes.ts",
+    "YelpApi/routes.ts"
   ],
   "atom": {
     "rewriteTsconfig": true
