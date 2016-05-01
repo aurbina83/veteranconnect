@@ -15,12 +15,14 @@ namespace app.Controllers {
               $location.search('');
               if ($location.hash()) $location.hash('');
             }
-            UserService.setUser().then(()=> {
-                this.status = UserService.status;
-                if((this.status._id) && (!this.status.branch)) {
-                    this.$state.go('Register');
-                }
-            });
+            if(this.status){
+                UserService.setUser().then(()=> {
+                    this.status = UserService.status;
+                    if((this.status._id) && (!this.status.branch)) {
+                        this.$state.go('Register');
+                    }
+                });
+            }
         }
     }
     angular.module('app').controller('HomeController', HomeController);

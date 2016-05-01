@@ -8,3 +8,4 @@ npm-debug.log
 !utils.js
 .DS_Store
 /coverage
+!infinite-scroll.js

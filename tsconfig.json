@@ -49,6 +49,7 @@
     "ngApp/js/controllers/NavController.ts",
     "ngApp/js/controllers/UserLoginController.ts",
     "ngApp/js/controllers/UserRegistrationController.ts",
+    "ngApp/js/filters/trunc_url.ts",
     "ngApp/js/filters/truncate.ts",
     "ngApp/js/services/AuthInterceptor.ts",
     "ngApp/js/services/CommentService.ts",
