@@ -79,7 +79,8 @@
     "Users/controller.ts",
     "Users/interface.ts",
     "Users/model.ts",
-    "Users/routes.ts"
+    "Users/routes.ts",
+    "www/lib/moment/moment.d.ts"
   ],
   "atom": {
     "rewriteTsconfig": true
