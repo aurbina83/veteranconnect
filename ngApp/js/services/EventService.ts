@@ -25,7 +25,7 @@ namespace app.Services {
             return this.EventResource.query({id: 'attending'});
         }
 
-        public createEvent(event: app.i.IEvent) {
+        public createEvent(event) {
             return this.EventResource.save(event).$promise;
         }
 

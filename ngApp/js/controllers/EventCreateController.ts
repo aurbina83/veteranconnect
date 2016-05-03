@@ -1,16 +1,17 @@
 namespace app.Controllers {
     export class EventCreateController {
         public event = {
-                title: null,
-                name: null,
-                description: null,
-                numGuests: null,
-                /**
-                 * loc: [lng, lat]
-                 */
-                loc: [null],
-                eventAddress: null,
-                dateTime: null }
+            title: null,
+            name: null,
+            description: null,
+            numGuests: null,
+            /**
+             * loc: [lng, lat]
+             */
+            loc: [null],
+            eventAddress: null,
+            dateTime: null
+        }
         public user;
         public places;
         public result;
@@ -19,48 +20,46 @@ namespace app.Controllers {
         public count;
         public fetch = true;
         public message;
+        public hide;
+        public arr = [];
 
         //Min date for DateTime Picker
         public date = new Date();
 
         //Set Rally Point to the Event
-        public rallyPoint(p){
+        public rallyPoint(p) {
             this.event.name = p.name;
             this.event.eventAddress = p.location.display_address;
             this.event.loc = [p.location.coordinate.longitude, p.location.coordinate.latitude];
         }
 
         //Yelp Search
-        public searchYelp(){
+        public searchYelp() {
             this.count = 0;
             this.fetch = false;
             this.$http.get('/api/v1/yelp/search?term=' + this.term + "&location=" +
-            this.location + "&cll=" + this.user.loc[1] + "," + this.user.loc[0] + "&sort=0" + "&offset=" + this.count + "&limit = 20"
-        ).then((res)=>{
+                this.location + "&cll=" + this.user.loc[1] + "," + this.user.loc[0] + "&sort=0" + "&offset=" + this.count + "&limit = 20"
+                ).then((res) => {
                 this.result = res.data;
                 this.result = this.result.businesses;
                 this.places = this.result;
                 this.fetch = true;
             },
-        (err)=>{
-            this.message = err.data.message;
-        })
-        }
-
-        public check(){
-            console.log(this.event);
+                (err) => {
+                    this.message = err.data.message;
+                })
         }
 
         //Yelp Pagination
-        public moreYelp(){
+        public moreYelp() {
             this.count += 20;
             this.fetch = false;
             this.$http.get('/api/v1/yelp/search?term=' + this.term + "&location=" +
-            this.location + "&cll=" + this.user.loc[1] + "," + this.user.loc[0] +"&offset=" + this.count + "&limit = 20"
-        ).then((res)=>{
+                this.location + "&cll=" + this.user.loc[1] + "," + this.user.loc[0] + "&offset=" + this.count + "&limit = 20"
+                ).then((res) => {
                 this.result = res.data;
                 this.result = this.result.businesses;
-                for(let i = 0; i < this.result.length; i++){
+                for (let i = 0; i < this.result.length; i++) {
                     this.places.push(this.result[i]);
                 }
                 this.fetch = true;
@@ -69,9 +68,13 @@ namespace app.Controllers {
                 // }
                 this.count += 20;
             },
-        (err)=>{
-            this.message = err.data.message;
-        })
+                (err) => {
+                    this.message = err.data.message;
+                })
+        }
+
+        public submit(){
+            this.EventService.createEvent(this.event);
         }
 
 
@@ -80,8 +83,11 @@ namespace app.Controllers {
             private $state: ng.ui.IStateService,
             private UserService: app.Services.UserService,
             private $http: ng.IHttpService
-        ){
+            ) {
             this.user = UserService.user;
+            for (let i = 2; i <= 100; i++) {
+                this.arr.push(i);
+            }
         }
     }
     angular.module('app').controller('EventCreateController', EventCreateController);
