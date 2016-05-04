@@ -74,7 +74,9 @@ namespace app.Controllers {
         }
 
         public submit(){
-            this.EventService.createEvent(this.event);
+            this.EventService.createEvent(this.event).then(()=>{
+                this.$state.go("My Events");
+            });
         }
 
 

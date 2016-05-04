@@ -1,4 +1,30 @@
-<div class="container">
+<div layout="row" layout-margin layout-padding layout-align="center center">
+    <md-list flex flex-gt-sm="60">
+        <md-subheader class="md-no-sticky">MY EVENTS</md-subheader>
+        <md-list-item class="md-3-line" ng-repeat="e in vm.events">
+            <div class="md-list-item-text" layout="column" layout-gt-sm="row" layout-padding layout-margin>
+                <h3 flex>{{ e.title }}</h3>
+                <h4 flex> @ {{ e.name }}</h4>
+                <h4 flex>{{ e.dateTime | date: 'MMM d,  h:mm a' }}</h4>
+            </div>
+                <a ui-sref="Update Event({id: e._id})">
+                    <md-button aria-label="Twitter" class="md-fab md-raised md-mini" >
+                        <md-icon md-font-set="material-icons" style="color: #666;"> mode_edit </md-icon>
+                    </md-button>
+                </a>
+                <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
+                    <md-icon md-font-set="material-icons" ng-click="vm.removeEvent" style="color: #B5191D;"> delete_forever </md-icon>
+                </md-button>
+                <md-divider></md-divider>
+        </md-list-item>
+</div>
+
+
+
+
+
+
+<!-- <div class="container">
     <div class="row">
         <div class="col col-md-10 col-md-offset-1 well" ng-repeat="e in vm.events">
             <div class="row">
@@ -20,4 +46,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

@@ -2,6 +2,12 @@ namespace app.Controllers{
     export class MyEventController {
         public status;
         public events;
+        public user;
+        public isOpen = false;
+
+        // public toggle(){
+        //     this.isOpen = !this.isOpen;
+        // }
 
         public removeEvent(e: app.i.IEvent) {
           this.EventService.remove(e._id).then(() => {

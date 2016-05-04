@@ -39,7 +39,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
                 }
             }
         })
-        .populate('eventCreator', 'firstName lastName branch')
+        .populate('eventCreator', 'firstName lastName branch branchImg imgUrl')
         .exec((err, events) => {
             if (err) return next(err);
             res.json(200, events);
@@ -49,7 +49,6 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     function findOne(req: express.Request, res: express.Response, next: Function){
         Event.findOne({_id: req.params.id})
         .populate('comments', '-event')
-        .populate('user', 'firstName lastName')
         .populate('eventCreator', 'firstName lastName branch')
         .exec((err, data) => {
             if(err) return next(err);
@@ -59,7 +58,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
 
     function findMine(req: express.Request, res: express.Response, next: Function){
         Event.find({eventCreator: req['payload']._id})
-        .populate('eventCreator', 'firstName lastName branch')
+        .populate('eventCreator', 'firstName lastName imgUrl')
         .exec((err, data) => {
             if(err) return next(err);
             res.json(data);
