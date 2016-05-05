@@ -24,7 +24,7 @@
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>{{vm.mos}}</label>
-                    <input name="mos" ng-model="vm.user.mos" ng-pattern="vm.pattern" md-maxlength='vm.max' required placeholder="Duty">
+                    <input name="mos" ng-model="vm.user.mos" ng-pattern="vm.pattern" md-maxlength='vm.max' maxlength="{{vm.max}}" required placeholder="Duty">
                     <div ng-messages="userForm.mos.$error">
                         <div ng-message="pattern">{{vm.patternMessage}}</div>
                     </div>

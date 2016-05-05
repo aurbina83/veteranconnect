@@ -14,6 +14,5 @@ namespace app.i {
         imgUrl?: string;
 
         events?: Array<string | IEvent>
-        attending?: Array<string | IEvent>
     }
 }

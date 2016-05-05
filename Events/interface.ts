@@ -10,6 +10,8 @@ namespace app.i {
          */
         loc: [number];
         eventAddress: string;
+        city: string;
+        state: string;
         dateTime: string;
         dateCreated: number;
         eventCreator: (string | IUser);

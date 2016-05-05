@@ -1,13 +1,12 @@
 namespace app.Services {
     export class UserService {
-        public status = { _id: null, name: null, branch: null, imgUrl: null, maxDist: 80.5};
+        public status = { _id: null, name: null, branch: null, imgUrl: null, maxDist: 15};
         public user;
 
         private getUser(id: string) {
             let q = this.$q.defer();
             this.$http.get('/api/v1/users/' + id, null).then((res)=>{
                 this.user = res.data;
-                console.log(this.user);
                 q.resolve();
             })
             return q.promise;
@@ -109,7 +108,6 @@ namespace app.Services {
             private $timeout: ng.ITimeoutService
         ){
             if(this.getToken()) this.setUser();
-            console.log(this.user);
         }
     }
     angular.module('app').service('UserService', UserService);

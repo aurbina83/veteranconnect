@@ -15,6 +15,7 @@ namespace app.Controllers {
               $location.search('');
               if ($location.hash()) $location.hash('');
             }
+            this.status = UserService.status;
             if(this.status){
                 UserService.setUser().then(()=> {
                     this.status = UserService.status;

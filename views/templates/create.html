@@ -7,7 +7,7 @@
     <form layout="column" layout-gt-sm="row" flex-sm flex-xs layout-margin layout-padding layout-align="center" name="search" ng-submit="vm.hide=true">
         <!-- <i class="material-icons" hide-sm hide-xs>search</i> -->
         <md-input layout="column" layout-align="center" >
-            <input type="text" ng-model="vm.event.title" placeholder="WHAT" class="input-cust" flex-xs flex-sm>
+            <input type="text" ng-model="vm.event.title" placeholder="WHAT" maxlength="40" class="input-cust" flex-xs flex-sm>
             <p style="font-size: 12px;">e.g. "Grab food at Tina's Taco; Weights at the Gym"</p>
             <!-- <md-tooltip md-direction="bottom">
                 "Grab some food at Tina's Taco"
@@ -29,7 +29,7 @@
         <md-input layout="row" layout-align="center" layout-padding>
             <input type="text" ng-model="vm.term" placeholder="RALLY POINT" class="input-cust" flex-xs flex-sm>
             <md-tooltip md-direction="bottom">
-                "Burger, Gym, Park, Bdubs"
+                "Burger, Gym, Park, Applebee's"
             </md-tooltip>
         </md-input>
         <md-input layout="row" layout-align="center" layout-padding>

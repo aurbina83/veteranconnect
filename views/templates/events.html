@@ -1,4 +1,49 @@
-<div class="load" ng-show="!vm.status.lng">
+<div layout="column" flex layout-fill class='united' layout-align="center center" >
+    <div layout="column"  layout-align="center" style="width: 100%; margin-top: 20px;">
+        <div layout="row" layout-align="center center">
+            <span>Search Radius in Miles</span>
+        </div>
+        <div layout="row" layout-align="center center">
+            <md-slider flex-gt-sm="50" flex="60" md-discrete ng-model="vm.distance" step="5" min="5" max="50" aria-label="radius"  ng-change="vm.setDistance()">
+             </md-slider>
+        </div>
+    </div>
+    <div layout="column" layout-gt-xs="row" layout-margin layout-align="center center" layout-wrap style="max-width: 1200px;">
+    <md-card ng-repeat="e in vm.events" style="max-width: 400px;">
+        <md-card-header>
+            <md-card-avatar>
+                <img class="md-user-avatar" ng-src="{{e.eventCreator.imgUrl}}" />
+            </md-card-avatar>
+            <md-card-header-text>
+                <span class="md-title">{{e.eventCreator.firstName}} {{e.eventCreator.lastName}}</span>
+                <span class="md-subhead">{{e.eventCreator.branch}}</span>
+            </md-card-header-text>
+        </md-card-header>
+        <img ng-src="{{e.eventCreator.branchImg}}" class="md-card-image" alt="Washed Out">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{e.title}}</span>
+                <span class="md-subhead">{{e.name}}</span>
+                <span class="md-subhead">{{e.city}}, {{e.state}}</span>
+                <span class="md-subhead">{{e.dateTime | date:  'MMM d,  h:mm a'}}</span>
+                <span class="md-subhead">{{e.numGuests}} slots available</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="start center">
+            <md-button class="md-raised" ng-click="vm.details(e)">More Info</md-button>
+            <md-button class="md-raised" ng-click="vm.attend(e)">Go</md-button>
+        </md-card-actions>
+        <md-card-content>
+
+        </md-card-content>
+    </md-card>
+    </div>
+    <div layout="row" layout-align="center" ng-show="vm.fetch">
+        <md-progress-circular md-mode="indeterminate" ng-show="!vm.fetch" class="md-primary md-hue-2" md-diameter="100"></md-progress-circular>
+    </div>
+</div>
+
+<!-- <div class="load" ng-show="!vm.status.lng">
     <img src="images/ring-alt.svg" alt="" width="100px" height="100px">
 </div>
 
@@ -32,4 +77,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

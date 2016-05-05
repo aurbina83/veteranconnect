@@ -10,7 +10,7 @@ namespace app.Services {
         public status;
 
         public getAll({lng, lat, maxDist}) {
-            return this.EventResource.query({lng: lng, lat: lat, maxDist: maxDist});
+            return this.EventResource.query({lng: lng, lat: lat, maxDist: maxDist}).$promise;
         }
 
         public getOne(id: string) {

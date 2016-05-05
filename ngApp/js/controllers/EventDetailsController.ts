@@ -5,8 +5,8 @@ namespace app.Controllers {
         public status;
         public edit = false;
 
-        public attend(){
-            this.EventService.attending(this.event._id).then(()=>{
+        public attend(e){
+            this.EventService.attending(e._id).then(()=>{
                 this.$state.go('Attending');
             })
         }

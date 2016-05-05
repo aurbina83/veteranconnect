@@ -10,6 +10,8 @@ namespace app.Controllers {
              */
             loc: [null],
             eventAddress: null,
+            city: null,
+            state: null,
             dateTime: null
         }
         public user;
@@ -31,6 +33,8 @@ namespace app.Controllers {
             this.event.name = p.name;
             this.event.eventAddress = p.location.display_address;
             this.event.loc = [p.location.coordinate.longitude, p.location.coordinate.latitude];
+            this.event.city = p.location.city;
+            this.event.state = p.location.state_code;
         }
 
         //Yelp Search

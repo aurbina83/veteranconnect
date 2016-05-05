@@ -1,27 +1,81 @@
 namespace app.Controllers{
-    export class EventsController{
+    export class EventsController {
         public events;
         public status;
         public user;
+        public fetch;
 
-        public distance;
+        public distance = 15;
 
-        public setDistance(){
-            this.status.maxDist = this.distance*1.6;
+        public showAlert() {
+            // Appending dialog to document.body to cover sidenav in docs app
+            // Modal dialogs should fully cover application
+            // to prevent interaction outside of dialog
+            this.$mdDialog.show(
+                this.$mdDialog.alert()
+                    .parent(angular.element(document.querySelector('#popupContainer')))
+                    .clickOutsideToClose(true)
+                    .title('ALERT')
+                    .textContent('You are already in this event. You are a NO GO at this station.')
+                    .ariaLabel('Alert Dialog Demo')
+                    .ok('Got it!')
+                );
+        };
+
+        public setDistance() {
+            this.status.maxDist = this.distance * 1.6;
             console.log('changed');
         }
 
-        constructor(private EventService: app.Services.EventService, private $scope: ng.IScope, private UserService: app.Services.UserService){
+        public attend(e) {
+            if (e.attending.indexOf(this.status._id) !== -1) {
+                return this.showAlert();
+            }
+            this.EventService.attending(e._id).then(() => {
+                this.$state.go('Attending');
+            })
+        }
+
+        ///$mdDialog
+        public details(e) {
+            this.$mdDialog.show({
+                locals: { e: e },
+                controller: "DialogController as vm",
+                templateUrl: '/templates/details.html',
+                clickOutsideToClose: true,
+            })
+        };
+
+        constructor(private EventService: app.Services.EventService, private $scope: ng.IScope, private UserService: app.Services.UserService, private $mdDialog, private $state: ng.ui.IStateService) {
             this.status = EventService.status;
+            this.fetch = true;
             this.user = UserService.user
-            this.events = EventService.getAll({lng: this.user.loc[0], lat: this.user.loc[1], maxDist: this.status.maxDist});
-            $scope.$watch(()=> this.status, (newValue, oldValue)=>{
+            EventService.getAll({ lng: this.user.loc[0], lat: this.user.loc[1], maxDist: this.status.maxDist }).then((res) => {
+                this.events = res;
+                this.fetch = false;
+            });
+            $scope.$watch(() => this.status, (newValue, oldValue) => {
+                this.fetch = true;
                 console.log('watch');
-                if(newValue !== oldValue){
-                    this.events = EventService.getAll({lng: this.user.loc[0], lat: this.user.loc[1], maxDist: this.status.maxDist});
+                if (newValue !== oldValue) {
+                    EventService.getAll({ lng: this.user.loc[0], lat: this.user.loc[1], maxDist: this.status.maxDist }).then((res) => {
+                        this.events = res;
+                        this.fetch = false;
+                    });
                 }
             }, true);
         }
     }
     angular.module('app').controller('EventsController', EventsController);
+
+    export class DiaglogController {
+        public event = this.e;
+        public cancel() {
+            this.$mdDialog.cancel();
+        };
+
+        constructor(private $mdDialog, private e) { }
+    }
+    angular.module('app').controller("DialogController", DiaglogController);
+
 }
