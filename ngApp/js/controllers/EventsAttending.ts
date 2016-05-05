@@ -9,7 +9,11 @@ namespace app.Controllers {
             })
         }
 
-        constructor(private EventService: app.Services.EventService, private UserService: app.Services.UserService){
+        public go(e){
+            this.$state.go('Event Details', {id: e._id});
+        }
+
+        constructor(private EventService: app.Services.EventService, private UserService: app.Services.UserService, private $state: ng.ui.IStateService){
             this.status = UserService.status;
             this.events = EventService.getAttending(this.status._id)
         }

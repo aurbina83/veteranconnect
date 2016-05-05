@@ -15,7 +15,7 @@ namespace app.Controllers{
                 this.$mdDialog.alert()
                     .parent(angular.element(document.querySelector('#popupContainer')))
                     .clickOutsideToClose(true)
-                    .title('ALERT')
+                    .title('HEY YOU!')
                     .textContent('You are already in this event. You are a NO GO at this station.')
                     .ariaLabel('Alert Dialog Demo')
                     .ok('Got it!')
@@ -28,8 +28,10 @@ namespace app.Controllers{
         }
 
         public attend(e) {
-            if (e.attending.indexOf(this.status._id) !== -1) {
-                return this.showAlert();
+            for (let i = 0; i < e.attending.length; i++){
+                if (e.attending[i]._id == this.status._id) {
+                    return this.showAlert();
+                }
             }
             this.EventService.attending(e._id).then(() => {
                 this.$state.go('Attending');

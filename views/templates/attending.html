@@ -1,7 +1,7 @@
 <div layout="row" layout-margin layout-padding layout-align="center center">
     <md-list flex flex-gt-sm="60">
         <md-subheader class="md-no-sticky">EVENTS I'M ATTENDING</md-subheader>
-        <md-list-item class="md-3-line" ng-repeat="e in vm.events">
+        <md-list-item class="md-3-line" ng-repeat="e in vm.events" ng-click="vm.go(e)">
             <div class="md-list-item-text" layout="column" layout-gt-sm="row" layout-padding layout-margin>
                 <h3 flex>{{ e.title | truncate: "20" }}</h3>
                 <h4 flex> @ {{ e.name }}</h4>

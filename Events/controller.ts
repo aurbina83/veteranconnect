@@ -42,7 +42,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
             }
         })
         .populate('eventCreator', 'firstName lastName branch branchImg imgUrl')
-        .populate('attending')
+        .populate('attending', 'firstName lastName imgUrl')
         .exec((err, data) => {
             if (err) return next(err);
             res.json(200, data);
@@ -52,13 +52,15 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     function findOne(req: express.Request, res: express.Response, next: Function){
         Event.findOne({_id: req.params.id})
         .populate('comments', '-event')
-        .populate('eventCreator', 'firstName lastName branch')
-        .populate('attending')
+        .populate('eventCreator', 'firstName lastName branch branchImg')
+        .populate('attending', 'firstName lastName imgUrl')
         .exec((err, data) => {
             if(err) return next(err);
-            User.populate(data.attending, {select: 'firstName lastName imgUrl', model: 'User'}, (err, result) =>{
+            if(!data) return next({message: 'Oops'});
+            Comment.populate(data.comments, {path: 'user', select:'firstName lastName imgUrl branchImg', model: 'User'}, (err, response) => {
+                if (err) return next(err);
                 res.json(data);
-            })
+            });
           });
       }
 
@@ -72,7 +74,8 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     }
 
     function findAttending(req: express.Request, res: express.Response, next: Function){
-        Event.find({attending: req['payload']._id})
+        let date = Date.now();
+        Event.find({attending: req['payload']._id, dateTime: {$lte: new Date(date)} })
         .populate('eventCreator', 'firstName lastName branch')
         .exec((err, data) => {
             if(err) return next(err);
@@ -117,12 +120,24 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     }
 
     function remove(req: express.Request, res: express.Response, next: Function) {
-      Event.findOneAndRemove({ _id: req.params.id, eventCreator: req['payload']._id }, (err) => {
+      Event.findOneAndRemove({ _id: req.params.id, eventCreator: req['payload']._id }, (err, event) => {
         if (err) return next(err);
-        User.update({_id: req['payload']._id}, {$pull: {'events': req.params.id}}, (err)=>{
-            if(err) return next (err);
-            res.json({message: "Event Deleted"});
-        })
+        if(event) {
+            Comment.remove({event: req.params.id}, (err)=>{
+                if(err) return next (err);
+                User.update({_id: req['payload']._id}, {$pull: {'events': req.params.id}}, (err)=>{
+                    if(err) return next (err);
+                    res.json({message: "Event Deleted"});
+                })
+            })
+        }
+        else {
+            next({message: 'Unable to delete item', status: 500});
+        }
       });
-    }
+  }
+
+
+
+
 }
