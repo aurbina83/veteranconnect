@@ -30,7 +30,7 @@ namespace app.Services {
         }
 
         public update(event: app.i.IEvent) {
-            return this.EventResource.update({ id: event._id }, {title: event.title, description: event.description, numGuests: event.numGuests, loc: event.loc, eventAddress: event.eventAddress, dateTime: event.dateTime, name: event.name}).$promise;
+            return this.EventResource.update({ id: event._id }, {title: event.title, description: event.description, numGuests: event.numGuests, loc: event.loc, eventAddress: event.eventAddress, dateTime: event.dateTime, name: event.name, city: event.city, state: event.state}).$promise;
         }
 
         public attending(id: string){

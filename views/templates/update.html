@@ -1,11 +1,5 @@
-<!-- vm.rally
-      vm.details
-      vm.rallyEdit
-      vm.detailsEdit
-   -->
-
 <!-- Select What To Update -->
-<div layout="column" flex layout-align="center center" layout-padding layout-margin ng-show="!vm.rallyEdit && !vm.details && !vm.detailsEdit && !vm.rallyEdit" style="height: 60vh;">
+<div layout="column" flex layout-align="center center" layout-padding layout-margin ng-show="!vm.rally && !vm.details && !vm.detailsEdit && !vm.rallyEdit" style="height: 60vh;">
     <md-button class="july loginbtn md-raised" ng-click="vm.rally=true">
         RALLY POINT
     </md-button>
@@ -61,7 +55,7 @@
 <!-- QUERY RESULTS -->
 <md-content layout="row" layout-align="center center" layout-margin layout-padding ng-show="vm.rally">
     <md-list flex flex-gt-sm="80" flex-gt-md="60">
-        <md-list-item class="md-3-line" ng-repeat="p in vm.places" ng-click="vm.rallyPoint(p); vm.rally=false; vm.rallyEdit=true">
+        <md-list-item class="md-3-line" ng-repeat="p in vm.places" ng-click="vm.rallyPoint(p); vm.rally=false; vm.rallyEdit=true;">
             <img ng-src="{{p.image_url}}" class="md-avatar" alt="{{p.name}}" style="border-radius: 0" />
             <div class="md-list-item-text" layout="column" layout-gt-xs="row">
                 <h3 flex flex-gt-sm="33" flex-sm="20">{{ p.name | truncate: 18 }}</h3>
