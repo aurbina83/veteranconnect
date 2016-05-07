@@ -4,17 +4,29 @@
         <md-list-item class="md-3-line" ng-repeat="e in vm.events" >
             <div class="md-list-item-text" layout="column" layout-gt-sm="row" layout-padding layout-margin ng-click="vm.go(e)" class="md-ripple">
                 <h3 flex>{{ e.title | truncate: "20" }}</h3>
-                <h4 flex> @ {{ e.name }}</h4>
+                <h4 flex> @ {{ e.name | truncate: "40" }}</h4>
                 <h4 flex>{{ e.dateTime | date: 'MMM d,  h:mm a' }}</h4>
+                <div layout="row" hide-gt-xs>
+                    <a ui-sref="Update Event({id: e._id})">
+                        <md-button aria-label="Twitter" class="md-fab md-mini md-raised" >
+                            <md-icon md-font-set="material-icons" style="color: #666;"> mode_edit </md-icon>
+                        </md-button>
+                    </a>
+                    <md-button aria-label="Facebook" class="md-fab md-mini md-raised" ng-click="vm.removeEvent(e)">
+                        <md-icon md-font-set="material-icons"  style="color: #B5191D;"> delete_forever </md-icon>
+                    </md-button>
+                </div>
             </div>
+            <div layout="row" show-gt-xs hide>
                 <a ui-sref="Update Event({id: e._id})">
-                    <md-button aria-label="Twitter" class="md-fab md-raised" >
+                    <md-button aria-label="Twitter" class="md-fab md-mini md-raised" >
                         <md-icon md-font-set="material-icons" style="color: #666;"> mode_edit </md-icon>
                     </md-button>
                 </a>
-                <md-button aria-label="Facebook" class="md-fab md-raised" ng-click="vm.removeEvent(e)">
+                <md-button aria-label="Facebook" class="md-fab md-mini md-raised" ng-click="vm.removeEvent(e)">
                     <md-icon md-font-set="material-icons"  style="color: #B5191D;"> delete_forever </md-icon>
                 </md-button>
+            </div>
                 <md-divider></md-divider>
         </md-list-item>
 </div>

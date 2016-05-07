@@ -1,5 +1,6 @@
 /bower_components
 /typings
+/www
 /node_modules
 *.js
 .env
@@ -9,3 +10,4 @@ npm-debug.log
 .DS_Store
 /coverage
 !infinite-scroll.js
+server.ts

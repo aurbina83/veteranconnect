@@ -1,0 +1,84 @@
+<div class="nav">
+    <md-toolbar class="md-whiteframe-z1 navbar" style="background-color: #223140;">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Settings" ng-click="nav.openLeftMenu()" ng-show="nav.status._id">
+                <md-icon md-font-icon="material-icon"> menu </md-icon>
+            </md-button>
+            <div layout='row' flex layout-align="center" class='navtitle'>
+                <h1 style="font-family: 'Fjalla One', sans-serif;"> VETERAN CONNECT </h1>
+            </div>
+            <!-- <md-button ng-show='nav.status._id' hide show-gt-sm ng-click="nav.logout()">
+                    Log out
+                </md-button> -->
+            <a ui-sref="Login">
+                <md-button class="md-raised" ng-show='!nav.status._id' hide show-gt-sm>
+                    Login
+                </md-button>
+            </a>
+        </div>
+    </md-toolbar>
+    <div layout="row" flex>
+        <md-sidenav layout="column" md-component-id="left" class="md-whiteframe-z2" ng-show="nav.status._id" ng-click="nav.openLeftMenu()">
+            <md-toolbar class="md-whiteframe-z1" style="background-color: #820805;">
+                <div class="md-toolbar-tools">
+                    <div layout="row" flex layout-align="center">
+                        <h1 style='font-style: italic;'>EVENTS</h1>
+                    </div>
+                </div>
+            </md-toolbar>
+            <md-list>
+                <a ui-sref="Events">
+                    <md-list-item>
+                        <md-button layout='row' flex md-ink-ripple='#2E4359' >
+                            <h3 style="font-style: italic;">BROWSE</h3>
+                        </md-button>
+                    </md-list-item>
+                </a>
+                <md-divider></md-divider>
+                <a ui-sref="Create Event">
+                    <md-list-item>
+                        <md-button layout='row' flex md-ink-ripple='#2E4359' >
+                            <h3 style="font-style: italic;">CREATE</h3>
+                        </md-button>
+                    </md-list-item>
+                </a>
+                <md-divider></md-divider>
+                <md-toolbar class="md-whiteframe-z1" style="background-color: #820805;">
+                    <div class="md-toolbar-tools">
+                        <div layout="row" flex layout-align="center">
+                            <h1 style='font-style: italic;'>MY EVENTS</h1>
+                        </div>
+                    </div>
+                </md-toolbar>
+                <a ui-sref="My Events">
+                    <md-list-item>
+                        <md-button layout='row' flex md-ink-ripple='#2E4359'>
+                            <h3 style="font-style: italic;">MY EVENTS</h3>
+                        </md-button>
+                    </md-list-item>
+                </a>
+                <md-divider></md-divider>
+                <a ui-sref="Attending">
+                    <md-list-item>
+                        <md-button layout='row' flex md-ink-ripple='#2E4359' >
+                            <h3 style="font-style: italic;">EVENTS I'M ATTENDING</h3>
+                        </md-button>
+                    </md-list-item>
+                </a>
+                <md-divider></md-divider>
+                <md-toolbar class="md-whiteframe-z1" style="background-color: #820805;">
+                    <div class="md-toolbar-tools">
+                        <div layout="row" flex layout-align="center">
+                            <h1 style='font-style: italic;'>ACCOUNT</h1>
+                        </div>
+                    </div>
+                </md-toolbar>
+                <md-list-item>
+                    <md-button layout='row' flex md-ink-ripple='#2E4359' ng-click="nav.logout();">
+                        <h3 style="font-style: italic;">LOG OUT</h3>
+                    </md-button>
+                </md-list-item>
+            </md-list>
+        </md-sidenav>
+    </div>
+</div>

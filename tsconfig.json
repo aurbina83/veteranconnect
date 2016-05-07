@@ -49,6 +49,7 @@
     "ngApp/js/controllers/NavController.ts",
     "ngApp/js/controllers/UserLoginController.ts",
     "ngApp/js/controllers/UserRegistrationController.ts",
+    "ngApp/js/directives/nav.ts",
     "ngApp/js/filters/trunc_url.ts",
     "ngApp/js/filters/truncate.ts",
     "ngApp/js/services/AuthInterceptor.ts",
@@ -83,6 +84,7 @@
     "Users/interface.ts",
     "Users/model.ts",
     "Users/routes.ts",
+    "www/lib/moment/moment.d.ts",
     "YelpApi/routes.ts"
   ],
   "atom": {

@@ -52,7 +52,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     function findOne(req: express.Request, res: express.Response, next: Function){
         Event.findOne({_id: req.params.id})
         .populate('comments', '-event')
-        .populate('eventCreator', 'firstName lastName branch branchImg')
+        .populate('eventCreator', 'firstName lastName branch branchImg imgUrl')
         .populate('attending', 'firstName lastName imgUrl')
         .exec((err, data) => {
             if(err) return next(err);

@@ -33,7 +33,7 @@ app.use(cookieParser());
 app.use('/templates', require('./routes/viewRoutes'));
 
 app.use(express.static('./ngApp'));
-app.use('/scripts', express.static('bower_components'));
+app.use('/scripts', express.static('./www/lib/'));
 
 app.use('/api/v1/yelp', require('./YelpApi/routes'));
 app.use('/api/v1/users', require('./Users/routes'));

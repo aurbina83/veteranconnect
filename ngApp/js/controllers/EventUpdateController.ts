@@ -77,7 +77,9 @@ namespace app.Controllers {
             private UserService: app.Services.UserService,
             private $http: ng.IHttpService
         ){
-            this.event = EventService.getOne($stateParams['id']);
+            EventService.getOne($stateParams['id']).then((res)=>{
+                this.event = res;
+            });
             this.user = UserService.user;
             for (let i = 2; i <= 100; i++) {
                 this.arr.push(i);

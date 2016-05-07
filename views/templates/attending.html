@@ -1,10 +1,10 @@
 <div layout="row" layout-margin layout-padding layout-align="center center">
     <md-list flex flex-gt-sm="60">
         <md-subheader class="md-no-sticky">EVENTS I'M ATTENDING</md-subheader>
-        <md-list-item class="md-3-line" ng-repeat="e in vm.events" ng-click="vm.go(e)">
-            <div class="md-list-item-text" layout="column" layout-gt-sm="row" layout-padding layout-margin>
+        <md-list-item class="md-3-line" ng-repeat="e in vm.events">
+            <div class="md-list-item-text" layout="column" layout-gt-sm="row" layout-padding layout-margin ng-click="vm.go(e)">
                 <h3 flex>{{ e.title | truncate: "20" }}</h3>
-                <h4 flex> @ {{ e.name }}</h4>
+                <h4 flex> @ {{ e.name | truncate: "30" }}</h4>
                 <h4 flex>{{ e.dateTime | date: 'MMM d,  h:mm a' }}</h4>
             </div>
             <md-button aria-label="Facebook" class="md-fab md-raised md-mini">

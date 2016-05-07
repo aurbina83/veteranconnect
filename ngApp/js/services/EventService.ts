@@ -14,7 +14,7 @@ namespace app.Services {
         }
 
         public getOne(id: string) {
-            return this.EventResource.get({id: id});
+            return this.EventResource.get({id: id}).$promise;
         }
 
         public getMine(id: string) {
