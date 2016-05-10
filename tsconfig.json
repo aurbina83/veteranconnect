@@ -72,6 +72,7 @@
     "typings/browser/ambient/express-serve-static-core/index.d.ts",
     "typings/browser/ambient/express-unless/index.d.ts",
     "typings/browser/ambient/express/index.d.ts",
+    "typings/browser/ambient/helmet/index.d.ts",
     "typings/browser/ambient/jquery/index.d.ts",
     "typings/browser/ambient/jsonwebtoken/index.d.ts",
     "typings/browser/ambient/mime/index.d.ts",
@@ -84,7 +85,6 @@
     "Users/interface.ts",
     "Users/model.ts",
     "Users/routes.ts",
-    "www/lib/moment/moment.d.ts",
     "YelpApi/routes.ts"
   ],
   "atom": {

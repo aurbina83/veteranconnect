@@ -5,6 +5,7 @@ import logger = require('morgan');
 import cookieParser = require('cookie-parser');
 import bodyParser = require('body-parser');
 import mongoose = require('mongoose');
+import helmet = require('helmet');
 import passport = require('./config/passport');
 const app = express();
 
@@ -29,6 +30,7 @@ if (process.env.NODE_ENV !== 'test') app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(helmet());
 
 app.use('/templates', require('./routes/viewRoutes'));
 
