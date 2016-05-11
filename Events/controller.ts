@@ -65,7 +65,8 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
       }
 
     function findMine(req: express.Request, res: express.Response, next: Function){
-        Event.find({eventCreator: req['payload']._id})
+        let date = Date.now();
+        Event.find({eventCreator: req['payload']._id, dateTime: {$lte: new Date(date)} })
         .populate('eventCreator', 'firstName lastName imgUrl')
         .exec((err, data) => {
             if(err) return next(err);
