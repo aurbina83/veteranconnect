@@ -1,6 +1,6 @@
 namespace app.Services {
     export class UserService {
-        public status = { _id: null, name: null, branch: null, imgUrl: null, maxDist: 15};
+        public status = { _id: null, name: null, branch: null, imgUrl: null, maxDist: 24};
         public user;
 
         private getUser(id: string) {

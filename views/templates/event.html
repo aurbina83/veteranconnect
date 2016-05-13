@@ -45,7 +45,7 @@
       <div class="md-list-item-text" layout="column" flex>
         <h3>{{ c.user.firstName}}</h3>
         <h4>{{ c.message }}</h4>
-        <p>{{ c.datePosted | date: short }}</p>
+        <p am-time-ago="c.datePosted"></p>
       </div>
       <md-divider></md-divider>
     </md-list-item>

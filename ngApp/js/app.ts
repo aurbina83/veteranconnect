@@ -1,6 +1,6 @@
 'use strict';
 namespace app {
-    angular.module('app', ['ui.router', 'ngResource', 'ngAnimate', 'ngMessages', 'ngMaterial', 'ngAria', 'ngMaterialDatePicker'])
+    angular.module('app', ['ui.router', 'ngResource', 'ngAnimate', 'ngMessages', 'ngMaterial', 'ngAria', 'ngMaterialDatePicker', 'angularMoment'])
         .config((
         $mdThemingProvider,
         $httpProvider: ng.IHttpProvider,

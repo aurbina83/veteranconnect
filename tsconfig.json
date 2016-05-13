@@ -28,6 +28,7 @@
   "compileOnSave": true,
   "buildOnSave": false,
   "files": [
+    "bower_components/moment/moment.d.ts",
     "Comments/controller.ts",
     "Comments/interface.ts",
     "Comments/model.ts",

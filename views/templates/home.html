@@ -1,8 +1,39 @@
 <!-- Add background image that will scale -->
-
-<div layout="row" layout-align="center center" style="height: 100vh; background-color: black;">
-    <h1 class="md-display-2" style="color: white; font-family: 'Fjalla One', sans-serif; text-align: center;">WELCOME TO VETERAN CONNECT</h1>
-    <i class="fa fa-angle-down fa-2x" style="color: white;"aria-hidden="true"></i>
+<div layout="column" class="home">
+    <div layout="row" layout-align="center center" style="height: 90%;">
+        <h1 class="md-display-3" style="color: white; font-family: 'Fjalla One', sans-serif; text-align: center;">WELCOME TO VETERAN CONNECT</h1>
+    </div>
+    <div layout="column" layout-align="center center" layout-margin layout-padding>
+        <div layout="column" layout-gt-sm="row" layout-margin layout-align="center center" flex>
+            <h3 class="md-headline">Connect with fellow veterans in your area now.</h3>
+            <a href="/login"><button class="md-button">Get Started</button></a>
+        </div>
+        <i class="fa fa-angle-down fa-2x" style="color: white;" aria-hidden="true"></i>
+    </div>
 </div>
-
-<!-- create 100vh pages, each with tutorial images taken from screen shots! Need to use photoshop -->
+<!-- The basics of use-->
+<div layout="row" layout-align="center center" layout-margin layout-padding>
+    <h3 class="md-display-2">HOW IT WORKS</h3>
+</div>
+<div layout="column" layout-gt-sm="row" layout-align="center center" layout-margin layout-padding flex>
+    <span flex></span>
+    <div layout=column layout-align="center center" flex-gt-sm="15">
+        <h3 class="md-margin md-padding">Browse</h3>
+        <p>Browse events created by other veterans based on your location.
+            Each event will tell you how many people are invited, the branch of service of the event creator, and
+            the location. Search from 5 to 50 mile radius.
+        </p>
+        <md-divider></md-divider>
+    </div>
+    <div layout=column layout-align="center center" flex-gt-sm="15">
+        <h3 class="md-margin md-padding">Create</h3>
+        <p>Create your events and meet local veterans interested in what you want to do. Whether you're looking to organize a large event, or gather a small group to hang out, VETERAN CONNECT is your platform.
+        </p>
+        <md-divider></md-divider>
+    </div>
+    <div layout=column layout-align="center center" flex-gt-sm="15">
+        <h3 class="md-margin md-padding">Attend</h3>
+        <p>Found an event you're interested in? If there are open slots left, join in and chat with other veterans attending. Back out of the event if you're no longer interested, opening the spot for another veteran.</p>
+    </div>
+    <span flex></span>
+</div>
