@@ -14,9 +14,10 @@ require('./Comments/model');
 require('./Users/model');
 require('./config/passport');
 
-mongoose.connect('mongodb://localhost/vc', (err) => {
+let mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/vc';
+mongoose.connect(mongoUrl, (err) => {
   if (err) console.error(err);
-  else console.log('Connected to mongodb://localhost/vc');
+  else console.log('Connected to' + mongoUrl);
 });
 
 // view engine setup
