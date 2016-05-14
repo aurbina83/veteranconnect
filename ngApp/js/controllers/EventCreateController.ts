@@ -24,14 +24,21 @@ namespace app.Controllers {
         public message;
         public hide;
         public arr = [];
+        // public category = ["Drinks", "Food", "Food-Drinks", "Hunting-Fishing", "Camping-Hiking", "Sports", "Fitness", "Shooting", "Outdoor Recreation", "Indoor Recreation", "Public Event", "Sporting Event", "Music Event"];
+        // public categorySelected;
 
         //Min date for DateTime Picker
         public date = new Date();
 
+        // //Set Category
+        // public setCategory(){
+        //     this.event.category = this.categorySelected;
+        // }
+
         //Set Rally Point to the Event
         public rallyPoint(p) {
             this.event.name = p.name;
-            this.event.eventAddress = p.location.display_address;
+            this.event.eventAddress = p.location.address;
             this.event.loc = [p.location.coordinate.longitude, p.location.coordinate.latitude];
             this.event.city = p.location.city;
             this.event.state = p.location.state_code;

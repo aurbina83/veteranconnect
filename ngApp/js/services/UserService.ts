@@ -1,9 +1,9 @@
 namespace app.Services {
     export class UserService {
-        public status = { _id: null, name: null, branch: null, imgUrl: null, maxDist: 24};
+        public status = { _id: null, name: null, branch: null, imgUrl: null, maxDist: null};
         public user;
 
-        private getUser(id: string) {
+        public getUser(id: string) {
             let q = this.$q.defer();
             this.$http.get('/api/v1/users/' + id, null).then((res)=>{
                 this.user = res.data;

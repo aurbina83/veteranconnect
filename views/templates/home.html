@@ -6,34 +6,56 @@
     <div layout="column" layout-align="center center" layout-margin layout-padding>
         <div layout="column" layout-gt-sm="row" layout-margin layout-align="center center" flex>
             <h3 class="md-headline">Connect with fellow veterans in your area now.</h3>
-            <a href="/login"><button class="md-button">Get Started</button></a>
+            <a href="/login">
+                <button class="md-button">Get Started</button>
+            </a>
         </div>
         <i class="fa fa-angle-down fa-2x" style="color: white;" aria-hidden="true"></i>
     </div>
 </div>
-<!-- The basics of use-->
-<div layout="row" layout-align="center center" layout-margin layout-padding>
-    <h3 class="md-display-2">HOW IT WORKS</h3>
-</div>
-<div layout="column" layout-gt-sm="row" layout-align="center center" layout-margin layout-padding flex>
-    <span flex></span>
-    <div layout=column layout-align="center center" flex-gt-sm="15">
-        <h3 class="md-margin md-padding">Browse</h3>
-        <p>Browse events created by other veterans based on your location.
-            Each event will tell you how many people are invited, the branch of service of the event creator, and
-            the location. Search from 5 to 50 mile radius.
-        </p>
-        <md-divider></md-divider>
-    </div>
-    <div layout=column layout-align="center center" flex-gt-sm="15">
-        <h3 class="md-margin md-padding">Create</h3>
-        <p>Create your events and meet local veterans interested in what you want to do. Whether you're looking to organize a large event, or gather a small group to hang out, VETERAN CONNECT is your platform.
-        </p>
-        <md-divider></md-divider>
-    </div>
-    <div layout=column layout-align="center center" flex-gt-sm="15">
-        <h3 class="md-margin md-padding">Attend</h3>
-        <p>Found an event you're interested in? If there are open slots left, join in and chat with other veterans attending. Back out of the event if you're no longer interested, opening the spot for another veteran.</p>
-    </div>
-    <span flex></span>
+<!-- Tabs-->
+<div ng-cloak>
+  <md-content>
+    <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always">
+      <md-tab label="About">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">Tab One</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+        </md-content>
+      </md-tab>
+      <md-tab label="How To">
+        <md-content class="md-padding">
+            <div layout="row" layout-align="center center" layout-margin layout-padding>
+                <h3 class="md-display-2">HOW IT WORKS</h3>
+            </div>
+            <div layout="column" layout-gt-sm="row" layout-align="center center" layout-margin layout-padding flex>
+                <span flex></span>
+                <div layout=column layout-align="center center" flex-gt-sm="15">
+                    <h3 class="md-margin md-padding">Browse</h3>
+                    <p>Browse events created by other veterans based on your location. Each event will tell you how many people are invited, the branch of service of the event creator, and the location. Search from 5 to 50 mile radius.
+                    </p>
+                    <md-divider></md-divider>
+                </div>
+                <div layout=column layout-align="center center" flex-gt-sm="15">
+                    <h3 class="md-margin md-padding">Create</h3>
+                    <p>Create your events and meet local veterans interested in what you want to do. Whether you're looking to organize a large event, or gather a small group to hang out, VETERAN CONNECT is your platform.
+                    </p>
+                    <md-divider></md-divider>
+                </div>
+                <div layout=column layout-align="center center" flex-gt-sm="15">
+                    <h3 class="md-margin md-padding">Attend</h3>
+                    <p>Found an event you're interested in? If there are open slots left, join in and chat with other veterans attending. Back out of the event if you're no longer interested, opening the spot for another veteran.</p>
+                </div>
+                <span flex></span>
+            </div>
+        </md-content>
+      </md-tab>
+      <md-tab label="FAQ">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">Tab Three</h1>
+          <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
 </div>

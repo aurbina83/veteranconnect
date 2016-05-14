@@ -3,21 +3,34 @@
     <md-card-title layout-padding>
       <md-card-title-media>
         <div class="md-media-sm card-media">
-          <img ng-src="{{vm.event.eventCreator.imgUrl}}" alt="{{vm.event.eventCreator.firstName}}">
+          <img ng-src="{{vm.event.eventCreator.imgUrl}}" alt="{{vm.event.eventCreator.firstName}}" >
         </div>
       </md-card-title-media>
       <md-card-title-text>
           <!-- Add event name/address/ change layout to look like "events" page -->
-        <img ng-src="{{vm.event.eventCreator.branchImg}}" alt="{{vm.event.eventCreator.branch}}" >
-        <span class="md-headline">{{vm.event.title}}</span>
+        <img ng-src="{{vm.event.eventCreator.branchImg}}" alt="{{vm.event.eventCreator.branch}}">
         <span class="md-subhead">{{vm.event.eventCreator.firstName}} {{vm.event.eventCreator.lastName}}</span>
       </md-card-title-text>
     </md-card-title>
-    <md-card-content>
-        <h3 class="md-headline">
-            Description
+    <md-card-content layout-padding>
+        <h3 class="md-headline" flex>{{vm.event.title}}</h3>
+        <div layout="column" layout-gt-xs="row">
+            <h3 class="md-subhead" flex>@ {{vm.event.name}}</h3>
+            <span class="md-subhead">{{vm.event.dateTime | date:  'MMM d,  h:mm a' }}</span>
+        </div>
+        <div layout="column" layout-gt-sm="row">
+            <span class="md-subhead" flex>{{vm.event.eventAddress}}</span>
+            <span class="md-subhead">{{vm.event.city}}, {{vm.event.state}}</span>
+        </div>
+        <div layout="row">
+            <span flex hide-sm hide-xs></span>
+            <span class="md-body-1">{{vm.event.numGuests}} spots left</span>
+        </div>
+        <md-divider layout-margin></md-divider>
+        <h3 class="md-subhead">
+            Description:
         </h3>
-      <p>
+      <p class="md-caption">
         {{vm.event.description}}
       </p>
     </md-card-content>
