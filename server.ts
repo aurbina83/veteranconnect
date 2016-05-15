@@ -17,7 +17,7 @@ require('./config/passport');
 let mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/vc';
 mongoose.connect(mongoUrl, (err) => {
   if (err) console.error(err);
-  else console.log('Connected to' + mongoUrl);
+  else console.log('Connected to ' + mongoUrl);
 });
 
 // view engine setup

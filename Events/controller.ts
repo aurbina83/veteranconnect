@@ -117,6 +117,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         Event.update({_id: req.params.id}, {$pull: {'attending': req['payload']._id }, $inc: {numGuests: 1}}, (err)=> {
             if (err) return next (err)
             res.json({message: "You're Out!"});
+            ///Comment.FindOneandRemove
         });
     }
 

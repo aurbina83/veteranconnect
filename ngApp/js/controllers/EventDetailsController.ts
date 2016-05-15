@@ -3,7 +3,7 @@ namespace app.Controllers {
         public event: app.i.IEvent;
         public comment;
         public status;
-        public attending;
+        public attending = [];
 
         public createComment() {
           this.comment.event = this.event._id;
@@ -16,15 +16,20 @@ namespace app.Controllers {
 
         constructor(
             private EventService: app.Services.EventService,
+            private UserService: app.Services.UserService,
             private CommentService: app.Services.CommentService,
             private $state: ng.ui.IStateService,
             private $stateParams: ng.ui.IStateParamsService
         ){
             EventService.getOne($stateParams['id']).then((res)=>{
                 this.event = res;
-                this.attending = this.event.attending;
+                let hold = this.event.attending;
+                console.log(hold);
+                for (let i = 0; i < hold.length; i++){
+                    this.attending.push(hold[i]._id);
+                }
             });
-            this.status = EventService.status;
+            this.status = UserService.status;
         }
     }
     angular.module('app').controller('EventDetailController', EventDetailController);

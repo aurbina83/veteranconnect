@@ -28,6 +28,7 @@ namespace app.Controllers {
               $location.search('');
               if ($location.hash()) $location.hash('');
             }
+            this.route();
         }
     }
     angular.module('app').controller('HomeController', HomeController);

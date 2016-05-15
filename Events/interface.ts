@@ -16,7 +16,7 @@ namespace app.i {
         dateCreated: number;
         eventCreator: (string | IUser);
 
-        attending: [string | IUser];
+        attending: [any];
         comments: [ string | IComment ];
     }
 }
