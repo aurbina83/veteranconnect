@@ -1,11 +1,25 @@
 <!-- Add background image that will scale -->
-<div layout="column" class="home">
+<div layout="column" class="home" hide-xs hide-sm>
     <div layout="row" layout-align="center center" style="height: 90%;">
-        <h1 class="md-display-3" style="color: white; font-family: 'Fjalla One', sans-serif; text-align: center;">WELCOME TO VETERAN CONNECT</h1>
+        <h1  class="md-display-3" style="color: white; font-family: 'Fjalla One', sans-serif; text-align: center;">WELCOME TO VETERAN CONNECT</h1>
     </div>
     <div layout="column" layout-align="center center" layout-margin layout-padding>
         <div layout="column" layout-gt-sm="row" layout-margin layout-align="center center" flex>
-            <h3 class="md-headline">Connect with fellow veterans in your area now.</h3>
+            <h3  class="md-headline">Connect with fellow veterans in your area now.</h3>
+            <a href="/login">
+                <button class="md-button">Get Started</button>
+            </a>
+        </div>
+        <i class="fa fa-angle-down fa-2x" style="color: white;" aria-hidden="true"></i>
+    </div>
+</div>
+<div layout="column" class="home" hide-gt-sm>
+    <div layout="row" layout-align="center center" style="height: 50%;">
+        <h1 class="md-display-1" style="color: white; font-family: 'Fjalla One', sans-serif; text-align: center;">WELCOME TO VETERAN CONNECT</h1>
+    </div>
+    <div layout="column" layout-align="center center" layout-margin layout-padding>
+        <div layout="column" layout-margin layout-align="center center" flex>
+            <h3   class="md-subhead">Connect with fellow veterans in your area now.</h3>
             <a href="/login">
                 <button class="md-button">Get Started</button>
             </a>
@@ -41,10 +55,10 @@
 <div class="stars" style="color: white;">
     <div style="height: 50px;"></div>
     <div layout="column" layout-gt-sm="row" layout-align="center" layout-margin>
-        <div layout="column" flex="50" layout-align="start center" >
+        <div layout="column" flex-gt-sm="50" layout-align="start center" >
             <img src="images/browse.jpg" alt="browse.jpg" style="max-width: 100%; height: auto;">
         </div>
-        <div layout="column" flex="50">
+        <div layout="column" flex-gt-sm="50">
             <div layout-margin>
                 <h3 class="md-headline">SET THE RADIUS</h3>
                 <h3 class="md-subhead">Slide the radius tool to select a search radius from 5 to 50 miles.</h3>
@@ -61,10 +75,10 @@
     </div>
     <div style="height: 50px;"></div>
     <div layout="column" layout-gt-sm="row" layout-align="center" layout-margin>
-        <div layout="column" flex="50" layout-align="start center" >
+        <div layout="column" flex-gt-sm="50" layout-align="start center" >
             <img src="images/create.jpg" alt="create.jpg" style="max-width: 100%; height: auto;">
         </div>
-        <div layout="column" flex="50">
+        <div layout="column" flex-gt-sm="50">
             <div layout-margin>
                 <h3 class="md-headline">Where to Meet?</h3>
                 <h3 class="md-subhead">Choose the rally point where either the event is taking place, or where everybody will meet.</h3>
@@ -78,11 +92,11 @@
     </div>
     <div style="height: 50px;"></div>
     <div layout="column" layout-gt-sm="row" layout-align="center" layout-margin>
-        <div layout="column" flex="50" layout-align="start center" layout-margin>
+        <div layout="column" flex-gt-sm="50" layout-align="start center" layout-margin>
             <img src="images/myevents.jpg" alt="myevents.jpg" style="max-width: 100%; height: auto;">
             <img src="images/attending.jpg" alt="attending.jpg" style="max-width: 100%; height: auto;">
         </div>
-        <div layout="column" flex="50">
+        <div layout="column" flex-gt-sm="50">
             <div layout-margin>
                 <h3 class="md-headline">Manage your Events</h3>
                 <h3 class="md-subhead">On your events page, you can edit or cancel your events at any time.</h3>
@@ -93,10 +107,10 @@
     </div>
     <div style="height: 50px;"></div>
     <div layout="column" layout-gt-sm="row" layout-align="center" layout-margin>
-        <div layout="column" flex="50" layout-align="start center" layout-margin>
+        <div layout="column" flex-gt-sm="50" layout-align="start center" layout-margin>
             <img src="images/event.jpg" alt="event.jpg" style="max-width: 100%; height: auto;">
         </div>
-        <div layout="column" flex="50">
+        <div layout="column" flex-gt-sm="50">
             <div layout-margin>
                 <h3 class="md-headline">Interact</h3>
                 <h3 class="md-subhead">On the event page, you'll see all available information for the event.</h3>
