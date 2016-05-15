@@ -24,7 +24,6 @@ namespace app.Controllers{
 
         public setDistance() {
             this.status.maxDist = this.distance * 1.6;
-            console.log('changed');
         }
 
         public attend(e) {
@@ -59,7 +58,6 @@ namespace app.Controllers{
             });
             $scope.$watch(() => this.status, (newValue, oldValue) => {
                 this.fetch = true;
-                console.log('watch');
                 if (newValue !== oldValue) {
                     EventService.getAll({ lng: this.user.loc[0], lat: this.user.loc[1], maxDist: this.status.maxDist }).then((res) => {
                         this.events = res;

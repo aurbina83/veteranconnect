@@ -54,7 +54,6 @@ namespace app.Services {
               this.status.imgUrl = u.imgUrl;
               this.status.branch = this.user.branch;
               this.getLocation();
-              console.log(this.user);
               q.resolve();
           });
           return q.promise;

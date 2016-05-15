@@ -74,9 +74,6 @@ namespace app.Controllers {
                     this.places.push(this.result[i]);
                 }
                 this.fetch = true;
-                // for(let i = 0; i < this.result.length; i++){
-                //     this.places.push(this.result[i]);
-                // }
                 this.count += 20;
             },
                 (err) => {
