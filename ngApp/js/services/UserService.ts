@@ -100,12 +100,17 @@ namespace app.Services {
             return decodeURIComponent(encodeURIComponent(this.$window.atob(output))); //polifyll https://github.com/davidchambers/Base64.js
         }
 
+        public userCheck (){
+            if(!this.status._id) this.$state.go('Login');
+        }
+
 
         constructor(
             private $http: ng.IHttpService,
             private $q: ng.IQService,
             private $window: ng.IWindowService,
-            private $timeout: ng.ITimeoutService
+            private $timeout: ng.ITimeoutService,
+            private $state: ng.ui.IStateService
         ){
             if(this.getToken()) this.setUser();
         }

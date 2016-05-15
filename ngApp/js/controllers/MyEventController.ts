@@ -15,6 +15,7 @@ namespace app.Controllers{
         }
 
         constructor(private UserService: app.Services.UserService, private EventService: app.Services.EventService, private $state: ng.ui.IStateService){
+            UserService.userCheck();
             this.status = UserService.status;
             this.events = EventService.getMine(this.status._id);
         }

@@ -21,6 +21,7 @@ namespace app.Controllers {
             private $state: ng.ui.IStateService,
             private $stateParams: ng.ui.IStateParamsService
         ){
+            UserService.userCheck();
             EventService.getOne($stateParams['id']).then((res)=>{
                 this.event = res;
                 let hold = this.event.attending;
