@@ -17,12 +17,10 @@
     "angular-resource": "^1.5.0",
     "angular-animate": "^1.5.0",
     "animate.css": "^3.5.1",
-    "moment": "^2.12.0",
     "angular-touch": "^1.5.0",
     "angular-material": "^1.0.7",
     "angular-material-datetimepicker": "^1.4.0",
-    "sc-date-time": "^1.1.6",
-    "angular-moment": "^0.10.3"
+    "sc-date-time": "^1.1.6"
   },
   "resolutions": {
     "angular": "1.5.5"
