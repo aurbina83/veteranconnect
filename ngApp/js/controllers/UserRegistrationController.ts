@@ -46,7 +46,7 @@ namespace app.Controllers {
             this.user.email = this.user.email.toLowerCase();
             this.user.mos = this.user.mos.toUpperCase();
             this.UserService.register(this.status._id, {email: this.user.email, branch: this.user.branch, mos: this.user.mos, branchImg: this.user.branchImg}).then(()=>{
-                this.$state.go('Create Event');
+                this.$state.go('Welcome');
             });
 
 
