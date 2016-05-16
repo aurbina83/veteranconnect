@@ -94,9 +94,10 @@ namespace app.Controllers {
             private UserService: app.Services.UserService,
             private $http: ng.IHttpService
             ) {
-            this.user = UserService.user;
-            for (let i = 2; i <= 100; i++) {
-                this.arr.push(i);
+                UserService.userCheck();
+                this.user = UserService.user;
+                for (let i = 2; i <= 100; i++) {
+                    this.arr.push(i);
             }
         }
     }

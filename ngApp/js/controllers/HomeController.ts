@@ -7,7 +7,7 @@ namespace app.Controllers {
                 this.$state.go('Register');
             }
             if((this.status._id) && (this.status.branch)) {
-                this.$state.go('Events');
+                this.$state.go('Welcome');
             }
         }
 

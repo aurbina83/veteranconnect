@@ -61,7 +61,13 @@ namespace app {
             templateUrl: '/templates/attending.html',
             controller: 'AttendingEvents',
             controllerAs: 'vm'
-        });
+        })
+            .state('Welcome', {
+            url: '/welcome',
+            templateUrl: '/templates/welcome.html',
+            controller: 'EventsController',
+            controllerAs: 'vm'
+            });
 
     $mdThemingProvider.theme('default')
         .primaryPalette('indigo')

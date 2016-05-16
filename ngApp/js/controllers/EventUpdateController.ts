@@ -77,6 +77,7 @@ namespace app.Controllers {
             private UserService: app.Services.UserService,
             private $http: ng.IHttpService
         ){
+            UserService.userCheck();
             EventService.getOne($stateParams['id']).then((res)=>{
                 this.event = res;
             });

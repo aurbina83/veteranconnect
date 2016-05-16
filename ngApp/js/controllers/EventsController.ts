@@ -48,14 +48,18 @@ namespace app.Controllers{
         };
 
         constructor(private EventService: app.Services.EventService, private $scope: ng.IScope, private UserService: app.Services.UserService, private $mdDialog, private $state: ng.ui.IStateService) {
+            UserService.userCheck();
             this.status = EventService.status;
             UserService.status.maxDist = 24;
             this.fetch = true;
             this.user = UserService.user
-            EventService.getAll({ lng: this.user.loc[0], lat: this.user.loc[1], maxDist: this.status.maxDist }).then((res) => {
-                this.events = res;
-                this.fetch = false;
-            });
+            if(this.user) {
+                EventService.getAll({ lng: this.user.loc[0], lat: this.user.loc[1], maxDist: this.status.maxDist }).then((res) => {
+                    this.events = res;
+                    this.fetch = false;
+                });
+            }
+            
             $scope.$watch(() => this.status, (newValue, oldValue) => {
                 this.fetch = true;
                 if (newValue !== oldValue) {
