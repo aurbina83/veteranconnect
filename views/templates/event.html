@@ -1,3 +1,6 @@
+<div layout="row" layout-fill layout-align="center center" ng-show="vm.isLoading">
+    <md-progress-circular md-mode="indeterminate" ng-show="vm.isLoading" class="md-primary md-hue-2" md-diameter="100"></md-progress-circular>
+</div>
 <div layout="column" layout-align="start center" layout-margin flex ng-show="vm.status._id == vm.event.eventCreator._id || vm.attending.indexOf(vm.status._id) !== -1">
   <md-card>
     <md-card-title layout-padding>

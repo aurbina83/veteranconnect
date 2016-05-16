@@ -3,7 +3,7 @@ namespace app.Controllers{
         public events;
         public status;
         public user;
-        public fetch;
+        public fetch = true;
 
         public distance = 15;
 
@@ -51,7 +51,6 @@ namespace app.Controllers{
             this.status = EventService.status;
             UserService.userCheck();
             UserService.status.maxDist = 24;
-            this.fetch = true;
             UserService.getUser(this.status._id).then((res)=>{
                 this.user = res;
                 if(this.user) {

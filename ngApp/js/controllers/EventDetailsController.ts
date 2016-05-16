@@ -3,6 +3,7 @@ namespace app.Controllers {
         public event: app.i.IEvent;
         public comment;
         public status;
+        public isLoading = true;
         public attending = [];
 
         public createComment() {
@@ -22,9 +23,9 @@ namespace app.Controllers {
             private $stateParams: ng.ui.IStateParamsService
         ){
             EventService.getOne($stateParams['id']).then((res)=>{
+                this.isLoading = false;
                 this.event = res;
                 let hold = this.event.attending;
-                console.log(hold);
                 for (let i = 0; i < hold.length; i++){
                     this.attending.push(hold[i]._id);
                 }
