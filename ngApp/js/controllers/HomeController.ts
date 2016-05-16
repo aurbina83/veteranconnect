@@ -1,12 +1,13 @@
 namespace app.Controllers {
     export class HomeController {
         public status;
+        public user;
 
         private route (){
-            if((this.status._id) && (!this.status.branch)) {
+            if(!this.user.branch) {
                 this.$state.go('Register');
             }
-            if((this.status._id) && (this.status.branch)) {
+            if(this.user.branch) {
                 this.$state.go('Welcome');
             }
         }
@@ -20,15 +21,18 @@ namespace app.Controllers {
             this.status = UserService.status;
             if($location.search().code) {
               UserService.setToken($location.search().code);
-              UserService.setUser().then(()=>{
-                  this.status = UserService.status;
-                  this.route();
-              });
+              UserService.setUser();
               // clear query string
               $location.search('');
               if ($location.hash()) $location.hash('');
             }
-            this.route();
+
+            if(this.status._id){
+                    UserService.getUser(this.status._id).then((res)=>{
+                        this.user = res;
+                        this.route();
+                    })
+                }
         }
     }
     angular.module('app').controller('HomeController', HomeController);
