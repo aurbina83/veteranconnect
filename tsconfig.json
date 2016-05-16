@@ -23,8 +23,7 @@
   ],
   "exclude": [
     "typings/main",
-    "typings/main.d.ts",
-    "node_modules"
+    "typings/main.d.ts"
   ],
   "compileOnSave": true,
   "buildOnSave": false,
