@@ -1,14 +1,13 @@
 namespace app.Services {
     export class UserService {
-        public status = { _id: null, name: null, branch: null, imgUrl: null, maxDist: null};
+        public status = { _id: null, name: null, imgUrl: null, maxDist: null};
         public user;
 
         public getUser(id: string) {
             let q = this.$q.defer();
             this.$http.get('/api/v1/users/' + id, null).then((res)=>{
-                this.user = res.data;
-                q.resolve();
-            })
+                q.resolve(res.data);
+            });
             return q.promise;
         }
 
@@ -45,17 +44,11 @@ namespace app.Services {
         }
 
         public setUser() {
-          let q = this.$q.defer();
           let token = this.getToken();
           let u = JSON.parse(this.urlBase64Decode(this.getToken().split('.')[1]));
-          this.getUser(u._id).then(()=>{
-              this.status._id = u._id;
-              this.status.name = u.firstName + " " + u.lastName;
-              this.status.imgUrl = u.imgUrl;
-              this.status.branch = this.user.branch;
-              q.resolve();
-          });
-          return q.promise;
+          this.status._id = u._id;
+          this.status.name = u.firstName + " " + u.lastName;
+          this.status.imgUrl = u.imgUrl;
         }
 
 
@@ -81,7 +74,6 @@ namespace app.Services {
         public clearUser() {
           this.status._id = null;
           this.status.name = null;
-          this.status.branch = null;
           this.status.maxDist = null;
           this.status.imgUrl = null;
         }
@@ -112,8 +104,10 @@ namespace app.Services {
             private $timeout: ng.ITimeoutService,
             private $state: ng.ui.IStateService
         ){
-            if(this.getToken()) this.setUser();
-
+            if(this.getToken()){
+                this.setUser();
+                this.getLocation();
+            }
         }
     }
     angular.module('app').service('UserService', UserService);

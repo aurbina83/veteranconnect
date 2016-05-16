@@ -23,7 +23,8 @@
   ],
   "exclude": [
     "typings/main",
-    "typings/main.d.ts"
+    "typings/main.d.ts",
+    "node_modules"
   ],
   "compileOnSave": true,
   "buildOnSave": false,
@@ -89,6 +90,6 @@
     "YelpApi/routes.ts"
   ],
   "atom": {
-    "rewriteTsconfig": true
+    "rewriteTsconfig": false
   }
 }
