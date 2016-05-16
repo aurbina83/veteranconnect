@@ -88,6 +88,6 @@
     "YelpApi/routes.ts"
   ],
   "atom": {
-    "rewriteTsconfig": true
+    "rewriteTsconfig": false
   }
 }
