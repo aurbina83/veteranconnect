@@ -1,5 +1,6 @@
 namespace app.Controllers {
     export class UserLoginController {
+        public status;
         public user = { email: undefined, password: undefined };
 
         public login() {
@@ -11,6 +12,10 @@ namespace app.Controllers {
         }
 
         constructor(private UserService: app.Services.UserService, private $state: ng.ui.IStateService) {
+            this.status = UserService.status;
+            if(this.status._id !== null) {
+                this.$state.go('Welcome')
+            }
         }
     }
 
