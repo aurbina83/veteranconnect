@@ -13,7 +13,7 @@ namespace app.Controllers {
 
         constructor(private UserService: app.Services.UserService, private $state: ng.ui.IStateService) {
             this.status = UserService.status;
-            if(this.status._id !== null) {
+            if(this.status._id) {
                 this.$state.go('Welcome')
             }
         }

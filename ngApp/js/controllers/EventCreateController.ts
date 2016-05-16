@@ -15,6 +15,7 @@ namespace app.Controllers {
             dateTime: null
         }
         public user;
+        public status;
         public places;
         public result;
         public term;
@@ -94,8 +95,11 @@ namespace app.Controllers {
             private UserService: app.Services.UserService,
             private $http: ng.IHttpService
             ) {
+                this.status = UserService.status;
                 UserService.userCheck();
-                this.user = UserService.user;
+                UserService.getUser(this.status._id).then((res)=>{
+                    this.user = res;
+                })
                 for (let i = 2; i <= 100; i++) {
                     this.arr.push(i);
             }
