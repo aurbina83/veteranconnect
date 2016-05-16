@@ -103,14 +103,6 @@ namespace app.Services {
             if(!this.status._id) this.$state.go('Login');
         }
 
-        public loginRoute (){
-            if((this.status._id) && (!this.status.branch)) {
-                this.$state.go('Register');
-            }
-            if((this.status._id) && (this.status.branch)) {
-                this.$state.go('Welcome');
-            }
-        }
 
 
         constructor(
@@ -120,9 +112,7 @@ namespace app.Services {
             private $timeout: ng.ITimeoutService,
             private $state: ng.ui.IStateService
         ){
-            if(this.getToken()) this.setUser().then(()=>{
-                this.getLocation();
-            });
+            if(this.getToken()) this.setUser();
 
         }
     }
