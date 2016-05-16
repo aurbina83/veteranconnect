@@ -52,9 +52,9 @@ namespace app.Services {
         }
 
 
-        public update(id: string){
+        public updateLoc(id: string, {loc}){
             let q = this.$q.defer();
-            this.$http.put('/api/v1/users/' + id, this.user).then((res) => {
+            this.$http.put('/api/v1/users/' + id, {loc: loc}).then((res) => {
                 q.resolve();
             });
             return q.promise;
@@ -65,8 +65,8 @@ namespace app.Services {
             navigator.geolocation.getCurrentPosition((position)=>{
                     let lat = position.coords.latitude;
                     let lng = position.coords.longitude;
-                    this.user.loc = [lng, lat];
-                    this.update(this.status._id);
+                    let loc = [lng, lat];
+                    this.updateLoc(this.status._id, {loc: loc});
                 })
             return q.promise;
         }
