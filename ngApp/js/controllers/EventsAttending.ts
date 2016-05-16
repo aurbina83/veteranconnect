@@ -2,6 +2,7 @@ namespace app.Controllers {
     export class AttendingEvents {
         public status;
         public events;
+        public isLoading = true;
 
         public notAttending(e: app.i.IEvent){
             this.EventService.notAttending(e._id).then(()=>{
@@ -16,7 +17,10 @@ namespace app.Controllers {
         constructor(private EventService: app.Services.EventService, private UserService: app.Services.UserService, private $state: ng.ui.IStateService){
             this.status = UserService.status;
             UserService.userCheck();
-            this.events = EventService.getAttending(this.status._id)
+            EventService.getAttending(this.status._id).then((res)=>{
+                this.events = res;
+                this.isLoading = false;
+            })
         }
     }
     angular.module('app').controller('AttendingEvents', AttendingEvents);

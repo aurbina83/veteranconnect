@@ -18,11 +18,11 @@ namespace app.Services {
         }
 
         public getMine(id: string) {
-            return this.EventResource.query({id: 'myevents'});
+            return this.EventResource.query({id: 'myevents'}).$promise;
         }
 
         public getAttending(id: string) {
-            return this.EventResource.query({id: 'attending'});
+            return this.EventResource.query({id: 'attending'}).$promise;
         }
 
         public createEvent(event) {

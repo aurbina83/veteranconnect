@@ -6,22 +6,6 @@
                 <h3 flex>{{ e.title | truncate: "20" }}</h3>
                 <h4 flex> @ {{ e.name | truncate: "40" }}</h4>
                 <h4 flex>{{ e.dateTime | date: 'MMM d,  h:mm a' }}</h4>
-                <!-- <div layout="row" hide-gt-xs>
-                    <a ui-sref="Update Event({id: e._id})">
-                        <md-button aria-label="Twitter" class="md-fab md-mini md-raised" >
-                            <md-icon md-font-set="material-icons" style="color: #666;"> mode_edit </md-icon>
-                            <md-tooltip md-direction="bottom">
-                                Edit Event
-                            </md-tooltip>
-                        </md-button>
-                    </a>
-                    <md-button aria-label="Facebook" class="md-fab md-mini md-raised" ng-click="vm.removeEvent(e)">
-                        <md-icon md-font-set="material-icons"  style="color: #B5191D;"> delete_forever </md-icon>
-                        <md-tooltip md-direction="bottom">
-                            Cancel Event
-                        </md-tooltip>
-                    </md-button>
-                </div> -->
             </div>
             <div layout="column" layout-gt-xs="row">
                 <a ui-sref="Update Event({id: e._id})">
@@ -42,32 +26,6 @@
                 <md-divider></md-divider>
         </md-list-item>
 </div>
-
-
-
-
-
-
-<!-- <div class="container">
-    <div class="row">
-        <div class="col col-md-10 col-md-offset-1 well" ng-repeat="e in vm.events">
-            <div class="row">
-                <div class="col col-md-2">
-                    {{e.title}}
-                </div>
-                <div class="col col-md-3">
-                    {{e.name}}
-                </div>
-                <div class="col col-md-3">
-                    {{e.dateTime | date: 'short'}}
-                </div>
-                <div class="col col-md-2">
-                    <a ui-sref="Update Event({id: e._id})"><button class="btn btn-info">Change</button></a>
-                </div>
-                <div class="col col-md-2">
-                    <button class="btn btn-danger" ng-click="vm.removeEvent(e)">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
+<div layout="row" layout-fill layout-align="center center" ng-show="vm.isLoading">
+    <md-progress-circular md-mode="indeterminate" ng-show="vm.isLoading" class="md-primary md-hue-2" md-diameter="100"></md-progress-circular>
+</div>
