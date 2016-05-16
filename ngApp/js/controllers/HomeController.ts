@@ -2,6 +2,15 @@ namespace app.Controllers {
     export class HomeController {
         public status;
 
+        private route (){
+            if((this.status._id) && (!this.status.branch)) {
+                this.$state.go('Register');
+            }
+            if((this.status._id) && (this.status.branch)) {
+                this.$state.go('Welcome');
+            }
+        }
+
         constructor(
             private UserService: app.Services.UserService,
             private $state: ng.ui.IStateService,
@@ -13,13 +22,13 @@ namespace app.Controllers {
               UserService.setToken($location.search().code);
               UserService.setUser().then(()=>{
                   this.status = UserService.status;
-                  UserService.loginRoute();
+                  this.route();
               });
               // clear query string
               $location.search('');
               if ($location.hash()) $location.hash('');
             }
-            UserService.loginRoute();
+            this.route();
         }
     }
     angular.module('app').controller('HomeController', HomeController);
