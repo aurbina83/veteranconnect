@@ -53,7 +53,6 @@ namespace app.Services {
               this.status.name = u.firstName + " " + u.lastName;
               this.status.imgUrl = u.imgUrl;
               this.status.branch = this.user.branch;
-              this.getLocation();
               q.resolve();
           });
           return q.promise;
@@ -112,7 +111,10 @@ namespace app.Services {
             private $timeout: ng.ITimeoutService,
             private $state: ng.ui.IStateService
         ){
-            if(this.getToken()) this.setUser();
+            if(this.getToken()) this.setUser().then(()=>{
+                this.getLocation();
+            });
+
         }
     }
     angular.module('app').service('UserService', UserService);
