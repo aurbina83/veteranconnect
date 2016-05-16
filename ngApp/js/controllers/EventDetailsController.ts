@@ -21,7 +21,6 @@ namespace app.Controllers {
             private $state: ng.ui.IStateService,
             private $stateParams: ng.ui.IStateParamsService
         ){
-            UserService.userCheck();
             EventService.getOne($stateParams['id']).then((res)=>{
                 this.event = res;
                 let hold = this.event.attending;
@@ -31,6 +30,7 @@ namespace app.Controllers {
                 }
             });
             this.status = UserService.status;
+            UserService.userCheck();
         }
     }
     angular.module('app').controller('EventDetailController', EventDetailController);

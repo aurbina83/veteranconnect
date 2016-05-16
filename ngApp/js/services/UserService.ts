@@ -92,7 +92,7 @@ namespace app.Services {
         }
 
         public userCheck (){
-            if(!this.status._id) this.$state.go('Login');
+            if(!this.getToken()) this.$state.go('Login');
         }
 
 

@@ -1,5 +1,6 @@
 namespace app.Controllers {
     export class EventUpdateController {
+        public status;
         public user;
         public event: app.i.IEvent;
         public arr = [];
@@ -77,11 +78,14 @@ namespace app.Controllers {
             private UserService: app.Services.UserService,
             private $http: ng.IHttpService
         ){
-            UserService.userCheck();
+            this.status = UserService.status;
             EventService.getOne($stateParams['id']).then((res)=>{
                 this.event = res;
             });
-            this.user = UserService.user;
+            UserService.userCheck();
+            UserService.getUser(this.status._id).then((res)=>{
+                this.user = res;
+            });
             for (let i = 2; i <= 100; i++) {
                 this.arr.push(i);
             }
