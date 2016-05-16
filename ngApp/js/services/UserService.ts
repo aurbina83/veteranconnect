@@ -103,6 +103,15 @@ namespace app.Services {
             if(!this.status._id) this.$state.go('Login');
         }
 
+        public loginRoute (){
+            if((this.status._id) && (!this.status.branch)) {
+                this.$state.go('Register');
+            }
+            if((this.status._id) && (this.status.branch)) {
+                this.$state.go('Welcome');
+            }
+        }
+
 
         constructor(
             private $http: ng.IHttpService,
