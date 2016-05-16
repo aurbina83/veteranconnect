@@ -59,7 +59,7 @@ namespace app.Controllers{
                     this.fetch = false;
                 });
             }
-            
+
             $scope.$watch(() => this.status, (newValue, oldValue) => {
                 this.fetch = true;
                 if (newValue !== oldValue) {
