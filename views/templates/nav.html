@@ -11,7 +11,10 @@
                     Log out
                 </md-button> -->
             <a ui-sref="Login">
-                <md-button class="md-raised" ng-show='!nav.status._id' hide show-gt-sm>
+                <md-button ng-show='!nav.status._id' hide show-gt-sm>
+                    Login
+                </md-button>
+                <md-button class="md-fab md-mini independence" ng-show='!nav.status._id' hide-gt-sm style="font-size: 10px;">
                     Login
                 </md-button>
             </a>
