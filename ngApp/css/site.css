@@ -96,10 +96,18 @@ margin: auto;
     background-color: #820805 !important;
 }
 
+#dialog {
+    width: 600px;
+}
+
 
 
 @media (max-width: 599px) {
     .navtitle h1 {
         font-size: 25px;
+    }
+
+    #dialog {
+        width: 100%;
     }
 }
