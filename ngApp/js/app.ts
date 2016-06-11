@@ -67,6 +67,14 @@ namespace app {
             templateUrl: '/templates/welcome.html',
             controller: 'EventsController',
             controllerAs: 'vm'
+            })
+            .state('tos', {
+                url: '/tos',
+                templateUrl: 'templates/tos.html'
+            })
+            .state('privacy', {
+                url: '/privacy',
+                templateUrl: 'templates/privacy.html'
             });
 
     $mdThemingProvider.theme('default')
