@@ -24,7 +24,7 @@ namespace app.Controllers {
         public fetch = true;
         public message;
         public hide;
-        public arr = [];
+        public arr;
         // public category = ["Drinks", "Food", "Food-Drinks", "Hunting-Fishing", "Camping-Hiking", "Sports", "Fitness", "Shooting", "Outdoor Recreation", "Indoor Recreation", "Public Event", "Sporting Event", "Music Event"];
         // public categorySelected;
 
@@ -49,11 +49,9 @@ namespace app.Controllers {
         public searchYelp() {
             this.count = 0;
             this.fetch = false;
-            this.$http.get('/api/v1/yelp/search?term=' + this.term + "&location=" +
-                this.location + "&cll=" + this.user.loc[1] + "," + this.user.loc[0] + "&sort=0" + "&offset=" + this.count + "&limit = 20"
+            this.$http.get(`/api/v1/yelp/search?term=${this.term}&location=${this.location}&cll=${this.user.loc[1]},${this.user.loc[0]}&sort=0&offset=${this.count}&limit=20`
                 ).then((res) => {
-                this.result = res.data;
-                this.result = this.result.businesses;
+                this.result = res.data['businesses'];
                 this.places = this.result;
                 this.fetch = true;
             },
@@ -66,14 +64,10 @@ namespace app.Controllers {
         public moreYelp() {
             this.count += 20;
             this.fetch = false;
-            this.$http.get('/api/v1/yelp/search?term=' + this.term + "&location=" +
-                this.location + "&cll=" + this.user.loc[1] + "," + this.user.loc[0] + "&offset=" + this.count + "&limit = 20"
+            this.$http.get(`/api/v1/yelp/search?term=${this.term}&location=${this.location}&cll=${this.user.loc[1]},${this.user.loc[0]}&sort=0&offset=${this.count}&limit=20`
                 ).then((res) => {
-                this.result = res.data;
-                this.result = this.result.businesses;
-                for (let i = 0; i < this.result.length; i++) {
-                    this.places.push(this.result[i]);
-                }
+                this.result = res.data['businesses'];
+                this.places = this.places.concat(this.result);
                 this.fetch = true;
                 this.count += 20;
             },
@@ -100,10 +94,8 @@ namespace app.Controllers {
                 UserService.getUser(this.status._id).then((res)=>{
                     this.user = res;
                 })
-                for (let i = 2; i <= 100; i++) {
-                    this.arr.push(i);
+                this.arr = Array(98).fill(0).map((e,i)=>i+2);
             }
         }
-    }
     angular.module('app').controller('EventCreateController', EventCreateController);
 }
