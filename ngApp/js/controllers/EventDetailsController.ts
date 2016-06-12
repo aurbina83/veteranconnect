@@ -4,6 +4,7 @@ namespace app.Controllers {
         public comment;
         public status;
         public isLoading = true;
+        public attending = [];
 
         public createComment() {
           this.comment.event = this.event._id;
@@ -24,6 +25,9 @@ namespace app.Controllers {
             EventService.getOne($stateParams['id']).then((res)=>{
                 this.isLoading = false;
                 this.event = res;
+                for(let i = 0; i < this.event.attending.length; i++){
+                    this.attending.push(this.event.attending[i]['_id']);
+                }
             });
             this.status = UserService.status;
             UserService.userCheck();

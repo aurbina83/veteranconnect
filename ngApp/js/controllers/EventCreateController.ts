@@ -24,7 +24,7 @@ namespace app.Controllers {
         public fetch = true;
         public message;
         public hide;
-        public arr;
+        public arr = [];
         // public category = ["Drinks", "Food", "Food-Drinks", "Hunting-Fishing", "Camping-Hiking", "Sports", "Fitness", "Shooting", "Outdoor Recreation", "Indoor Recreation", "Public Event", "Sporting Event", "Music Event"];
         // public categorySelected;
 
@@ -94,7 +94,10 @@ namespace app.Controllers {
                 UserService.getUser(this.status._id).then((res)=>{
                     this.user = res;
                 })
-                this.arr = Array(98).fill(0).map((e,i)=>i+2);
+                // this.arr = Array(98).fill(0).map((e,i)=>i+2);
+                for(let i = 2; i < 99; i++){
+                    this.arr.push(i);
+                }
             }
         }
     angular.module('app').controller('EventCreateController', EventCreateController);
