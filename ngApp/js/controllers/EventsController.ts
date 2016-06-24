@@ -16,7 +16,7 @@ namespace app.Controllers{
                     .parent(angular.element(document.querySelector('#popupContainer')))
                     .clickOutsideToClose(true)
                     .title('HEY YOU!')
-                    .textContent('You are already in this event. You are a NO GO at this station.')
+                    .textContent('You are already in this event. Carry on.')
                     .ariaLabel('Alert Dialog Demo')
                     .ok('Got it!')
                 );
