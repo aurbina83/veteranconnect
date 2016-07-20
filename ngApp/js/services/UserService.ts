@@ -1,6 +1,6 @@
 namespace app.Services {
     export class UserService {
-        public status = { _id: null, name: null, imgUrl: null, maxDist: null};
+        public status = { _id: null, name: null, imgUrl: null, maxDist: null, loc: null, verified: null, branch: null};
         public user;
 
         public getUser(id: string) {
@@ -24,6 +24,7 @@ namespace app.Services {
         public register(id, {email, branch, mos, branchImg}) {
           let q = this.$q.defer();
           this.$http.put('/api/v1/users/register/' + id, {email: email, branch: branch, mos: mos, branchImg: branchImg}).then((res) => {
+            this.setToken(res.data['token']);
             this.setUser();
             q.resolve();
           });
@@ -49,12 +50,17 @@ namespace app.Services {
           this.status._id = u._id;
           this.status.name = u.firstName + " " + u.lastName;
           this.status.imgUrl = u.imgUrl;
+          this.status.branch = u.branch;
+          this.status.verified = u.verified;
+          this.status.loc = u.loc;
         }
 
 
         public updateLoc(id: string, {loc}){
             let q = this.$q.defer();
-            this.$http.put('/api/v1/users/' + id, {loc: loc}).then((res) => {
+            this.$http.put('/api/v1/users/location/' + id, {loc: loc}).then((res) => {
+                this.setToken(res.data['token']);
+                this.setUser();
                 q.resolve();
             });
             return q.promise;
@@ -66,7 +72,9 @@ namespace app.Services {
                     let lat = position.coords.latitude;
                     let lng = position.coords.longitude;
                     let loc = [lng, lat];
+                    this.status.loc = loc;
                     this.updateLoc(this.status._id, {loc: loc});
+                    q.resolve();
                 })
             return q.promise;
         }
@@ -76,6 +84,8 @@ namespace app.Services {
           this.status.name = null;
           this.status.maxDist = null;
           this.status.imgUrl = null;
+          this.status.branch = null;
+          this.status.loc = null;
         }
 
         public urlBase64Decode(str) {

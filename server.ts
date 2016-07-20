@@ -12,6 +12,7 @@ const app = express();
 require('./Events/model');
 require('./Comments/model');
 require('./Users/model');
+require('./Access/model');
 require('./config/passport');
 
 let mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/vc';
@@ -42,6 +43,7 @@ app.use('/api/v1/yelp', require('./YelpApi/routes'));
 app.use('/api/v1/users', require('./Users/routes'));
 app.use('/api/v1/comments', require('./Comments/routes'));
 app.use('/api/v1/events', require('./Events/routes'));
+app.use('/api/v1/access', require('./Access/routes'));
 
 
 app.get('/*', function(req, res, next) {

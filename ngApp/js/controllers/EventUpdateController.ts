@@ -1,7 +1,6 @@
 namespace app.Controllers {
     export class EventUpdateController {
         public status;
-        public user;
         public event: app.i.IEvent;
         public arr = [];
         public places;
@@ -30,7 +29,7 @@ namespace app.Controllers {
             this.count = 0;
             this.fetch = false;
             this.$http.get('/api/v1/yelp/search?term=' + this.term + "&location=" +
-                this.location + "&cll=" + this.user.loc[1] + "," + this.user.loc[0] + "&sort=0" + "&offset=" + this.count + "&limit = 20"
+                this.location + "&cll=" + this.status.loc[1] + "," + this.status.loc[0] + "&sort=0" + "&offset=" + this.count + "&limit = 20"
                 ).then((res) => {
                 this.result = res.data;
                 this.result = this.result.businesses;
@@ -47,7 +46,7 @@ namespace app.Controllers {
             this.count += 20;
             this.fetch = false;
             this.$http.get('/api/v1/yelp/search?term=' + this.term + "&location=" +
-                this.location + "&cll=" + this.user.loc[1] + "," + this.user.loc[0] + "&offset=" + this.count + "&limit = 20"
+                this.location + "&cll=" + this.status.loc[1] + "," + this.status.loc[0] + "&offset=" + this.count + "&limit = 20"
                 ).then((res) => {
                 this.result = res.data;
                 this.result = this.result.businesses;
@@ -83,9 +82,6 @@ namespace app.Controllers {
                 this.event = res;
             });
             UserService.userCheck();
-            UserService.getUser(this.status._id).then((res)=>{
-                this.user = res;
-            });
             for (let i = 2; i <= 100; i++) {
                 this.arr.push(i);
             }

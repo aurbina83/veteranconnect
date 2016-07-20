@@ -10,8 +10,8 @@ namespace app.i {
         branch?: string;
         mos?: string;
         branchImg?: string;
-        campaign?: string;
         imgUrl?: string;
+        verified: boolean;
 
         events?: Array<string | IEvent>
     }

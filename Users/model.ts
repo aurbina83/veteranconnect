@@ -18,8 +18,8 @@ let userSchema = new mongoose.Schema({
     branch: {type: String},
     branchImg: {type: String},
     mos: {type: String},
-    campaign: {type: String},
     imgUrl: {type: String},
+    verfied: {type: Boolean},
 
     events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}]
 });
@@ -43,10 +43,13 @@ userSchema.method('comparePassword', function(password, done) {
 
 userSchema.method('generateJWT', function() {
   return jwt.sign({
+    verified: this.verified,
+    branch: this.branch,
     imgUrl: this.imgUrl,
     firstName: this.firstName,
     lastName: this.lastName,
     email: this.email,
+    loc: this.loc,
     _id: this._id
   }, process.env.JWT_SECRET);
 });

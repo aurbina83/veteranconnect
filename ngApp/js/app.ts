@@ -68,6 +68,22 @@ namespace app {
             controller: 'EventsController',
             controllerAs: 'vm'
         })
+            .state('Hold', {
+                url: '/hold',
+                templateUrl: '/templates/hold.html',
+                controller: 'HoldingController',
+                controllerAs: 'vm'
+            })
+            .state('Verify', {
+            url: '/verify',
+            templateUrl: '/templates/verify.html'
+        })
+            .state('Verified', {
+                url: '/verified',
+                templateUrl: '/templates/verified.html',
+                controller: 'VerfiedController',
+                controllerAs: 'vm'
+            })
             .state('tos', {
                 url: '/tos',
                 templateUrl: 'templates/tos.html'

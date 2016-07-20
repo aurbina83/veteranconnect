@@ -2,7 +2,6 @@ namespace app.Controllers{
     export class MyEventController {
         public status;
         public events;
-        public user;
         public isLoading = true;
 
         public removeEvent(e: app.i.IEvent) {

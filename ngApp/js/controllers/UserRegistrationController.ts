@@ -43,10 +43,10 @@ namespace app.Controllers {
             }
         }
         public register(id, email, branch, mos) {
-            this.user.email = this.user.email.toLowerCase();
+            this.user.email = this.user.email.toLowerCase().trim();
             this.user.mos = this.user.mos.toUpperCase();
             this.UserService.register(this.status._id, {email: this.user.email, branch: this.user.branch, mos: this.user.mos, branchImg: this.user.branchImg}).then(()=>{
-                this.$state.go('Welcome');
+                this.$state.go('Verify');
             });
 
 

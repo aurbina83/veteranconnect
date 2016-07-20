@@ -51,18 +51,15 @@ namespace app.Controllers{
             this.status = EventService.status;
             UserService.userCheck();
             UserService.status.maxDist = 24;
-            UserService.getUser(this.status._id).then((res)=>{
-                this.user = res;
-                EventService.getAll({ lng: this.user.loc[0], lat: this.user.loc[1], maxDist: this.status.maxDist }).then((res) => {
-                    this.events = res;
-                    this.fetch = false;
-                });
-            })
+            EventService.getAll({ lng: this.status.loc[0], lat: this.status.loc[1], maxDist: this.status.maxDist }).then((res) => {
+                this.events = res;
+                this.fetch = false;
+            });
 
             $scope.$watch(() => this.status, (newValue, oldValue) => {
                 this.fetch = true;
                 if (newValue !== oldValue) {
-                    EventService.getAll({ lng: this.user.loc[0], lat: this.user.loc[1], maxDist: this.status.maxDist }).then((res) => {
+                    EventService.getAll({ lng: this.status.loc[0], lat: this.status.loc[1], maxDist: this.status.maxDist }).then((res) => {
                         this.events = res;
                         this.fetch = false;
                     });

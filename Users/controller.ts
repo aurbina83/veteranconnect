@@ -7,7 +7,8 @@ export function controller(User: mongoose.Model<IUserModel>) {
         login: login,
         register: register,
         findOne: findOne,
-        update: update
+        update: update,
+        updateLoc: updateLoc
     }
     function login(req: express.Request, res: express.Response, next: Function) {
       if (!req.body.email) return next({ message: 'An email is required to login.' });
@@ -48,9 +49,23 @@ export function controller(User: mongoose.Model<IUserModel>) {
 
 
     function update (req: express.Request, res: express.Response, next: Function) {
-        User.update({_id: req.params.id}, req.body,(err, numRows) => {
+        User.findOneAndUpdate({_id: req.params.id},
+            {$set: {
+            branch: req.body.branch,
+            email: req.body.email,
+            mos: req.body.mos,
+            branchImg: req.body.branchImg
+        }}, {new: true}, (err, user) => {
             if(err) return next(err);
-            res.json({message: "Updated"});
+            res.json({token: user.generateJWT()});
         });
     }
+
+    function updateLoc (req: express.Request, res: express.Response, next: Function) {
+        User.findOneAndUpdate({_id: req.params.id}, {$set: {loc: req.body.loc}}, {new: true}, (err, user) =>{
+            if (err) return next (err);
+            res.json({token: user.generateJWT()});
+        })
+    }
+
 }
