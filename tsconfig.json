@@ -28,6 +28,10 @@
   "compileOnSave": true,
   "buildOnSave": false,
   "files": [
+    "Access/controller.ts",
+    "Access/interface.ts",
+    "Access/model.ts",
+    "Access/routes.ts",
     "Comments/controller.ts",
     "Comments/interface.ts",
     "Comments/model.ts",
