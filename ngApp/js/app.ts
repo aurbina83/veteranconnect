@@ -84,6 +84,10 @@ namespace app {
                 controller: 'VerfiedController',
                 controllerAs: 'vm'
             })
+            .state('Pending', {
+                url: '/pending',
+                templateUrl: '/templates/pending.html'
+            })
             .state('tos', {
                 url: '/tos',
                 templateUrl: 'templates/tos.html'

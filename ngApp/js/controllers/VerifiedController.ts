@@ -14,6 +14,15 @@ namespace app.Controllers {
             })
         }
 
+        private loginCheck() {
+            if (this.UserService.getToken()) {
+                this.updateUser()
+            } else {
+                this.UserService.setAccessCode(this.access_code);
+                this.$state.go('Login')
+            }
+        }
+
         constructor(
             private $location: ng.ILocationService,
             private UserService: app.Services.UserService,
@@ -25,7 +34,11 @@ namespace app.Controllers {
                     this.access_code = $location.search().access_code;
                     $location.search('');
                     if ($location.hash()) $location.hash('/verify');
-                    this.updateUser()
+                    this.loginCheck();
+                } else {
+                    this.access_code = UserService.getAccessCode();
+                    this.updateUser();
+                    UserService.removeAccessCode();
                 }
         }
     }

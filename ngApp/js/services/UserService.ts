@@ -44,6 +44,18 @@ namespace app.Services {
           this.clearUser();
         }
 
+        public getAccessCode() {
+          return this.$window.localStorage.getItem('access_code');
+        }
+
+        public setAccessCode(access_code: string) {
+          this.$window.localStorage.setItem('access_code', access_code);
+        }
+
+        public removeAccessCode(){
+            this.$window.localStorage.removeItem('access_code');
+        }
+
         public setUser() {
           let token = this.getToken();
           let u = JSON.parse(this.urlBase64Decode(this.getToken().split('.')[1]));
