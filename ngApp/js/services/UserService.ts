@@ -64,7 +64,9 @@ namespace app.Services {
           this.status.imgUrl = u.imgUrl;
           this.status.branch = u.branch;
           this.status.verified = u.verified;
-          this.status.loc = u.loc;
+          if(u.loc) {
+              this.status.loc = u.loc;
+          }
         }
 
 
@@ -115,6 +117,7 @@ namespace app.Services {
 
         public userCheck (){
             if(!this.getToken()) this.$state.go('Login');
+            if(this.getToken() && !this.status.verified) this.$state.go('Pending')
         }
 
 
@@ -126,7 +129,7 @@ namespace app.Services {
             private $timeout: ng.ITimeoutService,
             private $state: ng.ui.IStateService
         ){
-            if(this.getToken()){
+            if(this.getToken()) {
                 this.setUser();
                 this.getLocation();
             }

@@ -17,8 +17,7 @@ export function create(req: express.Request, res: express.Response, next: Functi
 
 export function remove(req: express.Request, res: express.Response, next: Function) {
     Access.findOneAndRemove({
-        code: req.params.code,
-        expiration: {$gte: Date.now()}
+        code: req.params.code
     }, (err, code)=>{
         if (err) return next (err);
         if(code) {

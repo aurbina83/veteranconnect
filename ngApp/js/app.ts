@@ -81,7 +81,7 @@ namespace app {
             .state('Verified', {
                 url: '/verified',
                 templateUrl: '/templates/verified.html',
-                controller: 'VerfiedController',
+                controller: 'VerifiedController',
                 controllerAs: 'vm'
             })
             .state('Pending', {

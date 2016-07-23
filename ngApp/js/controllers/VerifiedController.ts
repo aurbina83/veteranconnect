@@ -31,9 +31,11 @@ namespace app.Controllers {
             private $state: ng.ui.IStateService){
                 this.status = UserService.status;
                 if($location.search().access_code) {
+                    console.log('here');
                     this.access_code = $location.search().access_code;
+                    this.updateUser();
                     $location.search('');
-                    if ($location.hash()) $location.hash('/verify');
+                    if ($location.hash()) $location.hash('');
                     this.loginCheck();
                 } else {
                     this.access_code = UserService.getAccessCode();
@@ -42,6 +44,5 @@ namespace app.Controllers {
                 }
         }
     }
-
     angular.module('app').controller('VerifiedController', VerifiedController);
 }

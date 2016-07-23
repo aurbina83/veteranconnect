@@ -11,7 +11,7 @@ namespace app.Controllers {
         this.$state.go('Register');
       }
       if (this.status.branch && !this.status.verified) {
-        this.$state.go('Verify')
+        this.$state.go('Pending')
       }
       if (this.status.verified) {
         this.$state.go('Welcome');
@@ -20,7 +20,7 @@ namespace app.Controllers {
 
     private accessCheck() {
         if(!this.UserService.getAccessCode()) {
-            this.route;
+            this.route();
         } else {
             this.$location.path('/verified');
         }
@@ -30,18 +30,16 @@ namespace app.Controllers {
       private $location: ng.ILocationService,
       private $state: ng.ui.IStateService) {
       this.status = UserService.status;
-      UserService.getLocation().then(()=>{
-          if ($location.search().code) {
-            UserService.setToken($location.search().code);
-            UserService.setUser();
-            // clear query string
-            $location.search('');
-            if ($location.hash()) $location.hash('/hold');
-            this.accessCheck();
-        } else {
-            $state.go('Home');
-        }
-      })
+      if ($location.search().code) {
+        UserService.setToken($location.search().code);
+        UserService.setUser();
+        // clear query string
+        $location.search('');
+        if ($location.hash()) $location.hash('');
+        this.accessCheck();
+    } else {
+        $state.go('Home');
+    }
     }
   }
   angular.module('app').controller('HoldingController', HoldingController);
