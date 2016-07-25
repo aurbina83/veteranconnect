@@ -29,7 +29,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
 
         //Find Locations
         Event.find({
-            "dateTime": {$lte: new Date(date)},
+            "dateTime": {$gte: new Date(date)},
             "loc": {
                 $near: {
                     $geometry: {
@@ -66,7 +66,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
 
     function findMine(req: express.Request, res: express.Response, next: Function){
         let date = Date.now();
-        Event.find({eventCreator: req['payload']._id, dateTime: {$lte: new Date(date)} })
+        Event.find({eventCreator: req['payload']._id, dateTime: {$gte: new Date(date)} })
         .populate('eventCreator', 'firstName lastName imgUrl')
         .exec((err, data) => {
             if(err) return next(err);

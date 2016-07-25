@@ -20,9 +20,13 @@ namespace app.Controllers {
 
     private accessCheck() {
         if(!this.UserService.getAccessCode()) {
-            this.route();
+            this.UserService.getLocation().then(()=>{
+                this.route();
+            })
         } else {
-            this.$location.path('/verified');
+            this.UserService.getLocation().then(()=>{
+                this.$location.path('/verified');
+            })
         }
     }
     constructor(

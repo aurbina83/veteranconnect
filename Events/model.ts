@@ -11,12 +11,11 @@ let eventSchema = new mongoose.Schema({
     eventAddress: { type: String, required: true},
     city:{ type: String, required: true},
     state:{ type: String, required: true},
-    dateTime: {type: String, required: true},
+    dateTime: {type: Date, required: true},
     dateCreated: {type: Number},
     eventCreator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
 
     attending: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
     comments: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Comment' } ]
 });
-
 export let Event = mongoose.model<IEventModel>('Event', eventSchema);

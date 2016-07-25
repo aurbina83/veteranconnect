@@ -7,7 +7,7 @@ export interface IAccessModel extends app.i.IAccess, mongoose.Document{
 
 let accessSchema = new mongoose.Schema({
     code: {type: Number},
-    expiration: {type: Number}
+    expiresAt: {type: Date, index: {expireAfterSeconds: 10}}
 });
 
 accessSchema.method('generate', function(){

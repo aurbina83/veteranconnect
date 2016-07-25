@@ -58,6 +58,7 @@ namespace app.Services {
 
         public setUser() {
           let token = this.getToken();
+          console.log(token);
           let u = JSON.parse(this.urlBase64Decode(this.getToken().split('.')[1]));
           this.status._id = u._id;
           this.status.name = u.firstName + " " + u.lastName;
@@ -83,6 +84,7 @@ namespace app.Services {
         public getLocation(){
             let q = this.$q.defer();
             navigator.geolocation.getCurrentPosition((position)=>{
+                    console.log('here');
                     let lat = position.coords.latitude;
                     let lng = position.coords.longitude;
                     let loc = [lng, lat];
@@ -100,18 +102,20 @@ namespace app.Services {
           this.status.imgUrl = null;
           this.status.branch = null;
           this.status.loc = null;
+          this.status.verified = null;
         }
 
         public urlBase64Decode(str) {
-            var output = str.replace(/-/g, '+').replace(/_/g, '/');
-            switch (output.length % 4) {
-                case 0: { break; }
-                case 2: { output += '=='; break; }
-                case 3: { output += '='; break; }
-                default: {
-                    throw 'Illegal base64url string!';
+                var output = str.replace(/-/g, '+').replace(/_/g, '/');
+                switch (output.length % 4) {
+                    case 0: { break; }
+                    case 2: { output += '=='; break; }
+                    case 3: { output += '='; break; }
+                    default: {
+                        throw 'Illegal base64url string!';
+                    }
                 }
-            }
+
             return decodeURIComponent(encodeURIComponent(this.$window.atob(output))); //polifyll https://github.com/davidchambers/Base64.js
         }
 

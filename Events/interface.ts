@@ -12,7 +12,7 @@ namespace app.i {
         eventAddress: string;
         city: string;
         state: string;
-        dateTime: string;
+        dateTime: any;
         dateCreated: number;
         eventCreator: (string | IUser);
 

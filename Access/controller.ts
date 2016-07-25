@@ -6,9 +6,9 @@ import { User, IUserModel} from '../Users/model';
 export function create(req: express.Request, res: express.Response, next: Function){
     let a = new Access();
     let date = new Date();
+    let days = 7;
     a.code = a.generate();
-    a.expiration = date.setDate(date.getDate() + 7);
-
+    a.expiresAt = new Date(date.getTime() + (days * 24 * 60 * 60 * 1000))
     Access.create(a, (err, access) =>{
         if(err) return next (err);
         res.json({'discount_code': a.code.toString()});
@@ -20,7 +20,9 @@ export function remove(req: express.Request, res: express.Response, next: Functi
         code: req.params.code
     }, (err, code)=>{
         if (err) return next (err);
-        if(code) {
+        if (!code) return next ({message: "The verification process is expired or unauthorized"});
+        if (code) {
+            console.log(code);
             User.findOneAndUpdate({_id: req['payload']._id}, { $set: {verified: true} }, { new: true }, (err, user)=>{
                 if (err) return next ({message: "The verification process is expired or unauthorized"});
                 res.json({token: user.generateJWT()});

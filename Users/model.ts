@@ -19,7 +19,7 @@ let userSchema = new mongoose.Schema({
     branchImg: {type: String},
     mos: {type: String},
     imgUrl: {type: String},
-    verfied: {type: Boolean},
+    verified: {type: Boolean},
 
     events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}]
 });
