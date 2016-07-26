@@ -5,9 +5,7 @@ namespace app.Controllers {
         public access_code;
 
         private updateUser() {
-            console.log('logged');
             this.$http.delete('/api/v1/access/' + this.access_code).then((res)=>{
-                console.log('here too');
                 this.UserService.setToken(res.data['token']);
                 this.UserService.setUser();
                 this.$state.go('Welcome');
@@ -33,13 +31,11 @@ namespace app.Controllers {
             private $state: ng.ui.IStateService){
                 this.status = UserService.status;
                 if($location.search().access_code) {
-                    console.log('here');
                     this.access_code = $location.search().access_code;
                     $location.search('');
                     if ($location.hash()) $location.hash('');
                     this.loginCheck();
-                }
-                if (UserService.getAccessCode())  {
+                } else if (UserService.getAccessCode())  {
                     this.access_code = UserService.getAccessCode();
                     this.updateUser();
                     UserService.removeAccessCode();

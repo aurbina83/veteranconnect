@@ -2,7 +2,6 @@ namespace app.Controllers{
     export class EventsController {
         public events;
         public status;
-        public user;
         public fetch = true;
 
         public distance = 15;

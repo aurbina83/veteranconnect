@@ -44,7 +44,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         .populate('eventCreator', 'firstName lastName branch branchImg imgUrl')
         .populate('attending', 'firstName lastName imgUrl branch')
         .exec((err, data) => {
-            if (err) return next(err);
+            if (err) return next({message: "Error here"});
             res.json(200, data);
         });
     }
