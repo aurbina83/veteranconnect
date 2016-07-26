@@ -110,7 +110,8 @@ namespace app.Services {
 
     public userCheck() {
       if (!this.getToken()) this.$state.go('Login');
-      if (this.getToken() && !this.status.verified) this.$state.go('Pending')
+      if(this.getToken() && !this.status.branch) this.$state.go('Register');
+      if (this.getToken() && !this.status.verified) this.$state.go('Pending');
     }
 
 
