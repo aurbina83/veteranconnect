@@ -76,7 +76,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
 
     function findAttending(req: express.Request, res: express.Response, next: Function){
         let date = Date.now();
-        Event.find({attending: req['payload']._id, dateTime: {$lte: new Date(date)} })
+        Event.find({attending: req['payload']._id, dateTime: {$gte: new Date(date)} })
         .populate('eventCreator', 'firstName lastName branch')
         .exec((err, data) => {
             if(err) return next(err);
