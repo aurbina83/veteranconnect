@@ -5,6 +5,7 @@ const open = require('open');
 const http = require('http');
 const nodemon = require('nodemon');
 const runSequence = require('run-sequence');
+const autoprefixer = require('gulp-autoprefixer');
 const gulpLoadPlugins = require('gulp-load-plugins');
 
 let plugins = gulpLoadPlugins();
@@ -111,7 +112,7 @@ gulp.task('copy:views', function() {
  */
 gulp.task('build', function(cb) {
   runSequence(
-    ['copy:views', 'jade'],
+    ['copy:views'],
     ['minify:css'],
     'minify:js',
     ['inject:js:dev', 'inject:js:prod']
@@ -123,7 +124,7 @@ gulp.task('build', function(cb) {
  */
 gulp.task('serve', function(cb) {
   runSequence(
-    ['copy:views', 'jade', 'minify:css', 'minify:js'],
+    ['copy:views', 'minify:css', 'minify:js'],
     'inject:js:prod',
     ['start:server', 'start:client'], cb);
 });
