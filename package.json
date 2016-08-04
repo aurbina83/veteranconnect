@@ -4,8 +4,8 @@
   "description": "A MEAN stack application.",
   "scripts": {
     "start": "node ./bin/www",
-    "devstart": "nodemon ./bin/www"
-
+    "devstart": "nodemon ./bin/www",
+    "postinstall": "./node_modules/.bin/typings install && ./node_modules/.bin/tsc && ./node_modules/.bin/bower install"
   },
   "license": "MIT",
   "dependencies": {

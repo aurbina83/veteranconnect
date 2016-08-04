@@ -11,3 +11,4 @@ npm-debug.log
 /coverage
 !infinite-scroll.js
 !gulpfile.js
+!/dist/**/*.js
