@@ -76,7 +76,7 @@ gulp.task('inject:js:dev', function() {
       gulp.src('./ngApp/**/*.js'), {
         starttag: '<!-- injector:js -->',
         endtag: '<!-- endinjector -->',
-        transform: (filepath) => `<script src="${filepath.replace(/ngApp/g, 'scripts')}"></script>`
+        transform: (filepath) => `<script src="${filepath.replace(/ngApp/g, 'lib')}"></script>`
       }
     ))
     .pipe(gulp.dest('./views'));
@@ -92,7 +92,7 @@ gulp.task('inject:js:prod', function() {
       gulp.src('./dist/js/jsBundle.min.js'), {
         starttag: '<!-- injector:js -->',
         endtag: '<!-- endinjector -->',
-        transform: (filepath) => `<script src="${filepath.replace(/dist/g, 'scripts')}"></script>`
+        transform: (filepath) => `<script src="${filepath.replace(/dist/g, 'lib')}"></script>`
       }
     ))
     .pipe(gulp.dest('./dist/views'));

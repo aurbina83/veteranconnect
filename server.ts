@@ -35,8 +35,8 @@ app.use(cookieParser());
 app.use(helmet());
 
 app.use('/templates', require('./routes/viewRoutes'));
-
-app.use(express.static('./ngApp'));
+app.use('/lib', express.static('./dist'));
+app.use('/lib', express.static('./ngApp'));
 app.use('/scripts', express.static('www/lib'));
 
 app.use('/api/v1/yelp', require('./YelpApi/routes'));
