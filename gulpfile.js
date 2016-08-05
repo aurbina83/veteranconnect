@@ -76,7 +76,7 @@ gulp.task('inject:js:dev', function() {
       gulp.src('./ngApp/**/*.js'), {
         starttag: '<!-- injector:js -->',
         endtag: '<!-- endinjector -->',
-        transform: (filepath) => `<script src="${filepath.replace(/ngApp/g, 'lib')}"></script>`
+        transform: (filepath) => `<script src="${filepath.replace(/ngApp/, 'lib')}"></script>`
       }
     ))
     .pipe(gulp.dest('./views'));
