@@ -11,7 +11,7 @@ export function create(req: express.Request, res: express.Response, next: Functi
     a.expiresAt = new Date(date.getTime() + (days * 24 * 60 * 60 * 1000))
     console.log(req.headers);
     console.log("here");
-    if(req.headers['x-ids-key'] == '356760f9d6a78a8bdf565706835c2f87') {
+    if(req.headers['x-ids-key'] == process.env.ID_SERVICE_KEY) {
         Access.create(a, (err, access) =>{
             if(err) return next (err);
             res.json({'discount_code': a.code.toString()});
