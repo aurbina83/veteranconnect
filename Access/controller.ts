@@ -9,14 +9,16 @@ export function create(req: express.Request, res: express.Response, next: Functi
     let days = 7;
     a.code = a.generate();
     a.expiresAt = new Date(date.getTime() + (days * 24 * 60 * 60 * 1000))
-    if(req.headers['X-IDS-KEY'] == '356760f9d6a78a8bdf565706835c2f87') {
+    console.log(req.headers);
+    console.log("here");
+    // if(req.headers['X-IDS-KEY'] == '356760f9d6a78a8bdf565706835c2f87') {
         Access.create(a, (err, access) =>{
             if(err) return next (err);
             res.json({'discount_code': a.code.toString()});
          })
-    } else {
-        return next ({message: 'You dont have access'});
-    }
+    // } else {
+    //     return next ({message: 'You dont have access'});
+    // }
 }
 
 export function remove(req: express.Request, res: express.Response, next: Function) {
