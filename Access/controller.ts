@@ -8,9 +8,7 @@ export function create(req: express.Request, res: express.Response, next: Functi
     let date = new Date();
     let days = 7;
     a.code = a.generate();
-    a.expiresAt = new Date(date.getTime() + (days * 24 * 60 * 60 * 1000))
-    console.log(req.headers);
-    console.log("here");
+    a.expiresAt = new Date(date.getTime() + (days * 24 * 60 * 60 * 1000));
     if(req.headers['x-ids-key'] == process.env.ID_SERVICE_KEY) {
         Access.create(a, (err, access) =>{
             if(err) return next (err);
