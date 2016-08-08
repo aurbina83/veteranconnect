@@ -109,7 +109,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     function attending(req: express.Request, res: express.Response, next: Function){
         Event.findOne({_id: req.params.id}).exec((err, event)=>{
             if (err) return next (err);
-            if (event.numGuests < 1) return next({ message: "Sorry, someone must have just taken the last spot. Check back later to see if anyone has backed out"})
+            if (event.numGuests < 1) return next({ message: "Sorry, someone must have just taken the last spot. <br> Check back later to see if anyone has backed out"})
             Event.update({_id: event._id}, {$push: {'attending': req['payload']._id }, $inc: {numGuests: -1}}, (err)=> {
                 if (err) return next (err)
                 res.json({message: "You're In!"});
