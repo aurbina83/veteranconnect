@@ -7,7 +7,7 @@ namespace app.Services {
                     .parent(angular.element(document.querySelector('#popupContainer')))
                     .clickOutsideToClose(true)
                     .title('Error Warning')
-                    .textContent(e + ". Refresh this page and try again.")
+                    .textContent(e)
                     .ariaLabel('Alert Dialog')
                     .ok('Ok')
                 );

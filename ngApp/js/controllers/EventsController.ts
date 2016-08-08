@@ -36,7 +36,7 @@ namespace app.Controllers{
             },
             (err) =>{
                 console.log(err);
-                this.ErrorService.error(err.message);
+                this.ErrorService.error(err.data.message);
             })
         }
 
