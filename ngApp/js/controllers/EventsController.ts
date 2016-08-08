@@ -35,8 +35,8 @@ namespace app.Controllers{
                 this.$state.go('Attending');
             },
             (err) =>{
-                console.log(err.data);
-                this.ErrorService.error(err.data.message);
+                console.log("hola");
+                this.ErrorService.error(err.message);
             })
         }
 
