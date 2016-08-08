@@ -8,6 +8,7 @@ namespace app.Controllers {
             private $http: ng.IHttpService,
             private $location: ng.ILocationService
         ) {
+            console.log('updated');
             this.status = UserService.status;
             if (this.status._id) {
                 if (this.status.branch && this.status.verified) this.$state.go('Welcome');
