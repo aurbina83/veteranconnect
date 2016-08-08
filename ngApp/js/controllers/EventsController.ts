@@ -34,9 +34,9 @@ namespace app.Controllers{
             this.EventService.attending(e._id).then(() => {
                 this.$state.go('Attending');
             },
-            (res) =>{
-                console.log(res);
-                this.ErrorService.error(res.message);
+            (err) =>{
+                console.log(err.data);
+                this.ErrorService.error(err.data.message);
             })
         }
 
