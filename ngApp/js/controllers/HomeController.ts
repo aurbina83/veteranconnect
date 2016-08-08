@@ -6,10 +6,8 @@ namespace app.Controllers {
             private UserService: app.Services.UserService,
             private $state: ng.ui.IStateService,
             private $http: ng.IHttpService,
-            private $location: ng.ILocationService,
-            private ErrorService: app.Services.ErrorService
+            private $location: ng.ILocationService
         ) {
-            ErrorService.error("Test");
             this.status = UserService.status;
             if (this.status._id) {
                 if (this.status.branch && this.status.verified) this.$state.go('Welcome');
