@@ -109,7 +109,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     function attending(req: express.Request, res: express.Response, next: Function){
         Event.findOne({_id: req.params.id}).exec((err, event)=>{
             if (err) return next (err);
-            if (event.numGuests < 1) return res.json({message: "This event is full. Check back later"});
+            if (event.numGuests < 1) return next({ message: "Sorry, this event is full!"})
             Event.update({_id: event._id}, {$push: {'attending': req['payload']._id }, $inc: {numGuests: -1}}, (err)=> {
                 if (err) return next (err)
                 res.json({message: "You're In!"});

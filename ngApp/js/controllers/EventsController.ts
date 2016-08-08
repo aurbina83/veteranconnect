@@ -33,6 +33,9 @@ namespace app.Controllers{
             }
             this.EventService.attending(e._id).then(() => {
                 this.$state.go('Attending');
+            },
+            (err) =>{
+                this.ErrorService.error(err.message);
             })
         }
 
@@ -47,7 +50,6 @@ namespace app.Controllers{
         };
 
         constructor(private EventService: app.Services.EventService, private $scope: ng.IScope, private UserService: app.Services.UserService, private $mdDialog, private $state: ng.ui.IStateService, private ErrorService) {
-            ErrorService.error("Test");
             this.status = EventService.status;
             UserService.userCheck();
             UserService.status.maxDist = 24;
