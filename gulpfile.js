@@ -6,6 +6,7 @@ const http = require('http');
 const nodemon = require('nodemon');
 const runSequence = require('run-sequence');
 const autoprefixer = require('gulp-autoprefixer');
+const imageop = require('gulp-image-optimization');
 const gulpLoadPlugins = require('gulp-load-plugins');
 
 let plugins = gulpLoadPlugins();
@@ -53,6 +54,17 @@ gulp.task('minify:css', function() {
     .pipe(plugins.cleanCss({ compatability: 'ie8'}))
     .pipe(plugins.rename('stylesBundle.min.css'))
     .pipe(gulp.dest('./dist/css'));
+});
+
+/**
+ *  Image optimzation
+ */
+gulp.task('images', function(cb) {
+    gulp.src(['./ngApp/images/**/*.png', './ngApp/images/**/*.jpg']).pipe(imageop({
+        optimizationLevel: 5,
+        progressive: true,
+        interlaced: true
+    })).pipe(gulp.dest('public/images')).on('end', cb).on('error', cb);
 });
 /**
  * Concat all js files and minifiy(uglify) to dist
@@ -115,7 +127,7 @@ gulp.task('build', function(cb) {
     ['copy:views'],
     ['minify:css'],
     'minify:js',
-    ['inject:js:dev', 'inject:js:prod']
+    ['inject:js:prod']
     , cb);
 });
 
