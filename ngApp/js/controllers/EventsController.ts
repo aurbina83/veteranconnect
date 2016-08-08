@@ -31,12 +31,12 @@ namespace app.Controllers{
                     return this.showAlert();
                 }
             }
-            this.EventService.attending(e._id).then((res) => {
+            this.EventService.attending(e._id).then(() => {
                 this.$state.go('Attending');
             },
-            (err) =>{
-                console.log(err);
-                this.ErrorService.error(err.message);
+            (res) =>{
+                console.log(res);
+                this.ErrorService.error(res.message);
             })
         }
 
