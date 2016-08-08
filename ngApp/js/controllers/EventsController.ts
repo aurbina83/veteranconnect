@@ -31,7 +31,7 @@ namespace app.Controllers{
                     return this.showAlert();
                 }
             }
-            this.EventService.attending(e._id).then(() => {
+            this.EventService.attending(e._id).then((res) => {
                 this.$state.go('Attending');
             },
             (err) =>{
