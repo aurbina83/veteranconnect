@@ -37,7 +37,10 @@ namespace app.Services {
             let q = this.$q.defer();
             this.$http.put('/api/v1/events/attending/' +id, null).then(()=>{
                 q.resolve();
-            });
+            }, (err) =>{
+                q.reject(err);
+            }
+            );
             return q.promise;
         }
 
