@@ -81,13 +81,13 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     function email (req: express.Request, res: express.Response, next: Function) {
             let mailOptions = {
                 from: 'Veteran Connect <info@veteranconnect.co>',
-                to: 'worgeskm@gmail.com',
+                to: 'aurbina.metro@gmail.com',
                 subject: 'Test',
                 html: "<h1>Hey Yo Babe</h1>"
             };
             transporter.sendMail(mailOptions, (err) =>{
                 if (err) return next (err);
-                res.json({message: "All done here"});
+                return
             })
     }
 
