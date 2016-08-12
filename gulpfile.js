@@ -6,7 +6,7 @@ const http = require('http');
 const nodemon = require('nodemon');
 const runSequence = require('run-sequence');
 const autoprefixer = require('gulp-autoprefixer');
-const imageop = require('gulp-image-optimization');
+const imagemin = require('gulp-imagemin');
 const gulpLoadPlugins = require('gulp-load-plugins');
 
 let plugins = gulpLoadPlugins();
@@ -59,13 +59,11 @@ gulp.task('minify:css', function() {
 /**
  *  Image optimzation
  */
-gulp.task('images', function(cb) {
-    gulp.src(['./ngApp/images/**/*.png', './ngApp/images/**/*.jpg']).pipe(imageop({
-        optimizationLevel: 5,
-        progressive: true,
-        interlaced: true
-    })).pipe(gulp.dest('public/images')).on('end', cb).on('error', cb);
-});
+gulp.task('images', () =>
+    gulp.src('./ngApp/images/*')
+        .pipe(imagemin())
+        .pipe(gulp.dest('dist/images'))
+);
 /**
  * Concat all js files and minifiy(uglify) to dist
  */
@@ -124,10 +122,8 @@ gulp.task('copy:views', function() {
  */
 gulp.task('build', function(cb) {
   runSequence(
-    ['copy:views'],
-    ['minify:css'],
-    'minify:js',
-    ['inject:js:prod']
+    ['copy:views', 'minify:css', 'minify:js', 'images'],
+    'inject:js:prod'
     , cb);
 });
 

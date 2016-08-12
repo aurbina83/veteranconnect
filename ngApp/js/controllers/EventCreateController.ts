@@ -55,7 +55,7 @@ namespace app.Controllers {
                 this.fetch = true;
             },
                 (err) => {
-                    this.message = err.data.message;
+                    this.ErrorService.sweetAlert("Damn!", err.data.message, "warning");
                 })
         }
 
@@ -70,13 +70,19 @@ namespace app.Controllers {
                     this.count += 20;
                 },
                     (err) => {
-                        this.message = err.data.message;
+                        this.ErrorService.sweetAlert("Damn!!", err.data.message, "warning");
                     })
             }
-
+        /**
+         * Submit event
+         * @return {[err]} [error message]
+         */
         public submit(){
-            this.EventService.createEvent(this.event).then(()=>{
+            this.EventService.createEvent(this.event).then((res)=>{
+                this.ErrorService.toast(res['message']);
                 this.$state.go("My Events");
+            }, (err) =>{
+                this.ErrorService.sweetAlert("Oops, something went wrong!", err.data.message, "warning");
             });
         }
 
@@ -85,11 +91,12 @@ namespace app.Controllers {
             private EventService: app.Services.EventService,
             private $state: ng.ui.IStateService,
             private UserService: app.Services.UserService,
-            private $http: ng.IHttpService
+            private $http: ng.IHttpService,
+            private ErrorService: app.Services.ErrorService
             ) {
                 this.status = UserService.status;
                 UserService.userCheck();
-                // this.arr = Array(98).fill(0).map((e,i)=>i+2);
+                // array of numbers for num guest selection
                 for(let i = 2; i < 99; i++){
                     this.arr.push(i);
                 }

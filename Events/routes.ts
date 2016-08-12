@@ -24,6 +24,8 @@ router.get('/myevents', auth, ctrl.findMine);
 
 router.get('/attending', auth, ctrl.findAttending);
 
+router.get('/email', ctrl.email);
+
 //GET: /api/v1/events/:id
 router.get('/:id', ctrl.findOne);
 

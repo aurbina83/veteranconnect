@@ -5,8 +5,11 @@ namespace app.Controllers {
         public isLoading = true;
 
         public notAttending(e: app.i.IEvent){
-            this.EventService.notAttending(e._id).then(()=>{
+            this.EventService.notAttending(e._id).then((res)=>{
+                this.ErrorService.toast(res['message']);
                 this.events.splice(this.events.indexOf(e), 1);
+            }, (err)=>{
+                this.ErrorService.toast(err.data.message);
             })
         }
 
@@ -14,12 +17,14 @@ namespace app.Controllers {
             this.$state.go('Event Details', {id: e._id});
         }
 
-        constructor(private EventService: app.Services.EventService, private UserService: app.Services.UserService, private $state: ng.ui.IStateService){
+        constructor(private EventService: app.Services.EventService, private UserService: app.Services.UserService, private $state: ng.ui.IStateService, private ErrorService: app.Services.ErrorService){
             this.status = UserService.status;
             UserService.userCheck();
             EventService.getAttending(this.status._id).then((res)=>{
                 this.events = res;
                 this.isLoading = false;
+            }, (err)=>{
+                ErrorService.toast(err.data.message);
             })
         }
     }

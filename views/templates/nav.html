@@ -22,7 +22,7 @@
     </md-toolbar>
     <div layout="row" flex>
         <md-sidenav layout="column" md-component-id="left" class="md-whiteframe-z2" ng-show="nav.status._id" ng-click="nav.openLeftMenu()">
-            <md-toolbar class="md-whiteframe-z1" style="background-color: #820805;">
+            <md-toolbar class="md-whiteframe-z1" style="background-color: #820805; height: 30px;">
                 <div class="md-toolbar-tools">
                     <div layout="row" flex layout-align="center">
                         <h1 style='font-style: italic;'>EVENTS</h1>
@@ -81,6 +81,21 @@
                         <h3 style="font-style: italic;">LOG OUT</h3>
                     </md-button>
                 </md-list-item>
+                <md-divider></md-divider>
+                <a href="http://www.facebook.com/veteranconnectco/" target="_blank">
+                    <md-list-item>
+                        <md-button layout='row' flex md-ink-ripple='#2E4359'>
+                            <img src="images/fbfind.png" alt="Find us on Facebook" >
+                        </md-button>
+                    </md-list-item>
+                </a>
+                <a href="mailto:info@veteranconnect.co">
+                    <md-list-item>
+                        <md-button layout='row' flex md-ink-ripple='#2E4359'>
+                            <i class="material-icons">email</i> &nbsp&nbsp <h3>Email Us!</h3>
+                        </md-button>
+                    </md-list-item>
+                </a>
             </md-list>
         </md-sidenav>
     </div>

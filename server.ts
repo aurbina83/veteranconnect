@@ -7,6 +7,8 @@ import bodyParser = require('body-parser');
 import mongoose = require('mongoose');
 import helmet = require('helmet');
 import passport = require('./config/passport');
+let nodemailer = require('nodemailer');
+let ses = require('nodemailer-ses-transport');
 const app = express();
 
 require('./Events/model');
@@ -27,7 +29,7 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(__dirname + '/favicon.ico'));
 if (process.env.NODE_ENV !== 'test') app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

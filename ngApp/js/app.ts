@@ -1,6 +1,6 @@
 'use strict';
 namespace app {
-    angular.module('app', ['ui.router', 'ngResource', 'ngAnimate', 'ngMessages', 'ngMaterial', 'ngAria', 'ngMaterialDatePicker', 'angularMoment'])
+    angular.module('app', ['ui.router', 'ngResource', 'ngAnimate', 'ngMessages', 'ngMaterial', 'ngAria', 'ngMaterialDatePicker', 'ngSanitize', 'angularMoment', 'oitozero.ngSweetAlert'])
         .config((
         $mdThemingProvider,
         $httpProvider: ng.IHttpProvider,
@@ -65,7 +65,7 @@ namespace app {
             .state('Welcome', {
             url: '/welcome',
             templateUrl: '/templates/welcome.html',
-            controller: 'EventsController',
+            controller: 'WelcomeController',
             controllerAs: 'vm'
         })
             .state('Hold', {
@@ -100,7 +100,6 @@ namespace app {
     $mdThemingProvider.theme('default')
         .primaryPalette('indigo')
         .accentPalette('red');
-
 
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);

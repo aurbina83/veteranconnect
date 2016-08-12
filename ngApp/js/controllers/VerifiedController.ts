@@ -10,7 +10,7 @@ namespace app.Controllers {
                 this.UserService.setUser();
                 this.$state.go('Welcome');
             }, (err)=>{
-                this.message = err.data.message;
+                this.ErrorService.sweetAlertRoute(err.data.message, "You may need to re-verify your service. Come back when you find my box of reticles.", "Verify");
             })
         }
 
@@ -24,6 +24,7 @@ namespace app.Controllers {
         }
 
         constructor(
+            private ErrorService: app.Services.ErrorService,
             private $location: ng.ILocationService,
             private UserService: app.Services.UserService,
             private $http: ng.IHttpService,

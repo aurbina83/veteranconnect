@@ -21,7 +21,8 @@
 }
 
 .loginbtn {
-    width: 300px;
+    min-width: 270px;
+    max-width: 300px;
     height: 50px;
     text-transform: none;
     font-family: 'Roboto', sans-serif;
@@ -61,16 +62,26 @@ a {
 
 .hint {
     /* Position the hint */
-    position: absolute;
-    left: 2px;
-    right: auto;
-    bottom: 7px;
+    position: relative;
+    padding-top: 5px;
     /* Copy styles from ng-messages */
     font-size: 12px;
     line-height: 14px;
     transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
     /* Set our own color */
     color: grey; }
+
+    .hint2 {
+        /* Position the hint */
+        position: relative;
+        padding-top: 5px;
+        margin-top: -20px;
+        /* Copy styles from ng-messages */
+        font-size: 12px;
+        line-height: 14px;
+        transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+        /* Set our own color */
+        color: grey; }
 
 /*.img-container{
     position: relative;

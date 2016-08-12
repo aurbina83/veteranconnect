@@ -31,43 +31,36 @@ namespace app.Controllers {
             this.$http.get('/api/v1/yelp/search?term=' + this.term + "&location=" +
                 this.location + "&cll=" + this.status.loc[1] + "," + this.status.loc[0] + "&sort=0" + "&offset=" + this.count + "&limit = 20"
                 ).then((res) => {
-                this.result = res.data;
-                this.result = this.result.businesses;
-                this.places = this.result;
+                this.places = res.data['businesses'];
                 this.fetch = true;
             },
                 (err) => {
-                    this.message = err.data.message;
+                    this.ErrorService.sweetAlert("Damn!", err.data.message, "warning");
                 })
         }
 
         //Yelp Pagination
         public moreYelp() {
             this.count += 20;
-            this.fetch = false;
-            this.$http.get('/api/v1/yelp/search?term=' + this.term + "&location=" +
-                this.location + "&cll=" + this.status.loc[1] + "," + this.status.loc[0] + "&offset=" + this.count + "&limit = 20"
-                ).then((res) => {
-                this.result = res.data;
-                this.result = this.result.businesses;
-                for (let i = 0; i < this.result.length; i++) {
-                    this.places.push(this.result[i]);
-                }
-                this.fetch = true;
-                // for(let i = 0; i < this.result.length; i++){
-                //     this.places.push(this.result[i]);
-                // }
-                this.count += 20;
-            },
-                (err) => {
-                    this.message = err.data.message;
-                })
-        }
+                this.fetch = false;
+                this.$http.get('/api/v1/yelp/search?term=' + this.term + "&location=" +
+                    this.location + "&cll=" + this.status.loc[1] + "," + this.status.loc[0] + "&offset=" + this.count +"&limit = 20").then((res) => {
+                    this.places = this.places.concat(res.data['businesses']);
+                    this.fetch = true;
+                    this.count += 20;
+                },
+                    (err) => {
+                        this.ErrorService.sweetAlert("Damn!!", err.data.message, "warning");
+                    })
+            }
 
         public update() {
           this.EventService.update(this.event).then((res) => {
+            this.ErrorService.toast(res['message']);
             this.$state.go('My Events');
-          });
+        }, (err)=>{
+            this.ErrorService.toast(err.data.message);
+        });
         }
 
         constructor(
@@ -75,11 +68,14 @@ namespace app.Controllers {
             private $state: ng.ui.IStateService,
             private $stateParams: ng.ui.IStateParamsService,
             private UserService: app.Services.UserService,
-            private $http: ng.IHttpService
+            private $http: ng.IHttpService,
+            private ErrorService: app.Services.ErrorService
         ){
             this.status = UserService.status;
             EventService.getOne($stateParams['id']).then((res)=>{
                 this.event = res;
+            }, (err)=>{
+                ErrorService.toast(err.data.message);
             });
             UserService.userCheck();
             for (let i = 2; i <= 100; i++) {

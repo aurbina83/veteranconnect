@@ -12,11 +12,14 @@ namespace app.Controllers {
             this.event.comments.push(res);
             this.comment.message = "";
             this.$state.reload();
-          });
+        }, (err)=>{
+            this.ErrorService.toast(err.data.message);
+        });
         }
 
         constructor(
             private EventService: app.Services.EventService,
+            private ErrorService: app.Services.ErrorService,
             private UserService: app.Services.UserService,
             private CommentService: app.Services.CommentService,
             private $state: ng.ui.IStateService,
@@ -25,12 +28,11 @@ namespace app.Controllers {
             EventService.getOne($stateParams['id']).then((res)=>{
                 this.isLoading = false;
                 this.event = res;
-                // for(let i = 0; i < this.event.attending.length; i++){
-                //     this.attending.push(this.event.attending[i]['_id']);
-                // }
                 this.event.attending.map((i)=>{
                     this.attending.push(i['_id']);
                 })
+            }, (err)=>{
+                ErrorService.toast(err.data.message);
             });
             this.status = UserService.status;
             UserService.userCheck();

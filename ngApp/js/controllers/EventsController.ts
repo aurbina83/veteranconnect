@@ -7,18 +7,7 @@ namespace app.Controllers{
         public distance = 15;
 
         public showAlert() {
-            // Appending dialog to document.body to cover sidenav in docs app
-            // Modal dialogs should fully cover application
-            // to prevent interaction outside of dialog
-            this.$mdDialog.show(
-                this.$mdDialog.alert()
-                    .parent(angular.element(document.querySelector('#popupContainer')))
-                    .clickOutsideToClose(true)
-                    .title('HEY YOU!')
-                    .textContent('You are already in this event. Carry on.')
-                    .ariaLabel('Alert Dialog Demo')
-                    .ok('Got it!')
-                );
+            this.ErrorService.sweetAlert ("Slow down there, High Speed!", "You'e already in this event. Pop smoke", "warning");
         };
 
         public setDistance() {
@@ -31,12 +20,12 @@ namespace app.Controllers{
                     return this.showAlert();
                 }
             }
-            this.EventService.attending(e._id).then(() => {
+            this.EventService.attending(e._id).then((res) => {
+                this.ErrorService.toast(res['message']);
                 this.$state.go('Attending');
             },
             (err) =>{
-                console.log(err);
-                this.ErrorService.error(err.data.message);
+                this.ErrorService.sweetAlertReload ( "Draggin ass!",  err.data.message);
             })
         }
 
@@ -50,13 +39,18 @@ namespace app.Controllers{
             })
         };
 
-        constructor(private EventService: app.Services.EventService, private $scope: ng.IScope, private UserService: app.Services.UserService, private $mdDialog, private $state: ng.ui.IStateService, private ErrorService) {
+        constructor(private EventService: app.Services.EventService, private $scope: ng.IScope, private UserService: app.Services.UserService, private $mdDialog, private $state: ng.ui.IStateService, private ErrorService: app.Services.ErrorService) {
             this.status = EventService.status;
             UserService.userCheck();
             UserService.status.maxDist = 24;
             EventService.getAll({ lng: this.status.loc[0], lat: this.status.loc[1], maxDist: this.status.maxDist }).then((res) => {
                 this.events = res;
+                if (this.events.length == 0) {
+                    ErrorService.sweetAlertRoute("DRY HOLE", "Looks like there aren't any events in your AO...so go create one!!.", "Create Event");
+                }
                 this.fetch = false;
+            }, (err) =>{
+                ErrorService.sweetAlert("Error", "Sorry, we're all ate up right now. Try reloading the page or checking back later.", "error");
             });
 
             $scope.$watch(() => this.status, (newValue, oldValue) => {
@@ -65,6 +59,8 @@ namespace app.Controllers{
                     EventService.getAll({ lng: this.status.loc[0], lat: this.status.loc[1], maxDist: this.status.maxDist }).then((res) => {
                         this.events = res;
                         this.fetch = false;
+                    }, (err) =>{
+                        ErrorService.sweetAlert("Error", "Sorry, we're all ate up right now. Try reloading the page or checking back later.", "error");
                     });
                 }
             }, true);

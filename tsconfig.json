@@ -92,7 +92,8 @@
     "Users/interface.ts",
     "Users/model.ts",
     "Users/routes.ts",
-    "YelpApi/routes.ts"
+    "YelpApi/routes.ts",
+    "utils/mailerHelper.ts"
   ],
   "atom": {
     "rewriteTsconfig": false

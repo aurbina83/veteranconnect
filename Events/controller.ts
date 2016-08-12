@@ -3,6 +3,8 @@ import { IEventModel } from './model';
 import {ICommentModel} from '../Comments/model';
 import {IUserModel } from '../Users/model';
 import * as mongoose from 'mongoose';
+import {transporter, template} from '../utils/mailHelper';
+require('nodemailer-ses-transport');
 
 export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Model<IUserModel>, Comment: mongoose.Model<ICommentModel>) {
     return {
@@ -14,7 +16,8 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         update: update,
         attending: attending,
         notAttending: notAttending,
-        remove: remove
+        remove: remove,
+        email: email
     }
 
     function getAll(req: express.Request, res: express.Response, next: Function){
@@ -45,7 +48,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         .populate('eventCreator', 'firstName lastName branch branchImg imgUrl')
         .populate('attending', 'firstName lastName imgUrl branch')
         .exec((err, data) => {
-            if (err) return next({message: "Error here"});
+            if (err) return next({message: "Try reloading the page"});
             res.json(200, data);
         });
     }
@@ -75,6 +78,19 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         });
     }
 
+    function email (req: express.Request, res: express.Response, next: Function) {
+            let mailOptions = {
+                from: 'Veteran Connect <info@veteranconnect.co>',
+                to: 'worgeskm@gmail.com',
+                subject: 'Test',
+                html: "<h1>Hey Yo Babe</h1>"
+            };
+            transporter.sendMail(mailOptions, (err) =>{
+                if (err) return next (err);
+                res.json({message: "All done here"});
+            })
+    }
+
     function findAttending(req: express.Request, res: express.Response, next: Function){
         let date = Date.now();
         Event.find({attending: req['payload']._id, dateTime: {$gte: new Date(date)} })
@@ -91,10 +107,10 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         let e = new Event(req.body);
         e.eventCreator = req['payload']._id;
         e.save((err, event: IEventModel) => {
-            if(err) return next(err);
+            if(err) return next({message: "Did you enter all required fields?"});
             User.update({_id: req['payload']._id}, {$push: {'events': e._id}}, (err, result) =>{
                 if(err) return next (err);
-                res.json(event);
+                res.json({message: "Event Created"});
             })
         });
     }
@@ -110,7 +126,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     function attending(req: express.Request, res: express.Response, next: Function){
         Event.findOne({_id: req.params.id}).exec((err, event)=>{
             if (err) return next (err);
-            if (event.numGuests < 1) return next({ message: "Sorry, someone must have just taken the last spot. Check back later to see if anyone has backed out"})
+            if (event.numGuests < 1) return next({ message: "Sorry, someone must have just taken the last spot. \n\nCheck back later to see if anyone has backed out"})
             Event.update({_id: event._id}, {$push: {'attending': req['payload']._id }, $inc: {numGuests: -1}}, (err)=> {
                 if (err) return next (err)
                 res.json({message: "You're In!"});
@@ -143,8 +159,4 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         }
       });
   }
-
-
-
-
 }
