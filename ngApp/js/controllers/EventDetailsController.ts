@@ -13,7 +13,7 @@ namespace app.Controllers {
             this.comment.message = "";
             this.$state.reload();
         }, (err)=>{
-            this.ErrorService.toast(err.data.message);
+            this.ErrorService.toast(err.data.message, "warning");
         });
         }
 
@@ -32,7 +32,7 @@ namespace app.Controllers {
                     this.attending.push(i['_id']);
                 })
             }, (err)=>{
-                ErrorService.toast(err.data.message);
+                ErrorService.toast(err.data.message, "warning");
             });
             this.status = UserService.status;
             UserService.userCheck();

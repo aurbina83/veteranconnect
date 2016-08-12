@@ -97,9 +97,10 @@ namespace app {
                 templateUrl: 'templates/privacy.html'
         });
 
-    $mdThemingProvider.theme('default')
-        .primaryPalette('indigo')
-        .accentPalette('red');
+    $mdThemingProvider.theme('success')
+        .primaryPalette('green');
+    $mdThemingProvider.theme('warning')
+        .primaryPalette('red');
 
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);

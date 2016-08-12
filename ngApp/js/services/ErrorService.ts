@@ -1,11 +1,13 @@
 namespace app.Services {
   export class ErrorService {
 
-    public toast(message) {
+    public toast(message, theme) {
         this.$mdToast.show(
-            this.$mdToast.simple(message)
-            .position('top right')
+            this.$mdToast.simple()
+            .textContent(message)
+            .position('bottom right')
             .hideDelay(3000)
+            .theme(theme)
         );
     }
 

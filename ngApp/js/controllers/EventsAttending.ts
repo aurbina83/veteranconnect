@@ -6,10 +6,10 @@ namespace app.Controllers {
 
         public notAttending(e: app.i.IEvent){
             this.EventService.notAttending(e._id).then((res)=>{
-                this.ErrorService.toast("You're Out!");
+                this.ErrorService.toast("You're Out!", "success");
                 this.events.splice(this.events.indexOf(e), 1);
             }, (err)=>{
-                this.ErrorService.toast(err.data.message);
+                this.ErrorService.toast(err.data.message, "warning");
             })
         }
 
@@ -24,7 +24,7 @@ namespace app.Controllers {
                 this.events = res;
                 this.isLoading = false;
             }, (err)=>{
-                ErrorService.toast(err.data.message);
+                ErrorService.toast(err.data.message, "warning");
             })
         }
     }

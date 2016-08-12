@@ -79,7 +79,7 @@ namespace app.Controllers {
          */
         public submit(){
             this.EventService.createEvent(this.event).then((res)=>{
-                this.ErrorService.toast("Event Created!");
+                this.ErrorService.toast("Event Created!", "success");
                 this.$state.go("My Events");
             }, (err) =>{
                 this.ErrorService.sweetAlert("Oops, something went wrong!", err.data.message, "warning");

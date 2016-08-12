@@ -21,7 +21,7 @@ namespace app.Controllers{
                 }
             }
             this.EventService.attending(e._id).then(() => {
-                this.ErrorService.toast("You're in!");
+                this.ErrorService.toast("You're in!", "success");
                 this.$state.go('Attending');
             },
             (err) =>{

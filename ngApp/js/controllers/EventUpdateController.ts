@@ -56,10 +56,10 @@ namespace app.Controllers {
 
         public update() {
           this.EventService.update(this.event).then((res) => {
-            this.ErrorService.toast("Event Updated!");
+            this.ErrorService.toast("Event Updated!", "success");
             this.$state.go('My Events');
         }, (err)=>{
-            this.ErrorService.toast(err.data.message);
+            this.ErrorService.toast(err.data.message, "warning");
         });
         }
 
@@ -75,7 +75,7 @@ namespace app.Controllers {
             EventService.getOne($stateParams['id']).then((res)=>{
                 this.event = res;
             }, (err)=>{
-                ErrorService.toast(err.data.message);
+                ErrorService.toast(err.data.message, "warning");
             });
             UserService.userCheck();
             for (let i = 2; i <= 100; i++) {
