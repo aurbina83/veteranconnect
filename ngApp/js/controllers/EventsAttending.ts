@@ -6,7 +6,7 @@ namespace app.Controllers {
 
         public notAttending(e: app.i.IEvent){
             this.EventService.notAttending(e._id).then((res)=>{
-                this.ErrorService.toast(res['message']);
+                this.ErrorService.toast("You're Out!");
                 this.events.splice(this.events.indexOf(e), 1);
             }, (err)=>{
                 this.ErrorService.toast(err.data.message);

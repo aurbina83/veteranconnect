@@ -20,8 +20,8 @@ namespace app.Controllers{
                     return this.showAlert();
                 }
             }
-            this.EventService.attending(e._id).then((res) => {
-                this.ErrorService.toast(res['message']);
+            this.EventService.attending(e._id).then(() => {
+                this.ErrorService.toast("You're in!");
                 this.$state.go('Attending');
             },
             (err) =>{

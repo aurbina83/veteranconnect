@@ -56,7 +56,7 @@ namespace app.Controllers {
 
         public update() {
           this.EventService.update(this.event).then((res) => {
-            this.ErrorService.toast(res['message']);
+            this.ErrorService.toast("Event Updated!");
             this.$state.go('My Events');
         }, (err)=>{
             this.ErrorService.toast(err.data.message);
