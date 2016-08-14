@@ -79,15 +79,23 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     }
 
     function email (req: express.Request, res: express.Response, next: Function) {
-            let mailOptions = {
-                from: 'Veteran Connect <info@veteranconnect.co>',
-                to: 'aurbina.metro@gmail.com',
-                subject: 'Test',
-                html: "<h1>Hey Yo Babe</h1>"
-            };
-            transporter.sendMail(mailOptions, (err) =>{
+        let id = '57acf82f22cfa9fa65ca0181';
+        Event.findOne({_id: id})
+            .exec((err, event)=>{
                 if (err) return next (err);
-                return
+                User.findOne({_id: event.eventCreator})
+                .exec((err, user)=>{
+                    let mailOptions = {
+                        from: 'Veteran Connect <info@veteranconnect.co>',
+                        to: user.email,
+                        subject: 'Test',
+                        html: template(user)
+                    };
+                    transporter.sendMail(mailOptions, (err) =>{
+                        if (err) return next (err);
+                        res.json({message: "Meow Bitch"});
+                    })
+                })
             })
     }
 
