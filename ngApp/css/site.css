@@ -7,7 +7,7 @@
 
 .home {
     height: calc(100vh - 60px);
-    background-image: url('../images/vcbg.jpg');
+    background-image: url('https://s3.amazonaws.com/veteranconnect-assets/vcbg.png');
     background-size: cover;
     overflow: hidden;
     color: white;
