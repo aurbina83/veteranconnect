@@ -87,15 +87,7 @@ namespace app {
             .state('Pending', {
                 url: '/pending',
                 templateUrl: '/templates/pending.html'
-            })
-            .state('tos', {
-                url: '/tos',
-                templateUrl: 'templates/tos.html'
-        })
-            .state('privacy', {
-                url: '/privacy',
-                templateUrl: 'templates/privacy.html'
-        });
+            });
 
     $mdThemingProvider.theme('success')
         .primaryPalette('green');
