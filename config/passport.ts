@@ -25,7 +25,11 @@ passport.use(new FacebookStrategy({
       if (err) return next(err);
       if (user) {
         req['tempUser'] = user;
-        next(null, user);
+        user.imgUrl = profile.photos[0].value;
+        User.update({_id: user._id}, user, (err, user)=>{
+            if(err) return next (err);
+            next(null, user);
+        })
       } else {
         let u = new User();
         u.firstName = profile.name.givenName;

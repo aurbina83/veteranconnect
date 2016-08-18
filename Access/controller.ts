@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as mongoose from 'mongoose';
 import { Access, IAccessModel } from './model';
 import { User, IUserModel} from '../Users/model';
+import {transporter, welcome} from '../utils/mailHelper';
 
 export function create(req: express.Request, res: express.Response, next: Function){
     let a = new Access();
@@ -29,7 +30,16 @@ export function remove(req: express.Request, res: express.Response, next: Functi
             console.log(code);
             User.findOneAndUpdate({_id: req['payload']._id}, { $set: {verified: true} }, { new: true }, (err, user)=>{
                 if (err) return next ({message: "The verification process is expired or unauthorized"});
-                res.json({token: user.generateJWT()});
+                let mailOptions = {
+                    from: 'Veteran Connect <info@veteranconnect.co>',
+                    to: user.email,
+                    subject: `Welcome to Veteran Connect, ${user.firstName}!`,
+                    html: welcome(user)
+                };
+                transporter.sendMail(mailOptions, (err) =>{
+                    if (err) return next (err);
+                    res.json({token: user.generateJWT()});
+                })
             })
         }
     });

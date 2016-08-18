@@ -3,8 +3,7 @@ import { IEventModel } from './model';
 import {ICommentModel} from '../Comments/model';
 import {IUserModel } from '../Users/model';
 import * as mongoose from 'mongoose';
-import {transporter, template} from '../utils/mailHelper';
-require('nodemailer-ses-transport');
+import { deleteNotify } from '../utils/notify';
 
 export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Model<IUserModel>, Comment: mongoose.Model<ICommentModel>) {
     return {
@@ -16,8 +15,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         update: update,
         attending: attending,
         notAttending: notAttending,
-        remove: remove,
-        email: email
+        remove: remove
     }
 
     function getAll(req: express.Request, res: express.Response, next: Function){
@@ -78,27 +76,6 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         });
     }
 
-    function email (req: express.Request, res: express.Response, next: Function) {
-        let id = '57acf82f22cfa9fa65ca0181';
-        Event.findOne({_id: id})
-            .exec((err, event)=>{
-                if (err) return next (err);
-                User.findOne({_id: event.eventCreator})
-                .exec((err, user)=>{
-                    let mailOptions = {
-                        from: 'Veteran Connect <info@veteranconnect.co>',
-                        to: user.email,
-                        subject: 'Test',
-                        html: template(user)
-                    };
-                    transporter.sendMail(mailOptions, (err) =>{
-                        if (err) return next (err);
-                        res.json({message: "Meow Bitch"});
-                    })
-                })
-            })
-    }
-
     function findAttending(req: express.Request, res: express.Response, next: Function){
         let date = Date.now();
         Event.find({attending: req['payload']._id, dateTime: {$gte: new Date(date)} })
@@ -154,6 +131,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
       Event.findOneAndRemove({ _id: req.params.id, eventCreator: req['payload']._id }, (err, event) => {
         if (err) return next(err);
         if(event) {
+            deleteNotify(event);
             Comment.remove({event: req.params.id}, (err)=>{
                 if(err) return next (err);
                 User.update({_id: req['payload']._id}, {$pull: {'events': req.params.id}}, (err)=>{

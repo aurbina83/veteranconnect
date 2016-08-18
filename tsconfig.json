@@ -67,6 +67,7 @@
     "ngApp/js/services/YelpService.ts",
     "routes/viewRoutes.ts",
     "server.ts",
+    "Tasks/worker.ts",
     "typings/browser.d.ts",
     "typings/browser/ambient/angular-resource/index.d.ts",
     "typings/browser/ambient/angular-ui-bootstrap/index.d.ts",
@@ -94,7 +95,8 @@
     "Users/model.ts",
     "Users/routes.ts",
     "YelpApi/routes.ts",
-    "utils/mailHelper.ts"
+    "utils/mailHelper.ts",
+    "utils/notify.ts"
   ],
   "atom": {
     "rewriteTsconfig": false
