@@ -74,21 +74,23 @@ namespace app.Services {
 
     public checkLocation() {
         let date = Date.now();
-        if (this.status.locStamp && this.status.locStamp < date) {
+        console.log("hi");
+        if (this.status.locStamp && this.status.locStamp < date && this.status.locStamp != undefined) {
             this.getLocation();
-        } else {
-            return;
+        } else if (this.status.locStamp == undefined){
+            this.status.locStamp = date;
         }
     }
 
     public getLocation() {
+        console.log("yo")
       let q = this.$q.defer();
       navigator.geolocation.getCurrentPosition((position) => {
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
         let loc = [lng, lat];
         let stamp = position.timestamp;
-        stamp += (15 * 60 * 60 * 1000);
+        stamp += (10 * 60 * 1000);
         this.status.loc = loc;
         this.updateLoc(this.status._id, { loc: loc, stamp: stamp });
         q.resolve();
