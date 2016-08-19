@@ -3,7 +3,8 @@ import { Event, IEventModel } from '../Events/model';
 import { Comment, ICommentModel} from '../Comments/model';
 import { User, IUserModel } from '../Users/model';
 import * as mongoose from 'mongoose';
-import { welcome, eventCreatorNotify, eventAttendeeNotify } from '../utils/mailHelper';
+import * as moment from 'moment';
+import { eventNotify } from '../utils/mailHelper';
 
 require('dotenv').config({ silent: true });
 let nodemailer = require('nodemailer');
@@ -35,11 +36,13 @@ let transporter = nodemailer.createTransport(ses({
           if (err) return err;
           if(events.length === 0) return;
           events.forEach((e)=>{
+            var time = e.dateTime.toISOString();
+            time = moment(time).format("dddd, MMMM Do, h:mm a");
               let mailOptions = {
                   from: 'Veteran Connect <info@veteranconnect.co>',
                   to: e.eventCreator['email'],
                   subject: 'Your event is coming up soon!',
-                  html: "welcome(user)"
+                  html: eventNotify(e.eventCreator, e, time)
               };
               transporter.sendMail(mailOptions, (err) =>{
                   if (err) return err;
@@ -48,7 +51,7 @@ let transporter = nodemailer.createTransport(ses({
                           from: 'Veteran Connect <info@veteranconnect.co>',
                           to: a['email'],
                           subject: "You've got an event coming up soon!",
-                          html: eventAttendeeNotify(a, event)
+                          html: eventNotify(a, e, time)
                       };
                       transporter.sendMail(mailOptions, (err) => {
                           if (err) console.log(err);

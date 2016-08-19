@@ -3,7 +3,8 @@ import { Event, IEventModel } from '../Events/model';
 import { Comment, ICommentModel} from '../Comments/model';
 import { User, IUserModel } from '../Users/model';
 import * as mongoose from 'mongoose';
-import { transporter, eventCreatorComment, eventAttendeeComment } from '../utils/mailHelper';
+import * as moment from 'moment';
+import { transporter, eventCreatorComment, eventAttendeeComment, eventDeleted } from '../utils/mailHelper';
 
 /**
  * Global Promise for mongoose
@@ -45,12 +46,14 @@ export let deleteNotify = function(event){
     .populate("attending", "firstName email", User)
     .exec((err, event)=>{
         if (err) return err;
+        let time = event.dateTime.toISOString();
+        time = moment(time).format("dddd, MMMM Do, h:mm a");
         event.attending.forEach((a)=>{
             let mailOptions = {
                 from: 'Veteran Connect <info@veteranconnect.co>',
                 to: a['email'],
                 subject: "An event you were in was deleted.",
-                html: eventAttendeeComment(a, event)
+                html: eventDeleted(a, event, time)
             };
             transporter.sendMail(mailOptions, (err) => {
                 if (err) console.log(err);

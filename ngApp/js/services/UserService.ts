@@ -126,7 +126,6 @@ namespace app.Services {
       if (this.getToken()) {
         if (this.getToken() == null) {
           this.logout();
-          console.log('fuck');
         } else {
           this.setUser();
           this.getLocation();
