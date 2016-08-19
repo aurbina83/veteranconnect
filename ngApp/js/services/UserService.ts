@@ -1,6 +1,6 @@
 namespace app.Services {
   export class UserService {
-    public status = { _id: null, name: null, imgUrl: null, maxDist: null, loc: null, verified: null, branch: null };
+    public status = { _id: null, name: null, imgUrl: null, maxDist: null, loc: null, verified: null, branch: null, locStamp: null };
 
     public login(user) {
       let q = this.$q.defer();
@@ -57,18 +57,28 @@ namespace app.Services {
       this.status.verified = u.verified;
       if (u.loc) {
         this.status.loc = u.loc;
+        this.status.locStamp = u.locStamp;
       }
     }
 
 
-    public updateLoc(id: string, {loc}) {
+    public updateLoc(id: string, {loc, stamp}) {
       let q = this.$q.defer();
-      this.$http.put('/api/v1/users/location/' + id, { loc: loc }).then((res) => {
+      this.$http.put('/api/v1/users/location/' + id, { loc: loc, locStamp: stamp }).then((res) => {
         this.setToken(res.data['token']);
         this.setUser();
         q.resolve();
       });
       return q.promise;
+    }
+
+    public checkLocation() {
+        let date = Date.now();
+        if (this.status.locStamp && this.status.locStamp < date) {
+            this.getLocation();
+        } else {
+            return;
+        }
     }
 
     public getLocation() {
@@ -77,8 +87,10 @@ namespace app.Services {
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
         let loc = [lng, lat];
+        let stamp = position.timestamp;
+        stamp += (15 * 60 * 60 * 1000);
         this.status.loc = loc;
-        this.updateLoc(this.status._id, { loc: loc });
+        this.updateLoc(this.status._id, { loc: loc, stamp: stamp });
         q.resolve();
       })
       return q.promise;
@@ -92,6 +104,7 @@ namespace app.Services {
       this.status.branch = null;
       this.status.loc = null;
       this.status.verified = null;
+      this.status.locStamp = null;
     }
 
     public urlBase64Decode(str) {
@@ -128,7 +141,7 @@ namespace app.Services {
           this.logout();
         } else {
           this.setUser();
-          this.getLocation();
+          this.checkLocation();
         }
       }
     }

@@ -7,6 +7,7 @@ namespace app.i {
         lastName: string;
         facebook: {id:string, token: string};
         loc?: [number];
+        locStamp: number;
         branch?: string;
         mos?: string;
         branchImg?: string;

@@ -15,6 +15,7 @@ let userSchema = new mongoose.Schema({
     lastName: {type: String},
     facebook: {id: String, token: String},
     loc: {type: [Number], index: '2dsphere'},
+    locStamp: {type: Number},
     branch: {type: String},
     branchImg: {type: String},
     mos: {type: String},
@@ -50,6 +51,7 @@ userSchema.method('generateJWT', function() {
     lastName: this.lastName,
     email: this.email,
     loc: this.loc,
+    locStamp: this.locStamp,
     _id: this._id
   }, process.env.JWT_SECRET);
 });
