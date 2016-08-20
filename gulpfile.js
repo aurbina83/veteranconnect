@@ -62,7 +62,7 @@ gulp.task('minify:css', function() {
 gulp.task('images', () =>
     gulp.src('./ngApp/images/*')
         .pipe(imagemin())
-        .pipe(gulp.dest('dist/images'))
+        .pipe(gulp.dest('./dist/images'))
 );
 /**
  * Concat all js files and minifiy(uglify) to dist
@@ -123,7 +123,7 @@ gulp.task('copy:views', function() {
 gulp.task('build', function(cb) {
   runSequence(
     ['copy:views', 'minify:css', 'minify:js', 'images'],
-    'inject:js:prod'
+    ['inject:js:prod']
     , cb);
 });
 

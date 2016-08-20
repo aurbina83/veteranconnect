@@ -36,14 +36,19 @@ namespace app.Services {
             title: title,
             text: message,
             type: "warning",
-            allowOutsideClick: true,
-            showCancelButton: false,
+            showCancelButton: true,
             confirmButtonColor: "#B5191D",
-            confirmButtonText: "Ok!",
-            closeOnConfirm: true
+            confirmButtonText: "Create Event!",
+            cancelButtonText: "Adjust Search Radius",
+            closeOnConfirm: true,
+            closeOnCancel: true
         },
-        () =>  {
-            this.$state.go(state);
+        function (isConfirm)   {
+            if (isConfirm) {
+                this.$state.go(state);
+            } else {
+                return;
+            }
         });
     }
     constructor(private SweetAlert, private $mdToast, private $state: ng.ui.IStateService) { }

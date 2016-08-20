@@ -46,7 +46,7 @@ namespace app.Controllers{
             EventService.getAll({ lng: this.status.loc[0], lat: this.status.loc[1], maxDist: this.status.maxDist }).then((res) => {
                 this.events = res;
                 if (this.events.length == 0) {
-                    ErrorService.sweetAlertRoute("DRY HOLE", "Looks like there aren't any events in your AO...so go create one!!.", "Create Event");
+                    ErrorService.sweetAlertRoute("DRY HOLE", "Looks like there aren't any events in your AO. Try adjusting the search radius above, or creating an event for your area!.", "Create Event");
                 }
                 this.fetch = false;
             }, (err) =>{
