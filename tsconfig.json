@@ -90,7 +90,6 @@
     "typings/browser/ambient/node/index.d.ts",
     "typings/browser/ambient/serve-favicon/index.d.ts",
     "typings/browser/ambient/serve-static/index.d.ts",
-    "typings/index.d.ts",
     "Users/controller.ts",
     "Users/interface.ts",
     "Users/model.ts",
