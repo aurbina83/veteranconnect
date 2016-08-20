@@ -10,11 +10,13 @@ namespace app.i {
          */
         loc: [number];
         eventAddress: string;
-        dateTime: string;
+        city: string;
+        state: string;
+        dateTime: any;
         dateCreated: number;
         eventCreator: (string | IUser);
 
-        attending: [string | IUser];
+        attending: [any];
         comments: [ string | IComment ];
     }
 }

@@ -2,144 +2,115 @@
 <html ng-app="app">
 
 <head>
-    <title>veteran-connect</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <base href="/" />
+  <title>Veteran Connect</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <base href="/" />
 
-    <link rel="stylesheet" href="/scripts/angular-material/angular-material.css">
-    <link rel="stylesheet" href="/scripts/angular-google-places-autocomplete/src/autocomplete.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,500italic,500' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/css/site.css" />
+<!-- Links for Icons -->
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://s3.amazonaws.com/veteranconnect-icons/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://s3.amazonaws.com/veteranconnect-icons/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://s3.amazonaws.com/veteranconnect-icons/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://s3.amazonaws.com/veteranconnect-icons/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="https://s3.amazonaws.com/veteranconnect-icons/apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://s3.amazonaws.com/veteranconnect-icons/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="https://s3.amazonaws.com/veteranconnect-icons/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://s3.amazonaws.com/veteranconnect-icons/apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="favicon-196x196.png" sizes="https://s3.amazonaws.com/veteranconnect-icons/196x196" />
+<link rel="icon" type="image/png" href="favicon-96x96.png" sizes="https://s3.amazonaws.com/veteranconnect-icons/96x96" />
+<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="https://s3.amazonaws.com/veteranconnect-icons/32x32" />
+<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="https://s3.amazonaws.com/veteranconnect-icons/16x16" />
+<link rel="icon" type="image/png" href="favicon-128.png" sizes="https://s3.amazonaws.com/veteranconnect-icons/128x128" />
+<meta name="application-name" content="&nbsp;"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="https://s3.amazonaws.com/veteranconnect-icons/mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="https://s3.amazonaws.com/veteranconnect-icons/mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="https://s3.amazonaws.com/veteranconnect-icons/mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="https://s3.amazonaws.com/veteranconnect-icons/mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="https://s3.amazonaws.com/veteranconnect-icons/mstile-310x310.png" />
+
+<!-- Stylesheets -->
+  <link rel="stylesheet" href="/scripts/angular-material/angular-material.css">
+  <link rel="stylesheet" href="/scripts/animate.css/animate.min.css">
+  <link rel="stylesheet" href="/scripts/sweetalert/dist/sweetalert.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/material-datetimepicker.css">
+  <link rel="stylesheet" href="/css/site.css" />
+  <!-- <link rel="stylesheet" href="/css/stylesBundle.min.css" /> -->
 </head>
 
 <body ng-controller="GlobalController as global">
-
-    <body ng-controller="GlobalController as global" layout='column' layout-fill>
-        <div class="nav" ng-controller="NavController as nav">
-            <md-toolbar class="md-whiteframe-z1 navbar" style="background-color: #223140;">
-                <div class="md-toolbar-tools">
-                    <md-button class="md-icon-button" aria-label="Settings" ng-click="global.openLeftMenu()" ng-show="nav.status._id">
-                        <md-icon md-font-icon="material-icon"> menu </md-icon>
-                    </md-button>
-                    <div layout='row' flex layout-align="center" class='navtitle'>
-                        <h1 style="font-family: 'Fjalla One', sans-serif;"> VETERAN CONNECT </h1>
-                    </div>
-                    <md-button ng-show='nav.status._id' hide show-gt-sm ng-click="nav.logout()">
-                        Log out
-                    </md-button>
-                    <md-button class="md-raised" ng-show='!nav.status._id' hide show-gt-sm>
-                        Login
-                    </md-button>
-                </div>
-            </md-toolbar>
-            <div layout="row" flex>
-                <md-sidenav layout="column" md-component-id="left" class="md-whiteframe-z2" ng-show="nav.status._id">
-                    <md-toolbar class="md-whiteframe-z1" style="background-color: #820805;">
-                        <div class="md-toolbar-tools">
-                            <div layout="row" flex layout-align="center">
-                                <h1 style='font-style: italic;'>EVENTS</h1>
-                            </div>
-                        </div>
-                    </md-toolbar>
-                    <md-list>
-                        <a href="">
-                            <md-list-item>
-                                <md-button layout='row' flex md-ink-ripple='#2E4359'>
-                                    <h3 style="font-style: italic;">BROWSE</h3>
-                                </md-button>
-                            </md-list-item>
-                        </a>
-                        <md-divider></md-divider>
-                        <a href="">
-                            <md-list-item>
-                                <md-button layout='row' flex md-ink-ripple='#2E4359'>
-                                    <h3 style="font-style: italic;">CREATE</h3>
-                                </md-button>
-                            </md-list-item>
-                        </a>
-                        <md-divider></md-divider>
-                        <md-toolbar class="md-whiteframe-z1" style="background-color: #820805;">
-                            <div class="md-toolbar-tools">
-                                <div layout="row" flex layout-align="center">
-                                    <h1 style='font-style: italic;'>MY EVENTS</h1>
-                                </div>
-                            </div>
-                        </md-toolbar>
-                        <a href="">
-                            <md-list-item>
-                                <md-button layout='row' flex md-ink-ripple='#2E4359'>
-                                    <h3 style="font-style: italic;">MY EVENTS</h3>
-                                </md-button>
-                            </md-list-item>
-                        </a>
-                        <md-divider></md-divider>
-                        <a href="">
-                            <md-list-item>
-                                <md-button layout='row' flex md-ink-ripple='#2E4359'>
-                                    <h3 style="font-style: italic;">EVENTS I'M ATTENDING</h3>
-                                </md-button>
-                            </md-list-item>
-                        </a>
-                        <md-divider></md-divider>
-                        <md-toolbar class="md-whiteframe-z1" style="background-color: #820805;" hide-gt-sm>
-                            <div class="md-toolbar-tools">
-                                <div layout="row" flex layout-align="center">
-                                    <h1 style='font-style: italic;'>ACCOUNT</h1>
-                                </div>
-                            </div>
-                        </md-toolbar>
-                        <md-list-item hide-gt-sm>
-                            <md-button layout='row' flex md-ink-ripple='#2E4359' ng-click="nav.logout()">
-                                <h3 style="font-style: italic;">LOG OUT</h3>
-                            </md-button>
-                        </md-list-item>
-                    </md-list>
-                </md-sidenav>
-            </div>
-        </div>
-        <main class='md-padding' layout="row" flex>
-            <ui-view></ui-view>
-        </main>
-        <footer>
-            <div layout="row" layout-align="center center" class='md-padding'>
-                <h2></h2>
-            </div>
-        </footer>
-        <script src='/scripts/lodash/dist/lodash.min.js'></script>
-        <script src="/scripts/moment/moment.js"></script>
-        <script src="/scripts/angular/angular.min.js"></script>
-        <script src="/scripts/angular-aria/angular-aria.js"></script>
-        <script src='/scripts/angular-simple-logger/dist/angular-simple-logger.min.js'></script>
-        <script src='/scripts/angular-google-maps/dist/angular-google-maps.min.js'></script>
-        <script src="/scripts/angular-ui-router/release/angular-ui-router.min.js"></script>
-        <script src="/scripts/angular-resource/angular-resource.min.js"></script>
-        <script src="/scripts/angular-animate/angular-animate.min.js"></script>
-        <script src="/scripts/angular-touch/angular-touch.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyA1BQ3FFK7Duy1txHKHdF-aoDYOeYHFx_8"></script>
-        <script src="/scripts/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
-        <script src="/scripts/angular-material/angular-material.js"></script>
-
-        <script src="/js/app.js"></script>
-        <script src="/js/services/UserService.js"></script>
-        <script src="/js/services/EventService.js"></script>
-        <script src="/js/services/CommentService.js"></script>
-        <script src="/js/services/AuthInterceptor.js"></script>
-        <script src="/js/controllers/HomeController.js"></script>
-        <script src="/js/controllers/GlobalController.js"></script>
-        <script src="/js/controllers/NavController.js"></script>
-        <script src="/js/controllers/UserLoginController.js"></script>
-        <script src="/js/controllers/UserRegistrationController.js"></script>
-        <script src="/js/controllers/EventCreateController.js"></script>
-        <script src="/js/controllers/MyEventController.js"></script>
-        <script src="/js/controllers/EventUpdateController.js"></script>
-        <script src="/js/controllers/EventsController.js"></script>
-        <script src="/js/controllers/EventDetailsController.js"></script>
-        <script src="/js/controllers/EventsAttending.js"></script>
+  <navbar></navbar>
+  <ui-view></ui-view>
 
 
-    </body>
+  <script src="/scripts/moment/min/moment.min.js"></script>
+  <script src="/scripts/angular/angular.min.js"></script>
+  <script src="/scripts/angular-aria/angular-aria.min.js"></script>
+  <script src="/scripts/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="/scripts/angular-resource/angular-resource.min.js"></script>
+  <script src="/scripts/angular-animate/angular-animate.min.js"></script>
+  <script src="/scripts/angular-messages/angular-messages.min.js"></script>
+  <script src="/scripts/angular-material-datetimepicker/js/angular-material-datetimepicker.min.js"></script>
+  <script src="/scripts/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="/scripts/angular-touch/angular-touch.min.js"></script>
+  <script src="/scripts/angular-material/angular-material.min.js"></script>
+  <script src="/scripts/ngSweetAlert/SweetAlert.min.js"></script>
+  <script src="/scripts/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-moment/1.0.0-beta.6/angular-moment.min.js"></script>
+  <script src="//cdn.id.services/m/run.js"></script>
+
+<!-- injector:js -->
+
+  <script src="/js/app.js"></script>
+
+  <script src="/js/controllers/EventCreateController.js"></script>
+
+  <script src="/js/controllers/EventDetailsController.js"></script>
+
+  <script src="/js/controllers/EventUpdateController.js"></script>
+
+  <script src="/js/controllers/EventsAttending.js"></script>
+
+  <script src="/js/controllers/EventsController.js"></script>
+
+  <script src="/js/controllers/GlobalController.js"></script>
+
+  <script src="/js/controllers/HoldingController.js"></script>
+
+  <script src="/js/controllers/HomeController.js"></script>
+
+  <script src="/js/controllers/MyEventController.js"></script>
+
+  <script src="/js/controllers/NavController.js"></script>
+
+  <script src="/js/controllers/UserLoginController.js"></script>
+
+  <script src="/js/controllers/UserRegistrationController.js"></script>
+
+  <script src="/js/controllers/VerifiedController.js"></script>
+
+  <script src="/js/controllers/WelcomeController.js"></script>
+
+  <script src="/js/directives/nav.js"></script>
+
+  <script src="/js/filters/truncate.js"></script>
+
+  <script src="/js/services/AuthInterceptor.js"></script>
+
+  <script src="/js/services/CommentService.js"></script>
+
+  <script src="/js/services/EventService.js"></script>
+
+  <script src="/js/services/UserService.js"></script>
+
+  <script src="/js/services/YelpService.js"></script>
+
+  <script src="/js/services/ErrorService.js"></script>
+  <!-- endinjector -->
+</body>
 
 </html>

@@ -2,11 +2,12 @@ import * as express from 'express';
 import { controller } from './controller';
 import { Event } from './model';
 import { User } from '../Users/model';
+import {Comment} from '../Comments/model';
 import * as jwt from 'express-jwt';
 
 // "loose coupling"
 
-const ctrl = controller(Event, User);
+const ctrl = controller(Event, User, Comment);
 const router = express.Router();
 const auth = jwt({
     userProperty: 'payload',

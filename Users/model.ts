@@ -11,16 +11,18 @@ export interface IUserModel extends app.i.IUser, mongoose.Document {
 let userSchema = new mongoose.Schema({
     email: { type: String, lowercase: true, trim: true, unique: true, sparse: true },
     password: { type: String },
-    name: {type: String, required: true},
+    firstName: {type: String},
+    lastName: {type: String},
     facebook: {id: String, token: String},
     loc: {type: [Number], index: '2dsphere'},
-    branch: {type: String, required: true},
-    campaign: {type: String, required: true},
+    locStamp: {type: Number},
+    branch: {type: String},
+    branchImg: {type: String},
+    mos: {type: String},
     imgUrl: {type: String},
-    maxDist: {type: Number},
+    verified: {type: Boolean},
 
-    events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}],
-    attending: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}]
+    events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}]
 });
 
 userSchema.method('hashPassword', function(password, done) {
@@ -42,9 +44,14 @@ userSchema.method('comparePassword', function(password, done) {
 
 userSchema.method('generateJWT', function() {
   return jwt.sign({
+    verified: this.verified,
+    branch: this.branch,
+    imgUrl: this.imgUrl,
     firstName: this.firstName,
     lastName: this.lastName,
     email: this.email,
+    loc: this.loc,
+    locStamp: this.locStamp,
     _id: this._id
   }, process.env.JWT_SECRET);
 });

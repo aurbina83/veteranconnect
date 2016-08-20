@@ -1,20 +1,39 @@
-<div class="container">
-    <div class="row">
-        <div class="col col-md-10 col-md-offset-1 well" ng-repeat="e in vm.events">
-            <div class="row">
-                <div class="col col-md-3">
-                    {{e.title}}
-                </div>
-                <div class="col col-md-3">
-                    {{e.name}}
-                </div>
-                <div class="col col-md-3">
-                    {{e.dateTime | date: 'short'}}
-                </div>
-                <div class="col col-md-2">
-                    <button class="btn btn-danger" ng-click="vm.notAttending(e)">Back Out</button>
-                </div>
+<div layout="row" layout-margin layout-padding layout-align="center center" hide-xs>
+    <md-list flex flex-gt-sm="60">
+        <md-subheader class="md-no-sticky">EVENTS I'M ATTENDING</md-subheader>
+        <md-list-item class="md-3-line" ng-repeat="e in vm.events">
+            <div class="md-list-item-text" layout="column" layout-gt-sm="row" layout-padding layout-margin ng-click="vm.go(e)">
+                <h3 flex>{{ e.title | truncate: "20" }}</h3>
+                <h4 flex> @ {{ e.name | truncate: "10" }}</h4>
+                <h4 flex>{{ e.dateTime | date: 'MMM d,  h:mm a' }}</h4>
             </div>
-        </div>
-    </div>
+            <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
+                <md-icon md-font-set="material-icons" ng-click="vm.notAttending(e)"> close </md-icon>
+                <md-tooltip md-direction="left">
+                    Backout
+                </md-tooltip>
+            </md-button>
+            <md-divider></md-divider>
+        </md-list-item>
+</div>
+<div layout="row" layout-margin layout-padding layout-align="center center" hide-gt-xs>
+    <md-list flex flex-gt-sm="60">
+        <md-subheader class="md-no-sticky">EVENTS I'M ATTENDING</md-subheader>
+        <md-list-item class="md-3-line" ng-repeat="e in vm.events">
+            <div class="md-list-item-text" layout="column" layout-gt-sm="row" layout-padding layout-margin ng-click="vm.go(e)">
+                <h3 flex>{{ e.title | truncate: "20" }}</h3>
+                <h4 flex> @ {{ e.name | truncate: "10" }}</h4>
+                <h4 flex>{{ e.dateTime | date: 'MMM d,  h:mm a' }}</h4>
+            </div>
+            <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
+                <md-icon md-font-set="material-icons" ng-click="vm.notAttending(e)"> close </md-icon>
+                <md-tooltip md-direction="left">
+                    Backout
+                </md-tooltip>
+            </md-button>
+            <md-divider></md-divider>
+        </md-list-item>
+</div>
+<div layout="row" layout-fill layout-align="center center" ng-show="vm.isLoading">
+    <md-progress-circular md-mode="indeterminate" ng-show="vm.isLoading" class="md-primary md-hue-2" md-diameter="100"></md-progress-circular>
 </div>

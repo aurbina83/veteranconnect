@@ -16,9 +16,4 @@ const auth = jwt({
 // POST: /api/v1/comments
 router.post('/', auth, ctrl.create);
 
-// DELETE: /api/v1/comments/:id
-router.delete('/:id', auth, ctrl.remove);
-
-router.put('/:id', auth, ctrl.update);
-
 export = router;

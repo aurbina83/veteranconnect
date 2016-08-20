@@ -3,18 +3,17 @@ namespace app.i {
         _id: any;
         email: string;
         password: string;
-        name: string;
+        firstName: string;
+        lastName: string;
         facebook: {id:string, token: string};
-        /**
-         * loc: [lng,lat]
-         */
-        loc: [number];
-        branch: string;
-        campaign: string;
+        loc?: [number];
+        locStamp: number;
+        branch?: string;
+        mos?: string;
+        branchImg?: string;
         imgUrl?: string;
-        maxDist?: number;
+        verified: boolean;
 
         events?: Array<string | IEvent>
-        attending?: Array<string | IEvent>
     }
 }

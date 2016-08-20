@@ -1,35 +1,88 @@
-<div class="load" ng-show="!vm.status.lng">
-    <img src="images/ring-alt.svg" alt="" width="100px" height="100px">
+<div layout="row" layout-align="center center" class="united">
+    <span layout-margin layout-padding>Search Radius in Miles</span>
 </div>
+<div layout="row" layout-align="center center" class="united">
+    <md-slider flex-gt-sm="50" flex="60" md-discrete ng-model="vm.distance" class='md-warn md-hue-2' step="5" min="5" max="50" aria-label="radius"  ng-change="vm.setDistance()">
+     </md-slider>
+</div>
+<div layout="column" flex class='united' layout-align="center center">
+    <!-- <div layout="column"  layout-align="center" style="width: 100%; margin-top: 20px;">
 
-<div class="container" ng-show="vm.status.lng">
-    <div class="row">
-        <div class="col col-md-9 col-md-offset-2 well">
-            <label>Miles</label>
-            <select ng-model="vm.distance" ng-change="vm.setDistance()">
-                <option value="1">1</option>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-                <option value="50">50</option>
-                <option value="300">300</option>
-            </select>
-            <div class="col col-md-7 col-md-offset-2">
-                <div class="panel panel-default" ng-repeat="e in vm.events">
-                    <a ui-sref="Event Details({id: e._id})">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">{{e.title}}</h3>
-                        </div>
-                        <div class="panel-body">
-                            {{e.eventCreator.branchService}}
-                        </div>
-                        <div class="panel-footer">
-                            <h3 class="panel-title">{{e.name}}</h3>
-                        </div>
-                    </a>
+    </div> -->
+    <div layout="column" layout-gt-xs="row" layout-margin layout-align="center center" layout-wrap style="max-width: 1200px;" hide-xs>
+    <md-card ng-repeat="e in vm.events" style="max-width: 300px;">
+        <img ng-src="{{e.eventCreator.branchImg}}" class="md-card-image" alt="Washed Out">
+        <md-card-header>
+            <md-card-avatar>
+                <img class="md-user-avatar" ng-src="{{e.eventCreator.imgUrl}}" />
+            </md-card-avatar>
+            <md-card-header-text style="margin-left: 15px;">
+                <span class="md-title">{{e.eventCreator.firstName}} {{e.eventCreator.lastName}}</span>
+                <span class="md-subhead">{{e.eventCreator.branch}}</span>
+            </md-card-header-text>
+        </md-card-header>
+        <md-card-title>
+            <md-card-title-text>
+                <div style="height: 70px;">
+                    <span class="md-headline">{{e.title}}</span>
                 </div>
-            </div>
-        </div>
+                <md-divider></md-divider>
+                <div layout="row" flex>
+                    <span class="md-subhead" flex>{{e.name}}</span>
+                    <span class="md-subhead">{{e.city}}, {{e.state}}</span>
+                </div>
+                <div layout="row" flex>
+                    <span class="md-subhead" flex>{{e.dateTime | date:  'MMM d,  h:mm a'}}</span>
+                    <span class="md-subhead">{{e.numGuests}} slots available</span>
+                </div>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="start center">
+            <md-button class="md-raised md-warn md-hue-2" ng-click="vm.details(e)">More Info</md-button>
+            <md-button class="md-raised md-primary md-hue-2" ng-click="vm.attend(e)">Go</md-button>
+        </md-card-actions>
+        <md-card-content>
+
+        </md-card-content>
+    </md-card>
     </div>
+
+    <!-- Mobile View!!!! -->
+    <div layout="column" layout-align="center center" hide-gt-xs>
+        <md-card ng-repeat="e in vm.events">
+        <img ng-src="{{e.eventCreator.branchImg}}" class="md-card-image" alt="{{e.eventCreator.branch}}">
+        <md-card-header>
+            <md-card-avatar>
+                <img class="md-user-avatar" ng-src="{{e.eventCreator.imgUrl}}" />
+            </md-card-avatar>
+            <md-card-header-text style="margin-left: 15px;">
+                <span class="md-title">{{e.eventCreator.firstName}} {{e.eventCreator.lastName}}</span>
+                <span class="md-subhead">{{e.eventCreator.branch}}</span>
+            </md-card-header-text>
+        </md-card-header>
+        <md-card-title>
+            <md-card-title-text>
+                <div style="height: 50px;">
+                    <span class="md-title">{{e.title}}</span>
+                </div>
+                <md-divider></md-divider>
+                <div layout="row" flex>
+                    <span class="md-subhead" flex>{{e.name}}</span>
+                    <span class="md-subhead">{{e.city}}, {{e.state}}</span>
+                </div>
+                <div layout="row" flex>
+                    <span class="md-subhead" flex>{{e.dateTime | date:  'MMM d,  h:mm a'}}</span>
+                    <span class="md-subhead">{{e.numGuests}} slots available</span>
+                </div>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout="column" flex>
+            <md-button class="md-raised md-warn md-hue-2" ng-click="vm.details(e)" flex>More Info</md-button>
+            <md-button class="md-raised md-primary md-hue-2" ng-click="vm.attend(e)" flex>Go</md-button>
+        </md-card-content>
+      </md-card>
+    </div>
+</div>
+<div layout="row" layout-align="center center" layout-fill ng-show="vm.fetch">
+    <md-progress-circular md-mode="indeterminate" ng-show="vm.fetch" class="md-primary md-hue-2" md-diameter="100"></md-progress-circular>
 </div>

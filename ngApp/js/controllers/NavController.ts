@@ -7,10 +7,16 @@ namespace app.Controllers {
       this.$state.go('Login');
     }
 
+    public openLeftMenu = function() {
+        this.$mdSidenav('left').toggle();
+    };
+
+
 
     constructor(
         private UserService: app.Services.UserService,
-        private $state: ng.ui.IStateService
+        private $state: ng.ui.IStateService,
+        private $mdSidenav
       ) {
         this.status = UserService.status;
     }
