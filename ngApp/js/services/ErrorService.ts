@@ -31,7 +31,23 @@ namespace app.Services {
         });
     }
 
-    public sweetAlertRoute (title, message, state) {
+    public sweetAlertRoute ( title, message, state ){
+        this.SweetAlert.swal({
+            title: title,
+            text: message,
+            type: null,
+            allowOutsideClick: true,
+            showCancelButton: false,
+            confirmButtonColor: "#B5191D",
+            confirmButtonText: "Ok!",
+            closeOnConfirm: true
+        },
+        () =>  {
+            this.$state.go(state);
+        });
+    }
+
+    public sweetAlertEvents (title, message, state) {
         this.SweetAlert.swal({
             title: title,
             text: message,
@@ -43,11 +59,11 @@ namespace app.Services {
             closeOnConfirm: true,
             closeOnCancel: true
         },
-        function (isConfirm)   {
+        (isConfirm) =>{
             if (isConfirm) {
                 this.$state.go(state);
             } else {
-                return;
+                return
             }
         });
     }

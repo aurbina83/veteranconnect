@@ -5,6 +5,8 @@ import {IUserModel } from '../Users/model';
 import * as mongoose from 'mongoose';
 import { deleteNotify } from '../utils/notify';
 
+(mongoose as any).Promise = global.Promise;
+
 export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Model<IUserModel>, Comment: mongoose.Model<ICommentModel>) {
     return {
         getAll: getAll,
@@ -128,21 +130,24 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     }
 
     function remove(req: express.Request, res: express.Response, next: Function) {
-      Event.findOneAndRemove({ _id: req.params.id, eventCreator: req['payload']._id }, (err, event) => {
-        if (err) return next(err);
-        if(event) {
-            deleteNotify(event);
+        Event.findOne({_id: req.params.id, eventCreator: req['payload']._id})
+        .populate("attending", "firstName email", User)
+        .exec((err, event)=>{
+            let a = event.attending;
+            let d = event.dateTime;
+            let n= event.name;
+            deleteNotify(d, a, n);
+        }).then((event)=>{
             Comment.remove({event: req.params.id}, (err)=>{
                 if(err) return next (err);
                 User.update({_id: req['payload']._id}, {$pull: {'events': req.params.id}}, (err)=>{
                     if(err) return next (err);
-                    res.json({message: "Event Deleted"});
+                    Event.remove({_id: req.params.id, eventCreator: req['payload']._id}, (err)=>{
+                        if (err) return next (err);
+                        res.json({message: "Event Deleted"});
+                    })
                 })
             })
-        }
-        else {
-            next({message: 'Unable to delete item', status: 500});
-        }
-      });
-  }
+        })
+    }
 }
