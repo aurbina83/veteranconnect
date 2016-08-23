@@ -10,34 +10,37 @@ namespace app.Services {
         public status;
 
         public getAll({lng, lat, maxDist}) {
-            return this.EventResource.query({lng: lng, lat: lat, maxDist: maxDist});
+            return this.EventResource.query({lng: lng, lat: lat, maxDist: maxDist}).$promise;
         }
 
         public getOne(id: string) {
-            return this.EventResource.get({id: id});
+            return this.EventResource.get({id: id}).$promise;
         }
 
         public getMine(id: string) {
-            return this.EventResource.query({id: 'myevents'});
+            return this.EventResource.query({id: 'myevents'}).$promise;
         }
 
         public getAttending(id: string) {
-            return this.EventResource.query({id: 'attending'});
+            return this.EventResource.query({id: 'attending'}).$promise;
         }
 
-        public createEvent(event: app.i.IEvent) {
+        public createEvent(event) {
             return this.EventResource.save(event).$promise;
         }
 
         public update(event: app.i.IEvent) {
-            return this.EventResource.update({ id: event._id }, {title: event.title, description: event.description, numGuests: event.numGuests, loc: event.loc, eventAddress: event.eventAddress, dateTime: event.dateTime, name: event.name}).$promise;
+            return this.EventResource.update({ id: event._id }, {title: event.title, description: event.description, numGuests: event.numGuests, loc: event.loc, eventAddress: event.eventAddress, dateTime: event.dateTime, name: event.name, city: event.city, state: event.state}).$promise;
         }
 
         public attending(id: string){
             let q = this.$q.defer();
             this.$http.put('/api/v1/events/attending/' +id, null).then(()=>{
                 q.resolve();
-            });
+            }, (err) =>{
+                q.reject(err);
+            }
+            );
             return q.promise;
         }
 

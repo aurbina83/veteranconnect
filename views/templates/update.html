@@ -1,59 +1,115 @@
-<div class="container-fluid">
-    <form name="outerForm" class="tab-form-demo">
-        <uib-tabset active="activeForm">
-            <uib-tab index="0" heading="How To">
-                <h3 class='text-center'>Pick the tabs you wish to edit. <br> Click Submit when you have made all changes</h3>
-            </uib-tab>
-            <uib-tab index="1" heading="Update Location">
-                <div class="col-md-12 text-center" style="margin: 20px 0;">
-                    <div class="row well col-md-offset-4" style="background-color: white; width: 600px;">
-                        <h3 class="text-center">{{vm.event.name}}</h3>
-                        <form class="form">
-                            <input class="form-control text-center" g-places-autocomplete options="vm.autocompleteOptions" ng-model="vm.place" placeholder="FIND SOMETHING LOCAL" />
-                        </form>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <button class="btn btn-success" ng-show"!show" ng-click="vm.locChange()">Update</button>
-                </div>
-            </uib-tab>
-            <uib-tab index="2" heading="Update Time">
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4 well text-center">
-                        <h3 ng-show="!vm.date">Select a Date and Time</h3>
-                        <h3>{{vm.event.dateTime | date: "short"}}</h3>
-                        <datetimepicker data-ng-model="data.date" data-on-set-time="vm.onTimeSet(newDate)" style="margin: 0 auto;"></datetimepicker>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <button class="btn btn-success" ng-show"!show" ng-click="vm.timeChange()">Update</button>
-                </div>
-            </uib-tab>
-            <uib-tab index="3" heading="Update Description and Number of Guests">
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4">
-                        <h3 class="text-center">Event Title</h3>
-                        <input type="text" placeholder="Drinks at The Watering Hole" ng-model="vm.event.title" class="form-control">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4">
-                        <h3 class="text-center">Event Description</h3>
-                        <input type="text" placeholder="Talk about guns, sex, and drugs" ng-model="vm.event.description" class="form-control">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 col-md-offset-5">
-                        <h3 class="text-center">Number of Guests</h3>
-                        <input type="number" class='form-control' min=2 max=99 style="width: 60px; margin: 0 auto;" ng-model="vm.event.numGuests">
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <button class="btn btn-success" ng-click="vm.update()">Update</button>
-                </div>
-            </uib-tab>
-        </uib-tabset>
+<!-- Select What To Update -->
+<div layout="column" flex layout-align="center center" layout-padding layout-margin ng-show="!vm.rally && !vm.details && !vm.detailsEdit && !vm.rallyEdit" style="height: 60vh;">
+    <md-button class="july loginbtn md-raised" ng-click="vm.rally=true">
+        RALLY POINT
+    </md-button>
+    <md-button class="july loginbtn md-raised" ng-click="vm.details=true">
+        DETAILS
+    </md-button>
+</div>
+
+<div layout="column" flex layout-align="center center" layout-padding layout-margin ng-show="vm.rallyEdit && !vm.details" style="height: 60vh;">
+    <md-button class="july loginbtn md-raised" ng-click="vm.details=true">
+        EDIT DETAILS
+    </md-button>
+    <md-button class="july loginbtn md-raised" ng-click="vm.update()">
+        SUBMIT
+    </md-button>
+</div>
+
+<div layout="column" flex layout-align="center center" layout-padding layout-margin ng-show="vm.detailsEdit && !vm.rally" style="height: 60vh;">
+    <md-button class="july loginbtn md-raised" ng-click="vm.rally=true">
+        EDIT RALLY POINT
+    </md-button>
+    <md-button class="july loginbtn md-raised" ng-click="vm.update()">
+        SUBMIT
+    </md-button>
+</div>
+
+
+<!--  HEADER FOR RALLY POINT SEARCH-->
+<div layout="row" class="july" layout-padding layout-align="center center" ng-show="vm.rally">
+    <h3 style="color: white;">CHOOSE A RALLY POINT</h3>
+</div>
+<!-- FORM FOR RALLY POINT SEARCH -->
+<div layout="row" layout-align="center" ng-show="vm.rally">
+    <form layout="column" layout-gt-sm="row" flex-sm flex-xs layout-margin layout-padding layout-align="center" name="search" ng-submit="vm.searchYelp()">
+        <!-- <i class="material-icons" hide-sm hide-xs>search</i> -->
+        <md-input layout="row" layout-align="center" layout-padding>
+            <input type="text" ng-model="vm.term" placeholder="RALLY POINT" class="input-cust" flex-xs flex-sm>
+            <md-tooltip md-direction="bottom">
+                "Burger, Gym, Park, Applebee's"
+            </md-tooltip>
+        </md-input>
+        <md-input layout="row" layout-align="center" layout-padding>
+            <input type="text" ng-model="vm.location" placeholder="NEAR" class="input-cust" flex-xs flex-sm>
+            <md-tooltip md-direction="bottom">
+                "Detroit, NYC, LA, Etc"
+            </md-tooltip>
+        </md-input>
+        <md-button class="patriotic md-raised" type="submit" style="color: white;">
+            GO
+        </md-button>
     </form>
-    <div class="row text-center">
-        <button class="btn btn-info" ng-show="vm.show" ng-click="vm.update()">Submit</button>
-    </div>
+</div>
+<!-- QUERY RESULTS -->
+<md-content layout="row" layout-align="center center" layout-margin layout-padding ng-show="vm.rally">
+    <md-list flex flex-gt-sm="80" flex-gt-md="60">
+        <md-list-item class="md-3-line" ng-repeat="p in vm.places" ng-click="vm.rallyPoint(p); vm.rally=false; vm.rallyEdit=true;">
+            <img ng-src="{{p.image_url}}" class="md-avatar" alt="{{p.name}}" style="border-radius: 0" />
+            <div class="md-list-item-text" layout="column" layout-gt-xs="row">
+                <h3 flex flex-gt-sm="33" flex-sm="20">{{ p.name | truncate: 18 }}</h3>
+                <h4 flex flex-gt-sm="33">{{ p.location.city }}</h4>
+                <p flex flex-gt-sm="33">{{ p.review_count }} reviews</p>
+                <img src="{{ p.rating_img_url}}" alt="{{ p.rating }}" style="width: 87px; height: 17px;" style="border-radius: 0">
+            </div>
+            <md-divider></md-divider>
+        </md-list-item>
+    </md-list>
+</md-content>
+<div layout="row" layout-margin layout-padding layout-align="center" ng-show="vm.rally">
+    <md-progress-circular md-mode="indeterminate" ng-show="!vm.fetch" class="md-primary md-hue-2" md-diameter="100"></md-progress-circular>
+    <md-button class="md-raised patriotic" style="color: white;" flex-sm flex-xs ng-click="vm.moreYelp()" ng-show="vm.fetch && vm.places">
+        MORE
+    </md-button>
+</div>
+<!-- HEADER FOR DETAILS -->
+<div layout="row" class="july" layout-padding layout-align="center center" ng-show="vm.details">
+    <h3 style="color: white;">SEND THE DETAILS</h3>
+</div>
+
+<div layout="column" layout-align="center center" ng-show="vm.details" flex-xs flex-sm layout-padding layout-margin>
+    <h3>Choose the date, hour, and minute. Click ok after each to set.</h3>
+    <md-input-container flex-xs flex-sm layout-align="center center">
+        <label>Date & Time</label>
+        <input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime" min-date="vm.date" short-time="true" format='MMM Do, h:mm a' ng-model="vm.event.dateTime" class=" md-input" flex-xs flex-sm>
+    </md-input-container>
+</div>
+
+<div layout="row" layout-align="center" ng-show="vm.details" layout-padding layout-margin>
+    <form layout="column" flex-sm flex-xs layout-margin layout-padding layout-align="center" name="search" ng-submit="vm.detailsEdit=true; vm.details=false">
+        <!-- <i class="material-icons" hide-sm hide-xs>search</i> -->
+        <md-input-container layout="row" layout-align="center center" layout-padding>
+            <label>Title</label>
+            <input type="text" ng-model="vm.event.title"  maxlength="40" class="md-input" flex-xs flex-sm>
+        </md-input-container>
+        <md-input-container layout="row" layout-align="center center" layout-padding>
+            <label>Description</label>
+            <textarea ng-model="vm.event.description" md-select-on-focus flex-xs flex-sm></textarea>
+            <md-tooltip md-direction="bottom">
+                "SET THE AGENDA"
+            </md-tooltip>
+        </md-input-container>
+        <md-input-container layout="row" layout-align="center" layout-padding>
+            <label>Number of Guests</label>
+            <md-select ng-model="vm.event.numGuests" flex-xs flex-sm>
+                <md-option ng-repeat="num in vm.arr" value="{{num}}">
+                    {{num}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+        <md-button class="patriotic md-raised" type="submit" style="color: white;">
+            Submit
+        </md-button>
+    </form>
+</div>
