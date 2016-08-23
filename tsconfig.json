@@ -28,6 +28,7 @@
   "compileOnSave": true,
   "buildOnSave": false,
   "files": [
+    "bower_components/moment/moment.d.ts",
     "Comments/controller.ts",
     "Comments/interface.ts",
     "Comments/model.ts",
@@ -68,6 +69,7 @@
     "typings/browser/ambient/express-serve-static-core/index.d.ts",
     "typings/browser/ambient/express-unless/index.d.ts",
     "typings/browser/ambient/express/index.d.ts",
+    "typings/browser/ambient/helmet/index.d.ts",
     "typings/browser/ambient/jquery/index.d.ts",
     "typings/browser/ambient/jsonwebtoken/index.d.ts",
     "typings/browser/ambient/mime/index.d.ts",
