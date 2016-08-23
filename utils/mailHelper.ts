@@ -437,7 +437,7 @@ export let eventAttendeeComment = function(user, event) {
 `
 }
 
-export let eventDeleted = function(user, event, time) {
+export let eventDeleted = function(user, name, time) {
  return `<!doctype html>
  <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
  <head>
@@ -504,10 +504,10 @@ export let eventDeleted = function(user, event, time) {
        <![endif]--><div aria-labelledby="mj-column-per-100" class="mj-column-per-100" style="vertical-align:top;display:inline-block;font-size:13px;text-align:left;width:100%;"><table cellpadding="0" cellspacing="0" width="100%" border="0"><tbody><tr><td style="word-break:break-word;font-size:0px;padding:10px 25px;" align="left"><div style="cursor:auto;color:#000000;font-family:Open Sans, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;">
                          <h2>Hey ${user.firstName}!</h2>
                      </div></td></tr><tr><td style="word-break:break-word;font-size:0px;padding:10px 25px;"><p style="font-size:1px;margin:0 auto;border-top:2px solid #000000;width:100%;"></p><!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="font-size:1px;margin:0 auto;border-top:2px solid #000000;width:100%;" width="600"><tr><td style="height:0;line-height:0;"> </td></tr></table><![endif]--></td></tr><tr><td style="word-break:break-word;font-size:0px;padding:10px 25px;" align="center"><div style="cursor:auto;color:#000000;font-family:Open Sans, Helvetica, Arial, sans-serif;font-size:15px;line-height:30px;">
-                         <p>The event taking place at ${event.name} on ${time} has been deleted by it's host.<br>Find another event to attend or create your own now!</p>
-                     </div></td></tr><tr><td style="word-break:break-word;font-size:0px;padding:10px 25px;" align="center"><table cellpadding="0" cellspacing="0" align="center" border="0"><tbody><tr><td style="border-radius:3px;color:white;cursor:auto;padding:10px 25px;" align="center" valign="middle" bgcolor="#C5283D"><a href="http://veteranconnect.co/events" style="display:inline-block;text-decoration:none;background:#C5283D;border-radius:3px;color:white;font-family:Open Sans, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;margin:0px;" target="_blank">
+                         <p>The event taking place at ${name} on ${time} has been deleted by it's host.<br>Find another event to attend or create your own now!</p>
+                     </div></td></tr><tr><td style="word-break:break-word;font-size:0px;padding:10px 25px;" align="center"><table cellpadding="0" cellspacing="0" align="center" border="0"><tbody><tr><td style="border-radius:3px;color:white;cursor:auto;padding:10px 25px;width:300px;" align="center" valign="middle" bgcolor="#C5283D"><a href="http://veteranconnect.co/events" style="display:inline-block;text-decoration:none;background:#C5283D;border-radius:3px;color:white;font-family:Open Sans, Helvetica, Arial, sans-serif;font-size:15px;font-weight:normal;margin:0px;" target="_blank">
                              Browse
-                         </a></td></tr></tbody></table></td></tr><tr><td style="word-break:break-word;font-size:0px;padding:10px 25px;" align="center"><table cellpadding="0" cellspacing="0" align="center" border="0"><tbody><tr><td style="border-radius:3px;color:white;cursor:auto;padding:10px 25px;" align="center" valign="middle" bgcolor="#C5283D"><a href="http://veteranconnect.co/create" style="display:inline-block;text-decoration:none;background:#C5283D;border-radius:3px;color:white;font-family:Open Sans, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;margin:0px;" target="_blank">
+                         </a></td></tr></tbody></table></td></tr><tr><td style="word-break:break-word;font-size:0px;padding:10px 25px;" align="center"><table cellpadding="0" cellspacing="0" align="center" border="0"><tbody><tr><td style="border-radius:3px;color:white;cursor:auto;padding:10px 25px;width:300px;" align="center" valign="middle" bgcolor="#C5283D"><a href="http://veteranconnect.co/create" style="display:inline-block;text-decoration:none;background:#C5283D;border-radius:3px;color:white;font-family:Open Sans, Helvetica, Arial, sans-serif;font-size:15px;font-weight:normal;margin:0px;" target="_blank">
                              Create
                          </a></td></tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
        </td></tr></table>

@@ -6,8 +6,8 @@ namespace app.Controllers{
 
         public removeEvent(e: app.i.IEvent) {
           this.EventService.remove(e._id).then((res) => {
-            this.ErrorService.toast("Event Deleted", "success");
             this.events.splice(this.events.indexOf(e), 1);
+            this.ErrorService.toast("Event Deleted", "success");
         }, (err)=>{
             this.ErrorService.toast(err.data.message, "warning");
         });

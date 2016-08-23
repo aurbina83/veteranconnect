@@ -41,24 +41,23 @@ export let commentNotify = function(event) {
         })
 }
 
-export let deleteNotify = function(event){
-    Event.findOne({_id: event._id})
-    .populate("attending", "firstName email", User)
-    .exec((err, event)=>{
-        if (err) return err;
-        let time = event.dateTime.toISOString();
+export let deleteNotify = function(date, attending, name){
+        if (attending == null) return;
+        let attend = attending;
+        let n = name;
+        let mailed = 0;
+        let time = date.toISOString();
         time = moment(time).format("dddd, MMMM Do, h:mm a");
-        event.attending.forEach((a)=>{
+        attend.forEach((a)=>{
             let mailOptions = {
                 from: 'Veteran Connect <info@veteranconnect.co>',
                 to: a['email'],
                 subject: "An event you were in was deleted.",
-                html: eventDeleted(a, event, time)
+                html: eventDeleted(a, n, time)
             };
             transporter.sendMail(mailOptions, (err) => {
                 if (err) console.log(err);
-                return;
+                mailed++;
             })
         })
-    })
 }
