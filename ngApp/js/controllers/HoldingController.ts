@@ -43,6 +43,7 @@ namespace app.Controllers {
             }
         }
 
+
         private accessCheck() {
             if (!this.UserService.getAccessCode()) {
                 this.UserService.getLocation().then(() => {
