@@ -33,6 +33,7 @@ namespace app.Services {
     public logout() {
       this.$window.localStorage.removeItem('token');
       this.clearUser();
+      this.$state.go('Login')
     }
 
     public getAccessCode() {

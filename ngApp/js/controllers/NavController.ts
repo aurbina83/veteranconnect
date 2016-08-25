@@ -4,7 +4,6 @@ namespace app.Controllers {
 
     public logout() {
       this.UserService.logout();
-      this.$state.go('Login');
     }
 
     public openLeftMenu = function() {
