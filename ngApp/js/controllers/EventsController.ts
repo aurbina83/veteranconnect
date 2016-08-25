@@ -7,7 +7,7 @@ namespace app.Controllers{
         public distance = 15;
 
         public showAlert() {
-            this.ErrorService.sweetAlert ("Slow down there, High Speed!", "You'e already in this event. Pop smoke", "warning");
+            this.ErrorService.sweetAlert ("Slow down there, High Speed!", "You're already in this event. Pop smoke", "warning");
         };
 
         public setDistance() {

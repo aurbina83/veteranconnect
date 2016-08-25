@@ -25,7 +25,7 @@ export function remove(req: express.Request, res: express.Response, next: Functi
         code: req.params.code
     }, (err, code)=>{
         if (err) return next (err);
-        if (!code) return next ({message: "The verification process is expired or unauthorized"});
+        if (!code) return next ({message: "Verification is expired or unauthorized!"});
         if (code) {
             console.log(code);
             User.findOneAndUpdate({_id: req['payload']._id}, { $set: {verified: true} }, { new: true }, (err, user)=>{
