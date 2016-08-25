@@ -82,7 +82,7 @@ namespace app.Controllers {
                 this.ErrorService.toast("Event Created!", "success");
                 this.$state.go("My Events");
             }, (err) =>{
-                this.ErrorService.sweetAlert("Oops, something went wrong!", err.data.message, "warning");
+                this.ErrorService.sweetAlert("Something went wrong!", err.data.message, "warning");
             });
         }
 

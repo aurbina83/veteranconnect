@@ -55,7 +55,7 @@ namespace app.Services {
             showCancelButton: true,
             confirmButtonColor: "#B5191D",
             confirmButtonText: "Create Event!",
-            cancelButtonText: "Adjust Search Radius",
+            cancelButtonText: "Adjust Radius",
             closeOnConfirm: true,
             closeOnCancel: true
         },
