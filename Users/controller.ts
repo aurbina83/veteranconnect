@@ -11,19 +11,26 @@ export function controller(User: mongoose.Model<IUserModel>) {
         updateLoc: updateLoc
     }
     function login(req: express.Request, res: express.Response, next: Function) {
-      if (!req.body.email) return next({ message: 'An email is required to login.' });
-      if (!req.body.password) return next({ message: 'A password is required to login.' });
-
-      User.findOne({ email: req.body.email })
-        .exec((err, user) => {
-          if (err) return next(err);
-          if (!user) return next({ message: 'Incorrect email/password combination.' });
-          user.comparePassword(req.body.password, (err, isMatch) => {
-            if (err) return next(err);
-            if (!isMatch) return next({ message: 'Incorrect email/password combination.' });
-            else res.json({ token: user.generateJWT() });
-          });
-        });
+        User.findOne({'facebook.id': req.body.id}).exec((err, user) =>{
+            if (err) return next (err);
+            if (user) {
+                User.findOneAndUpdate({_id: user._id}, {$set: {imgUrl: req.body.picture, 'facebook.token': req.body.token}}, {new: true}, (err, user) =>{
+                    if (err) return next (err);
+                    res.json({token: user.generateJWT()});
+                })
+            } else {
+                let u = new User();
+                u.firstName = req.body.first_name;
+                u.lastName = req.body.last_name;
+                u.imgUrl = req.body.picture;
+                u.facebook.id = req.body.id;
+                u.facebook.token = req.body.token;
+                u.save((err, user) => {
+                    if (err) return next(err);
+                    res.json({token: u.generateJWT()});
+                })
+            }
+        })
     }
 
     function register(req: express.Request, res: express.Response, next: Function) {
