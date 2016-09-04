@@ -1,5 +1,7 @@
 import * as express from 'express';
 let Yelp = require('yelp');
+import * as jwt from 'express-jwt';
+
 
 const router = express.Router();
 const yelp = new Yelp({
@@ -9,8 +11,12 @@ const yelp = new Yelp({
     token_secret: process.env.YELP_TOKEN_SECRET
 })
 
+const auth = jwt({
+    userProperty: 'payload',
+    secret: process.env.JWT_SECRET
+});
 
-router.get("/search", function(req, res, next){
+router.get("/search", auth, function(req, res, next){
   yelp.search(req.query, function(error, data) {
     if(error)return next ({message: "Well this is embarrasing, try again in a couple of minutes"});
     res.send(data);
