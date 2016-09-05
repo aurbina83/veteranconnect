@@ -44,10 +44,6 @@ namespace app.Services {
             this.$window.localStorage.setItem('access_code', access_code);
         }
 
-        public setMobileCode(access_code: string) {
-            this.$window.localStorage.setItem('mobile_code', access_code);
-        }
-
         public removeAccessCode() {
             this.$window.localStorage.removeItem('access_code');
         }

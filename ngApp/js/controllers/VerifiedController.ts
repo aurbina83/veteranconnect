@@ -34,8 +34,7 @@ namespace app.Controllers {
                 if($location.search().access_code) {
                     this.access_code = $location.search().access_code;
                     $location.search('');
-                    if ($location.hash()) $location.hash('');
-                    UserService.setMobileCode(this.access_code);
+                    // if ($location.hash()) $location.hash('');
                     this.loginCheck();
                 } else if (UserService.getAccessCode())  {
                     this.access_code = UserService.getAccessCode();
