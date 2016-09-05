@@ -60,7 +60,6 @@ export function controller(User: mongoose.Model<IUserModel>) {
             {$set: {
             branch: req.body.branch,
             email: req.body.email,
-            mos: req.body.mos,
             branchImg: req.body.branchImg
         }}, {new: true}, (err, user) => {
             if(err) return next(err);
