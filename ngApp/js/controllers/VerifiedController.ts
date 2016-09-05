@@ -33,7 +33,7 @@ namespace app.Controllers {
                 this.status = UserService.status;
                 if($location.search().access_code) {
                     this.access_code = $location.search().access_code;
-                    $location.search('');
+                    // $location.search('');
                     // if ($location.hash()) $location.hash('');
                     this.loginCheck();
                 } else if (UserService.getAccessCode())  {
