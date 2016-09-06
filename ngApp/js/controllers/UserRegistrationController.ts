@@ -44,10 +44,10 @@ namespace app.Controllers {
                 this.user.branchImg = "images/navy.png"
             }
         }
-        public register(id, email, branch) {
+        public register(id, email, mos, branch) {
             this.user.email = this.user.email.toLowerCase().trim();
-            // this.user.mos = this.user.mos.toUpperCase();
-            this.UserService.register(this.status._id, {email: this.user.email, branch: this.user.branch, branchImg: this.user.branchImg}).then(()=>{
+            this.user.mos = this.user.mos.toUpperCase();
+            this.UserService.register(this.status._id, {email: this.user.email, branch: this.user.branch, mos: this.user.mos,branchImg: this.user.branchImg}).then(()=>{
                 this.$state.go('Verify');
             });
 

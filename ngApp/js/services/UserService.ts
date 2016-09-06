@@ -12,9 +12,9 @@ namespace app.Services {
             return q.promise;
         }
 
-        public register(id, {email, branch, branchImg}) {
+        public register(id, {email, branch, mos, branchImg}) {
             let q = this.$q.defer();
-            this.$http.put('/api/v1/users/register/' + id, { email: email, branch: branch, branchImg: branchImg }).then((res) => {
+            this.$http.put('/api/v1/users/register/' + id, { email: email, branch: branch, mos: mos, branchImg: branchImg }).then((res) => {
                 this.setToken(res.data['token']);
                 this.setUser();
                 q.resolve();
