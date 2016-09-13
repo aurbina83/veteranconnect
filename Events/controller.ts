@@ -71,7 +71,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     function findMine(req: express.Request, res: express.Response, next: Function){
         let date = Date.now();
         Event.find({eventCreator: req['payload']._id, dateTime: {$gte: new Date(date)} })
-        .populate('eventCreator', 'firstName lastName imgUrl')
+        .populate('eventCreator', 'firstName lastName branchImg imgUrl')
         .exec((err, data) => {
             if(err) return next(err);
             res.json(data);
@@ -81,7 +81,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     function findAttending(req: express.Request, res: express.Response, next: Function){
         let date = Date.now();
         Event.find({attending: req['payload']._id, dateTime: {$gte: new Date(date)} })
-        .populate('eventCreator', 'firstName lastName branch')
+        .populate('eventCreator', 'firstName lastName branchImg imgUrl')
         .exec((err, data) => {
             if(err) return next(err);
             if(!data) return next ({message: "This event was deleted!"});
