@@ -13,23 +13,14 @@ module.exports = function(io) {
 
         socket.on('join', function (data) {
             socket.join(data.room);
-            console.log(data.room);
         })
 
         socket.on('message', function(data) {
-            let c = new Comment;
-            c.message = data.message;
-            c.event = data.room;
-            c.datePosted = new Date();
-            c.user = data.user;
-            c.save((err, comment) =>{
-                Event.findOneAndUpdate({ _id: c.event }, { $push: { 'comments': c._id }})
-            })
             io.in(data.room).emit('receive', data.message);
         })
 
-        socket.on('disconnect', function() {
-            console.log('user disconnected');
+        socket.on('leave', function (data) {
+            socket.leave(data.room);
         })
     });
     return router;
