@@ -11,7 +11,7 @@ export function controller(Comment: mongoose.Model<ICommentModel>, Event: mongoo
 
     function create(req: express.Request, res: express.Response, next: Function) {
         let c = new Comment(req.body);
-        c.datePosted = Date.now();
+        c.datePosted = new Date();
         c.user = req['payload']._id;
         c.save((err, comment) => {
             if (err) return next(err);

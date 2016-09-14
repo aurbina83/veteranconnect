@@ -23,6 +23,10 @@
     "morgan": "registry:dt/morgan#1.2.2+20160317120654",
     "node": "registry:dt/node#4.0.0+20160317120654",
     "serve-favicon": "registry:dt/serve-favicon#0.0.0+20160316155526",
-    "serve-static": "registry:dt/serve-static#0.0.0+20160317120654"
+    "serve-static": "registry:dt/serve-static#0.0.0+20160317120654",
+    "socket.io": "registry:dt/socket.io#1.4.4+20160909205835"
+  },
+  "globalDependencies": {
+    "socket.io": "registry:dt/socket.io#1.4.4+20160909205835"
   }
 }

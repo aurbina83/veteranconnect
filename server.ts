@@ -11,6 +11,10 @@ let nodemailer = require('nodemailer');
 let ses = require('nodemailer-ses-transport');
 const app = express();
 
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+require('./io/chats')(io);
 require('./Events/model');
 require('./Comments/model');
 require('./Users/model');
@@ -25,7 +29,7 @@ mongoose.connect(mongoUrl, (err) => {
 
 // view engine setup
 if(process.env.NODE_ENV = 'dev') app.set('views', './views');
-if(process.env.NODE_ENV = 'prod') app.set('views', './dist/views');
+// if(process.env.NODE_ENV = 'prod') app.set('views', './dist/views');
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
@@ -38,7 +42,7 @@ app.use(cookieParser());
 app.use(helmet());
 
 app.use('/templates', require('./routes/viewRoutes'));
-if(process.env.NODE_ENV="prod") app.use(express.static('./dist'));
+// if(process.env.NODE_ENV="prod") app.use(express.static('./dist'));
 if(process.env.NODE_ENV="dev") app.use(express.static('./ngApp'));
 app.use('/scripts', express.static('bower_components'));
 
@@ -74,5 +78,4 @@ app.use(function(err: any, req, res, next) {
     error: error
   });
 });
-
-export = app;
+export = {app: app, server: server};
