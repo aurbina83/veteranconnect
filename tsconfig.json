@@ -68,6 +68,7 @@
     "routes/viewRoutes.ts",
     "server.ts",
     "Tasks/worker.ts",
+    "io/chats.ts",
     "typings/browser.d.ts",
     "typings/browser/ambient/angular-resource/index.d.ts",
     "typings/browser/ambient/angular-ui-bootstrap/index.d.ts",
