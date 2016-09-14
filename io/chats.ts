@@ -22,6 +22,10 @@ module.exports = function(io) {
         socket.on('leave', function (data) {
             socket.leave(data.event);
         })
+
+        socket.on('close', function() {
+            io.close();
+        })
     });
     return router;
 }
