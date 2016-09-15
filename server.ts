@@ -11,6 +11,10 @@ let nodemailer = require('nodemailer');
 let ses = require('nodemailer-ses-transport');
 const app = express();
 
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+require('./io/chats')(io);
 require('./Events/model');
 require('./Comments/model');
 require('./Users/model');
@@ -74,5 +78,4 @@ app.use(function(err: any, req, res, next) {
     error: error
   });
 });
-
-export = app;
+export = {app: app, server: server};
