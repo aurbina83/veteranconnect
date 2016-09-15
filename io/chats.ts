@@ -12,19 +12,17 @@ module.exports = function(io) {
         console.log("user connected");
 
         socket.on('join', function (data) {
+            console.log(data);
             socket.join(data.event);
         })
 
         socket.on('message', function(data) {
+            console.log(data);
             io.in(data.event).emit('receive', data);
         })
 
         socket.on('leave', function (data) {
             socket.leave(data.event);
-        })
-
-        socket.on('close', function() {
-            io.close();
         })
     });
     return router;
