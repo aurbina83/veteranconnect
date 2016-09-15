@@ -1,79 +1,11 @@
-<div layout="column" ng-cloak><md-content layout-gt-sm="row" layout-padding layout-align="center" style="margin-top: 10%"><form name="userForm" flex-gt-sm="33" ng-submit="vm.register()"><div layout-gt-sm="row"><md-input-container class="md-block" flex-gt-sm><label>Email</label><input name="email" type="email" ng-model="vm.user.email" type="email" required="true"><div ng-messages="userForm.email.$error"><div ng-message="required">*Required</div></div></md-input-container></div><div layout-gt-sm="row"><md-input-container class="md-block" flex-gt-sm><label>Branch of Service</label><md-select ng-model="vm.user.branch" ng-change="vm.setMos()"><md-option ng-repeat="branch in vm.branches" flex>{{branch}}</md-option></md-select></md-input-container></div><br><div layout-gt-sm="row"><md-input-container class="md-block" flex-gt-sm><label>{{vm.mos}}</label><input name="mos" ng-model="vm.user.mos" ng-pattern="vm.pattern" md-maxlength="vm.max" maxlength="{{vm.max}}" required placeholder="Duty"><div ng-messages="userForm.mos.$error"><div ng-message="pattern">{{vm.patternMessage}}</div></div></md-input-container></div><br><div layout="row" flex layout-align="center"><md-button ng-disabled="userForm.$invalid" class="md-raised" type="submit" flex style="background-color: #820805; color: white; font-size: 20px; font-weight: 500">Register</md-button></div></form></md-content></div><!-- <form class="form-horizontal" ng-submit="vm.register()" name="registration">
-<fieldset>
-
-
-<div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Email Address</label>
-  <div class="col-md-4">
-  <input id="textinput" name="textinput" type="text" placeholder="abc@abc.com" class="form-control input-md" required="" ng-model="vm.user.email" ng-pattern="vm.email">
-
-  </div>
-</div>
-
-
-<div class="form-group">
-  <label class="col-md-4 control-label" for="passwordinput">Password</label>
-  <div class="col-md-4">
-    <input id="passwordinput" name="passwordinput" type="password" class="form-control input-md" required="" ng-model="vm.user.password" ng-pattern="vm.password">
-    <span class="help-block" style="color: red; font-size: 10px;" ng-show="registration.passwordinput.$invalid">Minimum 8 characters at least 1 Uppercase Alphabet, 1 Lowercase Alphabet, 1 Number and 1 Special Character</span>
-
-  </div>
-</div>
-
-
-<div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">First Name</label>
-  <div class="col-md-4">
-  <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="" ng-model="vm.user.firstName">
-
-  </div>
-</div>
-
-
-<div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Last Name</label>
-  <div class="col-md-4">
-  <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="" ng-model="vm.user.lastName">
-
-  </div>
-</div>
-
-
-<div class="form-group">
-  <label class="col-md-4 control-label" for="selectbasic">Branch of Service</label>
-  <div class="col-md-4">
-    <select id="selectbasic" name="selectbasic" class="form-control" ng-model="vm.user.branchService" required>
-      <option value="Army">Army</option>
-      <option value="Navy">Navy</option>
-      <option value="Marines">Marines</option>
-      <option value="Air Force">Air Force</option>
-    </select>
-  </div>
-</div>
-
-
-<div class="form-group">
-  <label class="col-md-4 control-label" for="selectbasic">Campaign</label>
-  <div class="col-md-4">
-    <select id="selectbasic" name="selectbasic" class="form-control" ng-model="vm.user.campaign" required>
-      <option value="GWOT">GWOT</option>
-      <option value="Desert Storm/Shield">Desert Storm/Shield</option>
-      <option value="Vietnam">Vietnam</option>
-      <option value="Other">Other</option>
-      <option value="Peace Time">Peace Time</option>
-    </select>
-  </div>
-</div>
-
-
-
-<div class="form-group">
-  <label class="col-md-4 control-label" for="singlebutton"></label>
-  <div class="col-md-4">
-      <span class="help-block" style="color: red; font-size: 10px;" ng-show="registration.$invalid">All entries required</span>
-    <button id="singlebutton" type="submit" name="singlebutton" class="btn btn-primary" ng-disabled="registration.$invalid">Submit</button>
-  </div>
-</div>
-
-</fieldset>
-</form> -->
+<div layout="column" ng-cloak><md-content layout-gt-sm="row" layout-padding layout-align="center" style="margin-top: 10%"><form name="userForm" flex-gt-sm="33" ng-submit="vm.register()"><div layout-gt-sm="row"><md-input-container class="md-block" flex-gt-sm><label>Email</label><input name="email" type="email" ng-model="vm.user.email" type="email" required="true"><div ng-messages="userForm.email.$error"><div ng-message="required">*Required</div></div></md-input-container></div><div layout-gt-sm="row"><md-input-container class="md-block" flex-gt-sm><label>Branch of Service</label><md-select ng-model="vm.user.branch" ng-change="vm.setMos()"><md-option ng-repeat="branch in vm.branches" flex>{{branch}}</md-option></md-select></md-input-container></div><!-- <br />
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>{{vm.mos}}</label>
+                    <input name="mos" ng-model="vm.user.mos" ng-pattern="vm.pattern" md-maxlength='vm.max' maxlength="{{vm.max}}" required placeholder="Duty">
+                    <div ng-messages="userForm.mos.$error">
+                        <div ng-message="pattern">{{vm.patternMessage}}</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <br /> --><div layout="row" flex layout-align="center"><md-button ng-disabled="userForm.$invalid" class="md-raised" type="submit" flex style="background-color: #820805; color: white; font-size: 20px; font-weight: 500">Register</md-button></div></form></md-content></div>
