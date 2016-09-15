@@ -49,7 +49,7 @@ namespace app.Controllers {
                 this.event.attending.map((i)=>{
                     this.attending.push(i['_id']);
                 })
-                this.socket = io("http://veteranconnect.co", {port: 3000});
+                this.socket = io();
                 this.socket.emit('join', {event: this.event._id});
             }, (err)=>{
                 ErrorService.toast(err.data.message, "warning");
