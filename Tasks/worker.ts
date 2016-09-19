@@ -53,7 +53,7 @@ let transporter = nodemailer.createTransport(ses({
               let message = {
                   app_id: process.env.oneSignalID,
                   contents: {"en" : `@${e.name} on ${time}`},
-                  headings: {'en' : "New comments in an event you're in!"},
+                  headings: {'en' : "You have an event coming up"},
                   include_player_ids: users,
                   data: {"type": "event", "page": "EventDetailsPage", "event": e}
               }
