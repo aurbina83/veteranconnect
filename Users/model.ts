@@ -21,6 +21,7 @@ let userSchema = new mongoose.Schema({
     mos: {type: String},
     imgUrl: {type: String},
     verified: {type: Boolean},
+    oneSignal: {id: String, pushToken: String},
 
     events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}]
 });

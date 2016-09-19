@@ -13,6 +13,7 @@ namespace app.i {
         branchImg?: string;
         imgUrl?: string;
         verified: boolean;
+        oneSignal: {id: string, pushToken: string};
 
         events?: Array<string | IEvent>
     }

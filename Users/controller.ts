@@ -8,7 +8,8 @@ export function controller(User: mongoose.Model<IUserModel>) {
         register: register,
         findOne: findOne,
         update: update,
-        updateLoc: updateLoc
+        updateLoc: updateLoc,
+        updatePush: updatePush
     }
     function login(req: express.Request, res: express.Response, next: Function) {
         User.findOne({'facebook.id': req.body.id}).exec((err, user) =>{
@@ -73,6 +74,13 @@ export function controller(User: mongoose.Model<IUserModel>) {
             if (err) return next (err);
             res.json({token: user.generateJWT()});
         })
+    }
+
+    function updatePush(req: express.Request, res: express.Response, next: Function) {
+        User.update({_id: req.params.id}, {$set: {oneSignal: req.body}}, (err, user) => {
+            if (err) return next (err);
+            res.json({message: " Push info Updated!"});
+        });
     }
 
 }

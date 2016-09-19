@@ -131,7 +131,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
 
     function remove(req: express.Request, res: express.Response, next: Function) {
         Event.findOne({_id: req.params.id, eventCreator: req['payload']._id})
-        .populate("attending", "firstName email", User)
+        .populate("attending", "firstName email oneSignal", User)
         .exec((err, event)=>{
             let a = event.attending;
             let d = event.dateTime;
