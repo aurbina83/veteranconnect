@@ -28,6 +28,9 @@ router.put('/register/:id', ctrl.update);
 //PUT /api/v1/users/:id
 router.put('/:id', ctrl.update);
 
+//PUT /api/v1/users/push
+router.put("/push/:id", ctrl.updatePush);
+
 //PUT /api/v1/users/location/:id
 router.put('/location/:id', ctrl.updateLoc);
 
