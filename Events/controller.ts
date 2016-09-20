@@ -42,7 +42,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         })
         .sort({dateTime: 1})
         .skip(req.query.skip)
-        .limit(20)
+        .limit(30)
         .populate('eventCreator', 'firstName lastName branch branchImg imgUrl')
         .populate('attending', 'firstName lastName imgUrl branch')
         .exec((err, data) => {
