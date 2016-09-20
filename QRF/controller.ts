@@ -31,15 +31,11 @@ export function create(req: express.Request, res: express.Response, next: Functi
         res.json({message: "QRF on the way"});
     }).then((event) =>{
         let coords = event.location;
-        let maxDist = 50 * 1.6;
+        let maxDist = 50;
         User.find({
             loc: {
-                $near: {
-                    $geometry: {
-                        type: "Point",
-                        coordinates: coords
-                    },
-                    $maxDistance: maxDist * 1000
+                $geoWithin: {
+                    $centerSphere: [coords, maxDist/3963.2]
                 }
             }
         })

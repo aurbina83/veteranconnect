@@ -23,8 +23,8 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     function getAll(req: express.Request, res: express.Response, next: Function){
         //Get max distance from user preference
         let maxDist = req.query.maxDist;
-        let date = Date.now();
-
+        let date = new Date();
+        date.setHours(date.getHours() + 1)
         //Get Coordinates [lng, ltd]
         let coords = [];
         coords[0] = req.query.lng;
@@ -32,7 +32,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
 
         //Find Locations
         Event.find({
-            "dateTime": {$gte: new Date(date)},
+            "dateTime": {$gte: date},
             "loc": {
                 $geoWithin: {
                     $centerSphere: [coords, maxDist/3963.2]
@@ -67,8 +67,9 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
       }
 
     function findMine(req: express.Request, res: express.Response, next: Function){
-        let date = Date.now();
-        Event.find({eventCreator: req['payload']._id, dateTime: {$gte: new Date(date)} })
+        let date = new Date();
+        date.setHours(date.getHours() - 1)
+        Event.find({eventCreator: req['payload']._id, dateTime: {$gte: date} })
         .populate('eventCreator', 'firstName lastName branchImg imgUrl')
         .exec((err, data) => {
             if(err) return next(err);
@@ -77,8 +78,9 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     }
 
     function findAttending(req: express.Request, res: express.Response, next: Function){
-        let date = Date.now();
-        Event.find({attending: req['payload']._id, dateTime: {$gte: new Date(date)} })
+        let date = new Date();
+        date.setHours(date.getHours() - 1);
+        Event.find({attending: req['payload']._id, dateTime: {$gte: date} })
         .populate('eventCreator', 'firstName lastName branchImg imgUrl')
         .exec((err, data) => {
             if(err) return next(err);
