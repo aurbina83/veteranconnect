@@ -2,7 +2,6 @@ namespace app.i {
     export interface IQRF {
         _id: any;
         messages: [ {
-            _id: any,
             message: string,
             imgUrl: string,
             firstName: string,
@@ -10,11 +9,19 @@ namespace app.i {
             branch: string,
             datePosted: Date
         }];
+        description: string,
         location: [number];
         limit: number;
         creator: (string | IUser);
         qrf: [string | IUser];
         dateCreated: Date;
         expirationDate?: Date;
+        creatorInfo: {
+            firstName: string;
+            lastName: string;
+            imgUrl: string;
+            branch: string;
+            branchImg: string;
+        }
     }
 }

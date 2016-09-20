@@ -19,6 +19,7 @@ require('./Events/model');
 require('./Comments/model');
 require('./Users/model');
 require('./Access/model');
+require('./QRF/model');
 require('./config/passport');
 
 let mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/vc';
@@ -51,6 +52,7 @@ app.use('/api/v1/users', require('./Users/routes'));
 app.use('/api/v1/comments', require('./Comments/routes'));
 app.use('/api/v1/events', require('./Events/routes'));
 app.use('/api/v1/access', require('./Access/routes'));
+app.use('/api/v1/qrf', require('./QRF/routes'));
 
 
 app.get('/*', function(req, res, next) {
