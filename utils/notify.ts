@@ -74,8 +74,8 @@ export let deleteNotify = function(date, attending, name){
             contents: {"en" : `@${name} on ${time}`},
             headings: {'en' : "An event you were in has been cancelled"},
             include_player_ids: users,
-            ios_sound: "file://audio/a10notification.wav",
-            android_sound:'file://audio/a10notification.wav',
+            ios_sound: "a10notification.wav",
+            android_sound:'a10notification.wav',
             data: {"type": "deleted"}
         }
         sendNotification(message);
