@@ -34,17 +34,15 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         Event.find({
             "dateTime": {$gte: new Date(date)},
             "loc": {
-                $near: {
-                    $geometry: {
-                        type: "Point",
-                        coordinates: coords
-                    },
-                    //Meters to KM
-                    $maxDistance: maxDist * 1000
+                $geoWithin: {
+                    $centerSphere: [coords, maxDist/3963.2]
                 }
             },
             "numGuests": {$gt: 0}
         })
+        .sort({dateTime: 1})
+        .skip(req.query.skip)
+        .limit(20)
         .populate('eventCreator', 'firstName lastName branch branchImg imgUrl')
         .populate('attending', 'firstName lastName imgUrl branch')
         .exec((err, data) => {
