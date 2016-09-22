@@ -4,8 +4,7 @@ namespace app.i {
         messages: [ {
             message: string,
             imgUrl: string,
-            firstName: string,
-            lastName: string,
+            name: string,
             branch: string,
             datePosted: Date
         }];

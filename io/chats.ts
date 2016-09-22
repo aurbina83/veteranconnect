@@ -24,6 +24,10 @@ module.exports = function(io) {
         socket.on('leave', function (data) {
             socket.leave(data.event);
         })
+
+        socket.on('disconnect', function() {
+            console.log('disconnected');
+        })
     });
     return router;
 }

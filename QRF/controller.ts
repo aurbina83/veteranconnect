@@ -37,7 +37,8 @@ export function create(req: express.Request, res: express.Response, next: Functi
                 $geoWithin: {
                     $centerSphere: [coords, maxDist/3963.2]
                 }
-            }
+            },
+            _id: {$ne: req['payload']._id}
         })
         .exec((err, users) =>{
             if (err) return next (err);
@@ -47,7 +48,7 @@ export function create(req: express.Request, res: express.Response, next: Functi
             })
             let message = {
                 app_id: process.env.oneSignalID,
-                contents: {"en" : "A veteran in your area has requested a QRF"},
+                contents: {"en" : "A veteran in your area has requested assistance!"},
                 headings: {'en' : "BREAK BREAK BREAK"},
                 include_player_ids: list,
                 data: {"type": "qrf", "page": "QRFAcceptPage", "qrfObj": event}
@@ -60,7 +61,7 @@ export function create(req: express.Request, res: express.Response, next: Functi
 export function join(req: express.Request, res: express.Response, next: Function) {
     QRF.findOne({_id: req.params.id}).exec((err, event) =>{
         if (err) return next (err);
-        if (event.limit < 1) return next({message: "The QRF team has been assembled. Thank you for stepping up!"});
+        if (event.limit < 1) return next({message: "The QRF team has already been assembled. Thank you for stepping up!"});
         QRF.update({_id: event._id}, {$push: {'qrf': req['payload']._id }, $inc: {limit: -1}}, (err)=> {
             if (err) return next (err)
             res.json({message: "You're on the QRF Team. Thank you for stepping up!"})

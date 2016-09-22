@@ -6,8 +6,7 @@ let QRFSchema = new mongoose.Schema({
     messages: [ {
         message: {type: String},
         imgUrl: {type: String},
-        firstName: {type: String},
-        lastName: {type: String},
+        name: {type: String},
         branch: {type: String},
         datePosted: {type: Date}
     }],
