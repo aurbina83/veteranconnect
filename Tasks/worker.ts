@@ -55,7 +55,7 @@ let transporter = nodemailer.createTransport(ses({
                   contents: {"en" : `@${e.name} on ${time}`},
                   headings: {'en' : "You have an event coming up"},
                   include_player_ids: users,
-                  data: {"type": "event", "page": "EventDetailsPage", "event": e}
+                  data: {"type": "event", "page": "EventDetailsPage", "id": e._id}
               }
               sendNotification(message);
             //   transporter.sendMail(mailOptions, (err) =>{
