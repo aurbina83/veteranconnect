@@ -1,12 +1,10 @@
 import * as express from 'express';
-import { Event, IEventModel } from '../Events/model';
-import { Comment, ICommentModel} from '../Comments/model';
-import { User, IUserModel } from '../Users/model';
-import * as mongoose from 'mongoose';
+ const app = express();
 
-module.exports = function(io) {
-    var app = require('express');
-    var router = app.Router();
+ var server = require('http').Server(app);
+ var io = require("socket.io").listen(server);
+
+
 
     io.on('connection', function(socket) {
         console.log("user connected");
@@ -29,5 +27,7 @@ module.exports = function(io) {
             console.log('disconnected');
         })
     });
-    return router;
-}
+
+server.listen(80, function() {
+    console.log("Listening on port %s...", server.address().port);
+})
