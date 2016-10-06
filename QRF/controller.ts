@@ -37,8 +37,8 @@ export function create(req: express.Request, res: express.Response, next: Functi
                 $geoWithin: {
                     $centerSphere: [coords, maxDist/3963.2]
                 }
-            }
-            // _id: {$ne: req['payload']._id}
+            },
+            _id: {$ne: req['payload']._id}
         })
         .exec((err, users) =>{
             if (err) return next (err);
