@@ -23,7 +23,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     function getAll(req: express.Request, res: express.Response, next: Function){
         //Get max distance from user preference
         let maxDist = req.query.maxDist;
-        let skip = req.query.skip;
+        let skip = parseInt(req.query.skip);
         let date = new Date();
         date.setHours(date.getHours() + 1)
         //Get Coordinates [lng, ltd]
