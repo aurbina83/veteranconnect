@@ -23,6 +23,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     function getAll(req: express.Request, res: express.Response, next: Function){
         //Get max distance from user preference
         let maxDist = req.query.maxDist;
+        let skip = req.query.skip;
         let date = new Date();
         date.setHours(date.getHours() + 1)
         //Get Coordinates [lng, ltd]
@@ -41,7 +42,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
             "numGuests": {$gt: 0}
         })
         .sort({dateTime: 1})
-        .skip(req.query.skip)
+        .skip(skip)
         .limit(30)
         .populate('eventCreator', 'firstName lastName branch branchImg imgUrl')
         .populate('attending', 'firstName lastName imgUrl branch')
