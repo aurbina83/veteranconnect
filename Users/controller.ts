@@ -77,10 +77,9 @@ export function controller(User: mongoose.Model<IUserModel>) {
     }
 
     function updatePush(req: express.Request, res: express.Response, next: Function) {
-        console.log(req.body);
         User.update({_id: req.params.id}, {$set: {oneSignal: req.body}}, (err, user) => {
             if (err) return next (err);
-            res.json(req.body);
+            res.json({message: "Push info updated!"});
         });
     }
 
