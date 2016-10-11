@@ -76,7 +76,9 @@ namespace app {
             })
             .state('Verify', {
             url: '/verify',
-            templateUrl: '/templates/verify.html'
+            templateUrl: '/templates/verify.html',
+            controller: 'VerifyController',
+            controllerAs: 'vm'
         })
             .state('Verified', {
                 url: '/verified',

@@ -36,6 +36,18 @@ namespace app.Services {
             this.$state.go('Login')
         }
 
+        public getMobile() {
+            return this.$window.localStorage.getItem('mobile');
+        }
+
+        public setMobile(mobile: string) {
+            this.$window.localStorage.setItem('mobile', mobile);
+        }
+
+        public removeMobile() {
+            this.$window.localStorage.removeItem('mobile');
+        }
+
         public getAccessCode() {
             return this.$window.localStorage.getItem('access_code');
         }

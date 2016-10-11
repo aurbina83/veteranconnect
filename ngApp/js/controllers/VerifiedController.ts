@@ -29,10 +29,17 @@ namespace app.Controllers {
             private UserService: app.Services.UserService,
             private $http: ng.IHttpService,
             private $q: ng.IQService,
-            private $state: ng.ui.IStateService){
+            private $state: ng.ui.IStateService,
+            private $window: ng.IWindowService){
                 this.status = UserService.status;
                 if($location.search().access_code) {
                     this.access_code = $location.search().access_code;
+                    if(UserService.getMobile){
+                        UserService.removeMobile();
+                        $window.location.href = `veteranconnect://app/verify/${this.access_code}`;
+                        $window.close();
+                        return;
+                    }
                     // $location.search('');
                     // if ($location.hash()) $location.hash('');
                     this.loginCheck();
