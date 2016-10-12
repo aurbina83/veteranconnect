@@ -3,6 +3,7 @@ namespace app.Controllers {
         public status;
         public message;
         public access_code;
+        public button;
 
         private updateUser() {
             this.$http.delete('/api/v1/access/' + this.access_code).then((res)=>{
@@ -36,8 +37,7 @@ namespace app.Controllers {
                     this.access_code = $location.search().access_code;
                     if(UserService.getMobile()){
                         UserService.removeMobile();
-                        $location.path(`veteranconnect://app/verify/${this.access_code}`);
-                        $window.close();
+                        this.button = true;
                         return;
                     }
                     // $location.search('');
