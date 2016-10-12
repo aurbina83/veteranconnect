@@ -1,4 +1,5 @@
 namespace app.Controllers {
+    declare var window;
     export class VerifiedController {
         public status;
         public message;
@@ -37,7 +38,7 @@ namespace app.Controllers {
                     this.access_code = $location.search().access_code;
                     if(UserService.getMobile()){
                         UserService.removeMobile();
-                        this.button = true;
+                        window.location = "veteranconnect://app/verify/" + this.access_code;
                         return;
                     }
                     // $location.search('');
