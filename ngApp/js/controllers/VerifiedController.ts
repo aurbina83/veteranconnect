@@ -34,9 +34,9 @@ namespace app.Controllers {
                 this.status = UserService.status;
                 if($location.search().access_code) {
                     this.access_code = $location.search().access_code;
-                    if(UserService.getMobile){
+                    if(UserService.getMobile()){
                         UserService.removeMobile();
-                        $window.location.href = `veteranconnect://app/verify/${this.access_code}`;
+                        $location.path(`veteranconnect://app/verify/${this.access_code}`);
                         $window.close();
                         return;
                     }
