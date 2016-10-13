@@ -57,6 +57,7 @@ export function verify(req: express.Request, res: express.Response, next: Functi
         .end(function(result) {
             let obj = JSON.parse(result.body);
             if (obj.is_active > 0 || obj.is_veteran > 0) {
+                console.log('obj in the building!');
                 User.findOneAndUpdate({ _id: req['payload']._id }, { $set: { verified: true } }, { new: true }, (err, user) => {
                     if (err) return next({ message: "The verification process is expired or unauthorized" });
                     let mailOptions = {
