@@ -5,8 +5,6 @@ import { User, IUserModel} from '../Users/model';
 import {transporter, welcome} from '../utils/mailHelper';
 var unirest = require('unirest');
 
-(mongoose as any).Promise = global.Promise;
-
 export function create(req: express.Request, res: express.Response, next: Function) {
     let a = new Access();
     let date = new Date();
@@ -49,7 +47,6 @@ export function remove(req: express.Request, res: express.Response, next: Functi
 }
 
 export function verify(req: express.Request, res: express.Response, next: Function) {
-    let obj;
     unirest.post("https://gruntroll-military-verification-v1.p.mashape.com/verify/active")
         .header("X-Mashape-Key", "N1ThRIBMOlmsh1hx1hFSP2vTSs3gp1XhcHbjsnfxRqgh5YYtkP")
         .header("Content-Type", "application/x-www-form-urlencoded")
@@ -58,27 +55,28 @@ export function verify(req: express.Request, res: express.Response, next: Functi
         .send(`dob=${req.body.dob}`)
         .send(`name=${req.body.name}`)
         .end(function(result) {
-            obj = JSON.parse(result.body);
+            let obj = JSON.parse(result.body);
+            console.log(obj.is_active > 0);
+            console.log(obj.is_veteran > 0);
+            res.json(obj);
+            // if (obj.is_active > 0 || obj.is_veteran > 0) {
+            //     User.findOneAndUpdate({ _id: req['payload']._id }, { $set: { verified: true } }, { new: true }, (err, user) => {
+            //         if (err) return next({ message: "The verification process is expired or unauthorized" });
+            //         let mailOptions = {
+            //             from: 'Veteran Connect <info@veteranconnect.co>',
+            //             to: user.email,
+            //             subject: `Welcome to Veteran Connect, ${user.firstName}!`,
+            //             html: welcome(user)
+            //         };
+            //         transporter.sendMail(mailOptions, (err) => {
+            //             if (err) return next(err);
+            //             res.json({ token: user.generateJWT() });
+            //         })
+            //     })
+            // } else if(obj.is_active == 0 && obj.is_veteran == 0) {
+            //     return next ({message: "Unable to verify your service!"});
+            // }
         }, function(err) {
             return next (err);
-        }).then(() =>{
-            if (obj.is_active > 0 || obj.is_veteran > 0) {
-                console.log('obj in the building!');
-                User.findOneAndUpdate({ _id: req['payload']._id }, { $set: { verified: true } }, { new: true }, (err, user) => {
-                    if (err) return next({ message: "The verification process is expired or unauthorized" });
-                    let mailOptions = {
-                        from: 'Veteran Connect <info@veteranconnect.co>',
-                        to: user.email,
-                        subject: `Welcome to Veteran Connect, ${user.firstName}!`,
-                        html: welcome(user)
-                    };
-                    transporter.sendMail(mailOptions, (err) => {
-                        if (err) return next(err);
-                        res.json({ token: user.generateJWT() });
-                    })
-                })
-            } else if(obj.is_active == 0 && obj.is_veteran == 0) {
-                return next ({message: "Unable to verify your service!"});
-            }
         });
 }
