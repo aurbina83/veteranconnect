@@ -56,5 +56,23 @@ export function verify(req: express.Request, res: express.Response, next: Functi
         .send(`name=${req.body.name}`)
         .end(function(result) {
             console.log(result.status, result.headers, result.body);
+            JSON.parse(result.body);
+            if (result.body.is_active > 0 || result.body.is_veteran > 0) {
+                User.findOneAndUpdate({ _id: req['payload']._id }, { $set: { verified: true } }, { new: true }, (err, user) => {
+                    if (err) return next({ message: "The verification process is expired or unauthorized" });
+                    let mailOptions = {
+                        from: 'Veteran Connect <info@veteranconnect.co>',
+                        to: user.email,
+                        subject: `Welcome to Veteran Connect, ${user.firstName}!`,
+                        html: welcome(user)
+                    };
+                    transporter.sendMail(mailOptions, (err) => {
+                        if (err) return next(err);
+                        res.json({ token: user.generateJWT() });
+                    })
+                })
+            }
+        }, function(err) {
+            return next (err);
         });
 }
