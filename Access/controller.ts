@@ -56,26 +56,23 @@ export function verify(req: express.Request, res: express.Response, next: Functi
         .send(`name=${req.body.name}`)
         .end(function(result) {
             let obj = JSON.parse(result.body);
-            console.log(typeof obj);
-            console.log(obj.is_veteran);
-            res.json(obj);
-            // if (result.body.is_active > 0 || result.body.is_veteran > 0) {
-            //     User.findOneAndUpdate({ _id: req['payload']._id }, { $set: { verified: true } }, { new: true }, (err, user) => {
-            //         if (err) return next({ message: "The verification process is expired or unauthorized" });
-            //         let mailOptions = {
-            //             from: 'Veteran Connect <info@veteranconnect.co>',
-            //             to: user.email,
-            //             subject: `Welcome to Veteran Connect, ${user.firstName}!`,
-            //             html: welcome(user)
-            //         };
-            //         transporter.sendMail(mailOptions, (err) => {
-            //             if (err) return next(err);
-            //             res.json({ token: user.generateJWT() });
-            //         })
-            //     })
-            // } else if(result.body.is_active == 0 && result.body.is_veteran == 0) {
-            //     return next ({message: "Unable to verify your service!"});
-            // }
+            if (obj.is_active > 0 || obj.is_veteran > 0) {
+                User.findOneAndUpdate({ _id: req['payload']._id }, { $set: { verified: true } }, { new: true }, (err, user) => {
+                    if (err) return next({ message: "The verification process is expired or unauthorized" });
+                    let mailOptions = {
+                        from: 'Veteran Connect <info@veteranconnect.co>',
+                        to: user.email,
+                        subject: `Welcome to Veteran Connect, ${user.firstName}!`,
+                        html: welcome(user)
+                    };
+                    transporter.sendMail(mailOptions, (err) => {
+                        if (err) return next(err);
+                        res.json({ token: user.generateJWT() });
+                    })
+                })
+            } else if(obj.is_active == 0 && obj.is_veteran == 0) {
+                return next ({message: "Unable to verify your service!"});
+            }
         }, function(err) {
             return next (err);
         });
