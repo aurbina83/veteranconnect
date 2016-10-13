@@ -55,10 +55,10 @@ export function verify(req: express.Request, res: express.Response, next: Functi
         .send(`dob=${req.body.dob}`)
         .send(`name=${req.body.name}`)
         .end(function(result) {
-            JSON.parse(result.body);
-            console.log(typeof result.body);
-            console.log(result.body);
-            res.json(result.body);
+            let obj = JSON.parse(result.body);
+            console.log(typeof obj);
+            console.log(obj.is_veteran);
+            res.json(obj);
             // if (result.body.is_active > 0 || result.body.is_veteran > 0) {
             //     User.findOneAndUpdate({ _id: req['payload']._id }, { $set: { verified: true } }, { new: true }, (err, user) => {
             //         if (err) return next({ message: "The verification process is expired or unauthorized" });
