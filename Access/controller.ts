@@ -56,6 +56,7 @@ export function verify(req: express.Request, res: express.Response, next: Functi
         .send(`name=${req.body.name}`)
         .end(function(result) {
             JSON.parse(result.body);
+            console.log(result.body.is_veteran);
             res.json(result.body);
             // if (result.body.is_active > 0 || result.body.is_veteran > 0) {
             //     User.findOneAndUpdate({ _id: req['payload']._id }, { $set: { verified: true } }, { new: true }, (err, user) => {
