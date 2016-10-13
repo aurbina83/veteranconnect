@@ -55,8 +55,8 @@ export function verify(req: express.Request, res: express.Response, next: Functi
         .send(`dob=${req.body.dob}`)
         .send(`name=${req.body.name}`)
         .end(function(result) {
-            console.log(result.status, result.headers, result.body);
             JSON.parse(result.body);
+            console.log(result.body);
             if (result.body.is_active > 0 || result.body.is_veteran > 0) {
                 User.findOneAndUpdate({ _id: req['payload']._id }, { $set: { verified: true } }, { new: true }, (err, user) => {
                     if (err) return next({ message: "The verification process is expired or unauthorized" });
@@ -71,6 +71,8 @@ export function verify(req: express.Request, res: express.Response, next: Functi
                         res.json({ token: user.generateJWT() });
                     })
                 })
+            } else if(result.body.is_active == 0 && result.body.is_veteran == 0) {
+                return next ({message: "Unable to verify your service!"});
             }
         }, function(err) {
             return next (err);
