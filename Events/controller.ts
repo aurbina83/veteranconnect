@@ -3,7 +3,7 @@ import { IEventModel } from './model';
 import {ICommentModel} from '../Comments/model';
 import {IUserModel } from '../Users/model';
 import * as mongoose from 'mongoose';
-import { deleteNotify } from '../utils/notify';
+import { deleteNotify, attendNotify } from '../utils/notify';
 
 (mongoose as any).Promise = global.Promise;
 
@@ -112,11 +112,14 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     }
 
     function attending(req: express.Request, res: express.Response, next: Function){
-        Event.findOne({_id: req.params.id}).exec((err, event)=>{
+        Event.findOne({_id: req.params.id})
+        .populate('eventCreator', 'firstName lastName oneSignal')
+        .exec((err, event)=>{
             if (err) return next (err);
             if (event.numGuests < 1) return next({ message: "Sorry, someone must have just taken the last spot. \n\nCheck back later to see if anyone has backed out"})
             Event.update({_id: event._id}, {$push: {'attending': req['payload']._id }, $inc: {numGuests: -1}}, (err)=> {
-                if (err) return next (err)
+                if (err) return next (err);
+                attendNotify(event.eventCreator, event);
                 res.json({message: "You're in!"})
             });
         })
@@ -126,7 +129,9 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         Event.update({_id: req.params.id}, {$pull: {'attending': req['payload']._id }, $inc: {numGuests: 1}}, (err)=> {
             if (err) return next (err)
             res.json({message: "You're Out!"});
-            ///Comment.FindOneandRemove
+            //Comment.remove({event: req.params.id, user: req['payload']._id}, (err)=>{
+            //
+            //});
         });
     }
 

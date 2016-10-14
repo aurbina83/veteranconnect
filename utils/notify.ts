@@ -90,3 +90,14 @@ export let deleteNotify = function(date, attending, name){
         //     })
         // })
 }
+
+export let attendNotify = function (user, e) {
+    let message = {
+        app_id: process.env.oneSignalID,
+        contents: {"en" : `${user.firstName} ${user.lastName} joined your event.`},
+        headings: {'en' : "Event Update"},
+        include_player_ids: user['oneSignal'].id,
+        data: {"type": "event", "page": "EventDetailsPage", "id": e._id}
+    }
+    sendNotification(message);
+}

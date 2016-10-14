@@ -22,6 +22,7 @@ let userSchema = new mongoose.Schema({
     imgUrl: {type: String},
     verified: {type: Boolean},
     oneSignal: {id: String, pushToken: String},
+    admin: {type: Boolean},
 
     events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}]
 });
@@ -53,7 +54,8 @@ userSchema.method('generateJWT', function() {
     email: this.email,
     loc: this.loc,
     locStamp: this.locStamp,
-    _id: this._id
+    _id: this._id,
+    admin: this.admin
   }, process.env.JWT_SECRET);
 });
 
