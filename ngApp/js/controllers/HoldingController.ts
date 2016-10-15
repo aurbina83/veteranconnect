@@ -19,9 +19,6 @@ namespace app.Controllers {
         }
 
         private alert() {
-            if(this.status.branch && this.status.verified) {
-                this.accessCheck();
-            } else {
                 this.SweetAlert.swal({
                     title: "This is a location based app!",
                     text: "If you have location services blocked for your browser, go to your settings and allow access.",
@@ -35,25 +32,24 @@ namespace app.Controllers {
                 },
                 (isConfirm) =>{
                     if (isConfirm) {
-                        this.accessCheck();
+                        this.route();
                     } else {
                         this.UserService.logout();
                     }
                 });
-            }
         }
 
-        private accessCheck() {
-            if (!this.UserService.getAccessCode()) {
-                this.UserService.getLocation().then(() => {
-                    this.route();
-                })
-            } else {
-                this.UserService.getLocation().then(() => {
-                    this.$location.path('/verified');
-                })
-            }
-        }
+        // private accessCheck() {
+        //     if (!this.UserService.getAccessCode()) {
+        //         this.UserService.getLocation().then(() => {
+        //             this.route();
+        //         })
+        //     } else {
+        //         this.UserService.getLocation().then(() => {
+        //             this.$location.path('/verified');
+        //         })
+        //     }
+        // }
         constructor(
             private UserService: app.Services.UserService,
             private $location: ng.ILocationService,
