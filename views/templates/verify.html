@@ -14,12 +14,13 @@
 
         <md-input-container flex-xs flex-sm>
             <label>Date of Birth</label>
-            <input mdc-datetime-picker="" date="true" type="text" id="datetime" format='MM/DD/YYYY' ng-model="vm.dob" class="md-input" required="true">
+            <input mdc-datetime-picker="" time="false" date="true" type="text" id="date" format='MM/DD/YYYY' ng-model="vm.dob" class="md-input" required="true">
         </md-input-container>
 
         <md-input-container flex-xs flex-sm>
             <label>Active Date</label>
-            <input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime" format='MM/DD/YYYY' ng-model="vm.date" class="md-input" required="true">
+            <input time="false" date="true" mdc-datetime-picker="" type="text" id="date" placeholder="Date"
+            ng-model="vm.date"class=" md-input" required="true">
         </md-input-container>
         <div class="hint2">
             Select any date you served on Active Duty after January 1, 1986. You must have been Active Duty on this date and served 30 consecutive, previous days on Active Duty.<br><br>If you're currently on Active Duty (and have been for 30 days), select yesterday's date.
