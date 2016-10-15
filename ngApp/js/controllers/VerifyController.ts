@@ -30,6 +30,8 @@ namespace app.Controllers {
             //     this.ErrorService.sweetAlert("Error", err.data.message, "warning");
             //     this.$state.go("Pending");
             // })
+            //
+            
         }
     }
     angular.module('app').controller("VerifyController", VerifyController);
