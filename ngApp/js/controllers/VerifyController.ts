@@ -23,15 +23,13 @@ namespace app.Controllers {
 
             console.log(body);
 
-            // this.UserService.verifyUser(body).then((res) =>{
-            //     this.ErrorService.toast("Service Verified", null);
-            //     this.$state.go('Welcome');
-            // }, (err) =>{
-            //     this.ErrorService.sweetAlert("Error", err.data.message, "warning");
-            //     this.$state.go("Pending");
-            // })
-            //
-            
+            this.UserService.verifyUser(body).then((res) =>{
+                this.ErrorService.toast("Service Verified", null);
+                this.$state.go('Welcome');
+            }, (err) =>{
+                this.ErrorService.sweetAlert("Error", err.data.message, "warning");
+                this.$state.go("Pending");
+            })
         }
     }
     angular.module('app').controller("VerifyController", VerifyController);
