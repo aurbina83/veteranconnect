@@ -48,7 +48,7 @@ export function remove(req: express.Request, res: express.Response, next: Functi
 
 export function verify(req: express.Request, res: express.Response, next: Function) {
     unirest.post("https://gruntroll-military-verification-v1.p.mashape.com/verify/active")
-        .header("X-Mashape-Key", "N1ThRIBMOlmsh1hx1hFSP2vTSs3gp1XhcHbjsnfxRqgh5YYtkP")
+        .header("X-Mashape-Key", process.env.MASHAPE)
         .header("Content-Type", "application/x-www-form-urlencoded")
         .header("Accept", "text/plain")
         .send(`date=${req.body.date}`)
