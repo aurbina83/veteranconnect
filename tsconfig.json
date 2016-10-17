@@ -102,7 +102,9 @@
     "Users/routes.ts",
     "YelpApi/routes.ts",
     "utils/mailHelper.ts",
-    "utils/notify.ts"
+    "utils/notify.ts",
+    "utils/push.ts",
+    "utils/sanitize.ts"
   ],
   "atom": {
     "rewriteTsconfig": false
