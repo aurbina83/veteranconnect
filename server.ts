@@ -39,6 +39,7 @@ app.use(favicon(__dirname + '/favicon.ico'));
 if (process.env.NODE_ENV !== 'test') app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(require('./utils/sanitizer')());
 app.use(cookieParser());
 app.use(helmet());
 
