@@ -1,30 +1,20 @@
-// var cluster = require('cluster');
-//
-// if (cluster.isMaster) {
-//   // Count the machine's CPUs
-//   // var cpuCount = require('os').cpus().length;
-//   var cpuCount = process.env.WEB_CONCURRENCY || 1;
-//
-//
-//   // Create a worker for each CPU
-//   for (var i = 0; i < cpuCount; i += 1) {
-//       console.log(i);
-//     cluster.fork();
-//   }
-//
-//   // Listen for dying workers
-//   cluster.on('exit', function () {
-//     cluster.fork();
-//   });
-// } else {
-//   require('./bin/www');
-// }
+var cluster = require('cluster');
 
-var throng = require('throng');
+if (cluster.isMaster) {
+  // Count the machine's CPUs
+  // var cpuCount = require('os').cpus().length;
+  var cpuCount = process.env.WEB_CONCURRENCY || 1;
 
-var WORKERS = process.env.WEB_CONCURRENCY || 1;
 
-throng(require('./bin/www'), {
-  workers: WORKERS,
-  lifetime: Infinity
-});
+  // Create a worker for each CPU
+  for (var i = 0; i < cpuCount; i += 1) {
+    cluster.fork();
+  }
+
+  // Listen for dying workers
+  cluster.on('exit', function () {
+    cluster.fork();
+  });
+} else {
+  require('./bin/www');
+}
