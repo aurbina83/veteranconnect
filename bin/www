@@ -2,11 +2,6 @@
 var throng = require('throng');
 var WORKERS = process.env.WEB_CONCURRENCY || 3;
 
-throng(start, {
-  workers: WORKERS,
-  lifetime: Infinity
-});
-
 var start = function(){
     /**
      * Module dependencies.
@@ -99,3 +94,8 @@ var start = function(){
       console.log('Server is listening on localhost:' + port);
     }
 }
+
+throng(start, {
+  workers: WORKERS,
+  lifetime: Infinity
+});
