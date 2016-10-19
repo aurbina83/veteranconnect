@@ -9,15 +9,12 @@ module.exports = function(io) {
     var router = app.Router();
 
     io.on('connection', function(socket) {
-        console.log("user connected");
 
         socket.on('join', function (data) {
-            console.log(data);
             socket.join(data.event);
         })
 
         socket.on('message', function(data) {
-            console.log(data);
             io.in(data.event).emit('receive', data);
         })
 
