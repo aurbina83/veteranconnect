@@ -14,7 +14,6 @@ namespace app.i {
         imgUrl?: string;
         verified: boolean;
         oneSignal: {id: string, pushToken: string};
-        admin?: boolean;
 
         events?: Array<string | IEvent>
     }
