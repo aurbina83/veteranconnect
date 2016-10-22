@@ -71,7 +71,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         let date = new Date();
         date.setHours(date.getHours() - 1)
         Event.find({eventCreator: req['payload']._id, dateTime: {$gte: date} })
-        .populate('eventCreator', 'firstName lastName branchImg imgUrl')
+        .populate('eventCreator', 'firstName lastName branch branchImg imgUrl')
         .exec((err, data) => {
             if(err) return next(err);
             res.json(data);
