@@ -114,7 +114,6 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     function attending(req: express.Request, res: express.Response, next: Function){
         let user = req['payload'];
         Event.findOne({_id: req.params.id})
-        .select('-comments')
         .populate('eventCreator', 'firstName lastName oneSignal')
         .exec((err, event)=>{
             if (err) return next (err);
@@ -130,7 +129,6 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     function notAttending(req: express.Request, res: express.Response, next: Function){
         let user = req['payload'];
         Event.findOne({_id: req.params.id})
-        .select('-comments')
         .populate('eventCreator', 'firstName lastName oneSignal')
         .exec((err, event) => {
             if (err) return next (err);

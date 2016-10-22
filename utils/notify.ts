@@ -14,7 +14,6 @@ import { sendNotification } from '../utils/push';
 
 export let commentNotify = function(event) {
     Event.findOne({ _id: event._id })
-        .select('-comments')
         .populate("eventCreator", "firstName email oneSignal", User)
         .populate("attending", "firstName email oneSignal", User)
         .exec((err, event) => {

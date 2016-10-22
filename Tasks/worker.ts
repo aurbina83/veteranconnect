@@ -31,7 +31,6 @@ let transporter = nodemailer.createTransport(ses({
       Event.find({
           "dateTime": {$gte: now, $lt: later}
       })
-        .select('-comments')
         .populate('eventCreator', 'firstName email oneSignal', User)
         .populate('attending', 'firstName email oneSignal', User)
         .exec((err, events)=>{
