@@ -82,7 +82,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         let date = new Date();
         date.setHours(date.getHours() - 1);
         Event.find({attending: req['payload']._id, dateTime: {$gte: date} })
-        .populate('eventCreator', 'firstName lastName branchImg imgUrl')
+        .populate('eventCreator', 'firstName branch lastName branchImg imgUrl')
         .exec((err, data) => {
             if(err) return next(err);
             if(!data) return next ({message: "This event was deleted!"});
