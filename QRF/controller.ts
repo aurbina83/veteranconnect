@@ -33,7 +33,7 @@ export function create(req: express.Request, res: express.Response, next: Functi
         let coords = event.location;
         let maxDist = 50;
         User.find({
-            _id: {$ne: event.creator},
+            // _id: {$ne: event.creator},
             loc: {
                 $geoWithin: {
                     $centerSphere: [coords, maxDist/3963.2]
@@ -51,7 +51,7 @@ export function create(req: express.Request, res: express.Response, next: Functi
                 contents: {"en" : "A veteran in your area has requested assistance!"},
                 headings: {'en' : "BREAK BREAK BREAK"},
                 include_player_ids: list,
-                data: {"type": "qrf", "page": "QRFAcceptPage", "qrfObj": event}
+                data: {"type": "qrf", "page": "QRFAcceptPage", "qrfObj": `${event}`}
             }
             sendNotification(message);
         })
