@@ -30,7 +30,7 @@ export let commentNotify = function(event) {
                 contents: {"en" : `@${event.name} on ${time}`},
                 headings: {'en' : "New comments in an event you're in!"},
                 include_player_ids: users,
-                data: {"type": "comments", "page": "EventDetailsPage", "id": `${event._id}`}
+                data: {"type": "event", "page": "EventDetailsPage", "id": `${event._id}`}
             }
             sendNotification(message);
 
