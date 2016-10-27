@@ -51,7 +51,7 @@ export function create(req: express.Request, res: express.Response, next: Functi
                 contents: {"en" : "A veteran in your area has requested assistance!"},
                 headings: {'en' : "BREAK BREAK BREAK"},
                 include_player_ids: list,
-                data: {"type": "qrf", "page": "QRFAcceptPage", "qrfObj": `${event}`}
+                data: {"type": "qrf", "page": "QRFAcceptPage", "id": `${event._id}`}
             }
             sendNotification(message);
         })
