@@ -60,6 +60,7 @@ export function verify(req: express.Request, res: express.Response, next: Functi
             console.log(obj.error);
             console.log(obj.message);
             if(obj.error) {
+                console.log("we here now");
                 return next ({message: obj.message});
             }
             if (obj.is_active > 0 || obj.is_veteran > 0) {
