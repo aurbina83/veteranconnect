@@ -59,7 +59,7 @@ export function verify(req: express.Request, res: express.Response, next: Functi
             console.log(obj);
             console.log(obj.error);
             console.log(obj.message);
-            if(obj.error) {
+            if(obj.error > -1) {
                 console.log("we here now");
                 return next ({message: obj.message});
             }
