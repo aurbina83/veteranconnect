@@ -57,6 +57,8 @@ export function verify(req: express.Request, res: express.Response, next: Functi
         .end((result) => {
             let obj = JSON.parse(result.body);
             console.log(obj);
+            console.log(obj.error);
+            console.log(obj.message);
             if(obj.error) {
                 return next ({message: obj.message});
             }
