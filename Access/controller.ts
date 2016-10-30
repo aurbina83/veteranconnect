@@ -55,6 +55,7 @@ export function verify(req: express.Request, res: express.Response, next: Functi
         .send(`dob=${req.body.dob}`)
         .send(`name=${req.body.name}`)
         .end((result) => {
+            console.log(result);
             if(result.error) {
                 return next ({message: result.message});
             }
