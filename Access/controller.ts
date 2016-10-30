@@ -56,11 +56,7 @@ export function verify(req: express.Request, res: express.Response, next: Functi
         .send(`name=${req.body.name}`)
         .end((result) => {
             let obj = JSON.parse(result.body);
-            console.log(obj);
-            console.log(obj.error);
-            console.log(obj.message);
-            if(obj.error > -1) {
-                console.log("we here now");
+            if(obj.error != null) {
                 return next ({message: obj.message});
             }
             if (obj.is_active > 0 || obj.is_veteran > 0) {
