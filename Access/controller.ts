@@ -55,6 +55,9 @@ export function verify(req: express.Request, res: express.Response, next: Functi
         .send(`dob=${req.body.dob}`)
         .send(`name=${req.body.name}`)
         .end((result) => {
+            if(result.error) {
+                return next ({message: result.message});
+            }
             let obj = JSON.parse(result.body);
             if (obj.is_active > 0 || obj.is_veteran > 0) {
                 User.findOneAndUpdate({ _id: req['payload']._id }, { $set: { verified: true } }, { new: true }, (err, user) => {
@@ -73,7 +76,5 @@ export function verify(req: express.Request, res: express.Response, next: Functi
             } else if(obj.is_active == 0 && obj.is_veteran == 0) {
                 return next ({message: "Unable to verify your service!"});
             }
-        }, function(err) {
-            return next (err);
         });
 }
