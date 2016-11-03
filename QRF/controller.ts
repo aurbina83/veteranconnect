@@ -33,7 +33,7 @@ export function create(req: express.Request, res: express.Response, next: Functi
         let coords = event.location;
         let maxDist = 50;
         User.find({
-            // _id: {$ne: event.creator},
+            _id: {$ne: event.creator},
             loc: {
                 $geoWithin: {
                     $centerSphere: [coords, maxDist/3963.2]
