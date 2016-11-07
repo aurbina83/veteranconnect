@@ -44,7 +44,7 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         .sort({dateTime: 1})
         .skip(skip)
         .limit(30)
-        .populate('eventCreator', 'firstName lastName branch branchImg imgUrl')
+        .populate('eventCreator', 'firstName lastName branch branchImg imgUrl facebook.id')
         .populate('attending', 'firstName lastName imgUrl branch')
         .exec((err, data) => {
             if (err) return next(err);
