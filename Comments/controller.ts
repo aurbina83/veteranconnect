@@ -14,7 +14,10 @@ export function controller(Comment: mongoose.Model<ICommentModel>, Event: mongoo
         c.datePosted = new Date();
         c.user = req['payload']._id;
         c.save((err, comment) => {
-            if (err) return next(err);
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
             Event.findOneAndUpdate({ _id: c.event }, { $push: { 'comments': c._id } }, (err, event) => {
                 if (err) return next(err);
                 if(event.comments.length > 1 && event.comments.length % 10 === 0 && event.attending.length < 15 && event.attending.length > 0) {

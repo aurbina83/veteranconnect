@@ -44,7 +44,10 @@ export function remove(req: express.Request, res: express.Response, next: Functi
                     html: welcome(user)
                 };
                 transporter.sendMail(mailOptions, (err) => {
-                    if (err) return next(err);
+                    if (err) {
+                        console.log(err);
+                         return next(err);
+                    }
                     res.json({ token: user.generateJWT() });
                 })
             })
@@ -64,6 +67,7 @@ export function verify(req: express.Request, res: express.Response, next: Functi
             let obj = JSON.parse(result.body);
             if(obj.error != null) {
                 console.log(obj.error);
+                console.log(obj.message);
                 return next ({message: obj.message});
             }
             if (obj.is_active > 0 || obj.is_veteran > 0) {
@@ -76,7 +80,10 @@ export function verify(req: express.Request, res: express.Response, next: Functi
                         html: welcome(user)
                     };
                     transporter.sendMail(mailOptions, (err) => {
-                        if (err) return next(err);
+                        if (err) {
+                            console.log(err);
+                             return next(err);
+                        }
                         res.json({ token: user.generateJWT() });
                     })
                 })
