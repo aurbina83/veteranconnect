@@ -13,7 +13,10 @@ export function create(req: express.Request, res: express.Response, next: Functi
     a.expiresAt = new Date(date.getTime() + (days * 24 * 60 * 60 * 1000));
     if (req.headers['x-ids-key'] == process.env.ID_SERVICE_KEY) {
         Access.create(a, (err, access) => {
-            if (err) return next(err);
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
             res.json({ 'discount_code': a.code.toString() });
         })
     } else {
@@ -25,7 +28,10 @@ export function remove(req: express.Request, res: express.Response, next: Functi
     Access.findOneAndRemove({
         code: req.params.code
     }, (err, code) => {
-        if (err) return next(err);
+        if (err) {
+            console.log(err);
+            return next(err);
+        }
         if (!code) return next({ message: "Verification is expired or unauthorized!" });
         if (code) {
             console.log(code);
@@ -57,6 +63,7 @@ export function verify(req: express.Request, res: express.Response, next: Functi
         .end((result) => {
             let obj = JSON.parse(result.body);
             if(obj.error != null) {
+                console.log(obj.error);
                 return next ({message: obj.message});
             }
             if (obj.is_active > 0 || obj.is_veteran > 0) {

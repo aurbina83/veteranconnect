@@ -47,8 +47,11 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         .populate('eventCreator', 'firstName lastName branch branchImg imgUrl facebook.id')
         .populate('attending', 'firstName lastName imgUrl branch')
         .exec((err, data) => {
-            if (err) return next(err);
-            res.json(200, data);
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
+            res.json(data);
         });
     }
 
@@ -58,10 +61,16 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         .populate('eventCreator', 'firstName lastName branch branchImg imgUrl')
         .populate('attending', 'firstName lastName imgUrl branch')
         .exec((err, data) => {
-            if(err) return next(err);
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
             if(!data) return next({message: 'Oops'});
             Comment.populate(data.comments, {path: 'user', select:'firstName lastName imgUrl branchImg', model: 'User'}, (err, response) => {
-                if (err) return next(err);
+                if (err) {
+                    console.log(err);
+                    return next(err);
+                }
                 res.json(data);
             });
           });
@@ -73,7 +82,10 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         Event.find({eventCreator: req['payload']._id, dateTime: {$gte: date} })
         .populate('eventCreator', 'firstName lastName branch branchImg imgUrl')
         .exec((err, data) => {
-            if(err) return next(err);
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
             res.json(data);
         });
     }
@@ -84,7 +96,10 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         Event.find({attending: req['payload']._id, dateTime: {$gte: date} })
         .populate('eventCreator', 'firstName branch lastName branchImg imgUrl')
         .exec((err, data) => {
-            if(err) return next(err);
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
             if(!data) return next ({message: "This event was deleted!"});
             res.json(data);
         });
@@ -95,9 +110,15 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         let e = new Event(req.body);
         e.eventCreator = req['payload']._id;
         e.save((err, event: IEventModel) => {
-            if(err) return next({message: "Did you enter all required fields?"});
+            if(err) {
+                console.log(err);
+                return next({message: "Did you enter all required fields?"});
+            }
             User.update({_id: req['payload']._id}, {$push: {'events': e._id}}, (err, result) =>{
-                if(err) return next (err);
+                if (err) {
+                    console.log(err);
+                    return next(err);
+                }
                 res.json({message: "Event Created"});
             })
         });
@@ -105,7 +126,10 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
 
     function update(req: express.Request, res: express.Response, next: Function){
         Event.update({_id: req.params.id, eventCreator: req['payload']._id}, req.body, (err, numRows: any) => {
-            if (err) return next (err);
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
             if(numRows.nModified ===0) return next({ message: "Could not update the requested event", status: 500});
             res.json({ message: 'Your event has been updated!'});
         });
@@ -116,7 +140,10 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         Event.findOne({_id: req.params.id})
         .populate('eventCreator', 'firstName lastName oneSignal')
         .exec((err, event)=>{
-            if (err) return next (err);
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
             if (event.numGuests < 1) return next({ message: "Sorry, someone must have just taken the last spot. \n\nCheck back later to see if anyone has backed out"})
             Event.update({_id: event._id}, {$push: {'attending': req['payload']._id }, $inc: {numGuests: -1}}, (err)=> {
                 if (err) return next (err);
@@ -131,11 +158,20 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
         Event.findOne({_id: req.params.id})
         .populate('eventCreator', 'firstName lastName oneSignal')
         .exec((err, event) => {
-            if (err) return next (err);
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
             Event.update({_id: req.params.id}, {$pull: {'attending': req['payload']._id }, $inc: {numGuests: 1}}, (err)=> {
-                if (err) return next (err)
+                if (err) {
+                    console.log(err);
+                    return next(err);
+                }
                 Comment.remove({event: req.params.id, user: req['payload']._id}, (err)=>{
-                    if (err) return next (err);
+                    if (err) {
+                        console.log(err);
+                        return next(err);
+                    }
                     unattendNotify(event.eventCreator, event, user);
                     res.json({message: "You're Out!"});
                 });
@@ -153,11 +189,20 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
             deleteNotify(d, a, n);
         }).then((event)=>{
             Comment.remove({event: req.params.id}, (err)=>{
-                if(err) return next (err);
+                if (err) {
+                    console.log(err);
+                    return next(err);
+                }
                 User.update({_id: req['payload']._id}, {$pull: {'events': req.params.id}}, (err)=>{
-                    if(err) return next (err);
+                    if (err) {
+                        console.log(err);
+                        return next(err);
+                    }
                     Event.remove({_id: req.params.id, eventCreator: req['payload']._id}, (err)=>{
-                        if (err) return next (err);
+                        if (err) {
+                            console.log(err);
+                            return next(err);
+                        }
                         res.json({message: "Event Deleted"});
                     })
                 })

@@ -11,7 +11,10 @@ export function getMine(req: express.Request, res: express.Response, next: Funct
     QRF.find({ $or: [{creator: req['payload']._id}, {qrf: req['payload']._id}], expirationDate: {$gte: date} })
     .populate ('qrf', 'firstName lastName branch imgUrl')
     .exec((err, events) => {
-        if (err) return (err);
+        if (err) {
+            console.log(err);
+            return next(err);
+        }
         res.json(events)
     });
 }
@@ -20,14 +23,20 @@ export function findOne(req: express.Request, res: express.Response, next: Funct
     QRF.findOne({_id: req.params.id})
     .populate ('qrf', 'firstName lastName branch imgUrl')
     .exec((err, event) =>{
-        if (err) return next (err);
+        if (err) {
+            console.log(err);
+            return next(err);
+        }
         res.json(event);
     })
 }
 
 export function create(req: express.Request, res: express.Response, next: Function) {
     QRF.create(req.body, (err, event) => {
-        if (err) return next (err);
+        if (err) {
+            console.log(err);
+            return next(err);
+        }
         res.json({message: "QRF on the way"});
     }).then((event) =>{
         let coords = event.location;
@@ -41,7 +50,10 @@ export function create(req: express.Request, res: express.Response, next: Functi
             }
         })
         .exec((err, users) =>{
-            if (err) return next (err);
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
             let list = [];
             users.forEach((u) => {
                 list.push(u.oneSignal.id);
@@ -60,7 +72,10 @@ export function create(req: express.Request, res: express.Response, next: Functi
 
 export function join(req: express.Request, res: express.Response, next: Function) {
     QRF.findOne({_id: req.params.id}).exec((err, event) =>{
-        if (err) return next (err);
+        if (err) {
+            console.log(err);
+            return next(err);
+        }
         if (event.limit < 1) return next({message: "The QRF team has already been assembled. Thank you for stepping up!"});
         QRF.update({_id: event._id}, {$push: {'qrf': req['payload']._id }, $inc: {limit: -1}}, (err)=> {
             if (err) return next (err)
@@ -74,7 +89,10 @@ export function message (req: express.Request, res: express.Response, next: Func
     .populate("qrf", "oneSignal")
     .exec((err, event) =>{
         QRF.update({_id: req.params.id}, {$push: {"messages": req.body}}, (err) => {
-            if (err) return next (err);
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
             if(event.messages.length > 1 && event.messages.length % 10 === 0) {
                 let users = [];
                 event.qrf.forEach((q) =>{
