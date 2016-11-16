@@ -39,8 +39,6 @@ export function create(req: express.Request, res: express.Response, next: Functi
         }
         res.json({message: "QRF on the way"});
     }).then((event) =>{
-        console.log(event);
-        console.log(event.creator);
         let coords = event.location;
         let maxDist = 50;
         User.find({
@@ -56,7 +54,6 @@ export function create(req: express.Request, res: express.Response, next: Functi
                 console.log(err);
                 return next(err);
             }
-            console.log(users);
             let list = [];
             users.forEach((u) => {
                 list.push(u.oneSignal.id);
