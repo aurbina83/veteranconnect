@@ -27,11 +27,14 @@ export function controller(User: mongoose.Model<IUserModel>) {
                 })
             } else {
                 let u = new User();
+                u.dateCreated = new Date();
                 u.firstName = req.body.first_name;
                 u.lastName = req.body.last_name;
                 u.imgUrl = req.body.picture;
                 u.facebook.id = req.body.id;
                 u.facebook.token = req.body.token;
+                u.platform = req.body.platform;
+                u.appVersion = req.body.appVersion;
                 u.save((err, user) => {
                     if (err) {
                         console.log(err);

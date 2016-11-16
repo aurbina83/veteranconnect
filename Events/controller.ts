@@ -106,8 +106,8 @@ export function controller(Event: mongoose.Model<IEventModel>, User: mongoose.Mo
     }
 
     function create(req: express.Request, res: express.Response, next: Function){
-        req.body.datePosted = Date.now();
         let e = new Event(req.body);
+        e.dateCreated = new Date();
         e.eventCreator = req['payload']._id;
         e.save((err, event: IEventModel) => {
             if(err) {

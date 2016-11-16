@@ -13,7 +13,7 @@ namespace app.i {
         city: string;
         state: string;
         dateTime: any;
-        dateCreated: number;
+        dateCreated: Date;
         eventCreator: (string | IUser);
 
         attending: [any];

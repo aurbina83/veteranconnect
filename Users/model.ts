@@ -9,6 +9,7 @@ export interface IUserModel extends app.i.IUser, mongoose.Document {
 }
 
 let userSchema = new mongoose.Schema({
+    dateCreated: {type: Date},
     email: { type: String, lowercase: true, trim: true, unique: true, sparse: true },
     password: { type: String },
     firstName: {type: String},
@@ -22,6 +23,8 @@ let userSchema = new mongoose.Schema({
     imgUrl: {type: String},
     verified: {type: Boolean},
     oneSignal: {id: String, pushToken: String},
+    platform: {type: String},
+    appVersion: {type: String},
 
     events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}]
 });
