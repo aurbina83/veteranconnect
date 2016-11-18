@@ -18,7 +18,7 @@ export function controller(User: mongoose.Model<IUserModel>) {
                 return next(err);
             }
             if (user) {
-                User.findOneAndUpdate({_id: user._id}, {$set: {imgUrl: req.body.picture, 'facebook.token': req.body.token}}, {new: true}, (err, user) =>{
+                User.findOneAndUpdate({_id: user._id}, {$set: {imgUrl: req.body.picture, 'facebook.token': req.body.token, platform: req.body.platform, appVersion: req.body.appVersion, email: req.body.email}}, {new: true}, (err, user) =>{
                     if (err) {
                         console.log(err);
                         return next(err);
@@ -35,6 +35,7 @@ export function controller(User: mongoose.Model<IUserModel>) {
                 u.facebook.token = req.body.token;
                 u.platform = req.body.platform;
                 u.appVersion = req.body.appVersion;
+                u.email = req.body.email;
                 u.save((err, user) => {
                     if (err) {
                         console.log(err);
