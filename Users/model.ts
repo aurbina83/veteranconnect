@@ -24,7 +24,7 @@ let userSchema = new mongoose.Schema({
     verified: {type: Boolean},
     oneSignal: {id: String, pushToken: String},
     platform: {type: String},
-    appVersion: {type: Number},
+    appVersion: {type: String},
 
     events: [{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}]
 });
