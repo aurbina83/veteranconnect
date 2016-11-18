@@ -13,6 +13,7 @@ export function controller(User: mongoose.Model<IUserModel>) {
     }
     function login(req: express.Request, res: express.Response, next: Function) {
         User.findOne({'facebook.id': req.body.id}).exec((err, user) =>{
+            req.body.appVersion = parseInt(req.body.appVersion);
             if (err) {
                 console.log(err);
                 return next(err);
