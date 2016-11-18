@@ -16,7 +16,7 @@ namespace app.i {
         verified: boolean;
         oneSignal: {id: string, pushToken: string};
         platform: string;
-        appVersion: string;
+        appVersion: number;
 
         events?: Array<string | IEvent>
     }

@@ -73,19 +73,34 @@ export function controller(User: mongoose.Model<IUserModel>) {
 
 
     function update (req: express.Request, res: express.Response, next: Function) {
-        User.findOneAndUpdate({_id: req.params.id},
-            {$set: {
-            branch: req.body.branch,
-            email: req.body.email,
-            mos: req.body.mos,
-            branchImg: req.body.branchImg
-        }}, {new: true}, (err, user) => {
-            if (err) {
-                console.log(err);
-                return next(err);
-            }
-            res.json({token: user.generateJWT()});
-        });
+        if(req.body.email){
+            User.findOneAndUpdate({_id: req.params.id},
+                {$set: {
+                branch: req.body.branch,
+                email: req.body.email,
+                mos: req.body.mos,
+                branchImg: req.body.branchImg
+            }}, {new: true}, (err, user) => {
+                if (err) {
+                    console.log(err);
+                    return next(err);
+                }
+                res.json({token: user.generateJWT()});
+            });
+        } else {
+            User.findOneAndUpdate({_id: req.params.id},
+                {$set: {
+                branch: req.body.branch,
+                mos: req.body.mos,
+                branchImg: req.body.branchImg
+            }}, {new: true}, (err, user) => {
+                if (err) {
+                    console.log(err);
+                    return next(err);
+                }
+                res.json({token: user.generateJWT()});
+            });
+        }
     }
 
     function updateLoc (req: express.Request, res: express.Response, next: Function) {
