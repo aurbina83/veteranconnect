@@ -18,7 +18,7 @@ export function controller(User: mongoose.Model<IUserModel>) {
                 return next(err);
             }
             if (user) {
-                User.findOneAndUpdate({_id: user._id}, {$set: {imgUrl: req.body.picture, 'facebook.token': req.body.token, platform: req.body.platform, appVersion: req.body.appVersion, email: req.body.email}}, {new: true}, (err, user) =>{
+                User.findOneAndUpdate({_id: user._id}, {$set: req.body}, {new: true}, (err, user) =>{
                     if (err) {
                         console.log(err);
                         return next(err);
@@ -75,45 +75,14 @@ export function controller(User: mongoose.Model<IUserModel>) {
 
 
     function update (req: express.Request, res: express.Response, next: Function) {
-        if(req.body.email){
-            User.findOneAndUpdate({_id: req.params.id},
-                {$set: {
-                branch: req.body.branch,
-                email: req.body.email,
-                mos: req.body.mos,
-                branchImg: req.body.branchImg
-            }}, {new: true}, (err, user) => {
-                if (err) {
-                    console.log(err);
-                    return next(err);
-                }
-                res.json({token: user.generateJWT()});
-            });
-        } else {
-            User.findOneAndUpdate({_id: req.params.id},
-                {$set: {
-                branch: req.body.branch,
-                mos: req.body.mos,
-                branchImg: req.body.branchImg
-            }}, {new: true}, (err, user) => {
-                if (err) {
-                    console.log(err);
-                    return next(err);
-                }
-                res.json({token: user.generateJWT()});
-            });
-        }
+        User.findOneAndUpdate({_id: req.params.id}, {$set: req.body}, {new: true}, (err, user) =>{
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
+            res.json({token: user.generateJWT()});
+        })
     }
-
-    // function updateLoc (req: express.Request, res: express.Response, next: Function) {
-    //     User.findOneAndUpdate({_id: req.params.id}, {$set: {loc: req.body.loc, locStamp: req.body.locStamp}}, {new: true}, (err, user) =>{
-    //         if (err) {
-    //             console.log(err);
-    //             return next(err);
-    //         }
-    //         res.json({token: user.generateJWT()});
-    //     })
-    // }
 
     function updateLoc (req: express.Request, res: express.Response, next: Function) {
         User.findOneAndUpdate({_id: req.params.id}, {$set: req.body}, {new: true}, (err, user) =>{
