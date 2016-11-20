@@ -46,7 +46,7 @@ export function remove(req: express.Request, res: express.Response, next: Functi
                 transporter.sendMail(mailOptions, (err) => {
                     if (err) {
                         console.log(err);
-                         return next(err);
+                        return next(err);
                     }
                     res.json({ token: user.generateJWT() });
                 })
@@ -65,30 +65,32 @@ export function verify(req: express.Request, res: express.Response, next: Functi
         .send(`name=${req.body.name}`)
         .end((result) => {
             let obj = JSON.parse(result.body);
-            if(obj.error != null) {
+            if (obj.error != null) {
                 console.log(obj.error);
                 console.log(obj.message);
-                return next ({message: obj.message});
+                return next({ message: obj.message });
             }
             if (obj.is_active > 0 || obj.is_veteran > 0) {
                 User.findOneAndUpdate({ _id: req['payload']._id }, { $set: { verified: true } }, { new: true }, (err, user) => {
                     if (err) return next({ message: "The verification process is expired or unauthorized" });
-                    let mailOptions = {
-                        from: 'Veteran Connect <info@veteranconnect.co>',
-                        to: user.email,
-                        subject: `Welcome to Veteran Connect, ${user.firstName}!`,
-                        html: welcome(user)
-                    };
-                    transporter.sendMail(mailOptions, (err) => {
-                        if (err) {
-                            console.log(err);
-                             return next(err);
-                        }
-                        res.json({ token: user.generateJWT() });
-                    })
+                    if (user.email) {
+                        let mailOptions = {
+                            from: 'Veteran Connect <info@veteranconnect.co>',
+                            to: user.email,
+                            subject: `Welcome to Veteran Connect, ${user.firstName}!`,
+                            html: welcome(user)
+                        };
+                        transporter.sendMail(mailOptions, (err) => {
+                            if (err) {
+                                console.log(err);
+                                return next(err);
+                            }
+                        })
+                    }
+                    res.json({ token: user.generateJWT() });
                 })
-            } else if(obj.is_active == 0 && obj.is_veteran == 0) {
-                return next ({message: "Unable to verify your service!"});
+            } else if (obj.is_active == 0 && obj.is_veteran == 0) {
+                return next({ message: "Unable to verify your service!" });
             }
         });
 }
