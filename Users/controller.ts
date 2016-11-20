@@ -105,8 +105,18 @@ export function controller(User: mongoose.Model<IUserModel>) {
         }
     }
 
+    // function updateLoc (req: express.Request, res: express.Response, next: Function) {
+    //     User.findOneAndUpdate({_id: req.params.id}, {$set: {loc: req.body.loc, locStamp: req.body.locStamp}}, {new: true}, (err, user) =>{
+    //         if (err) {
+    //             console.log(err);
+    //             return next(err);
+    //         }
+    //         res.json({token: user.generateJWT()});
+    //     })
+    // }
+
     function updateLoc (req: express.Request, res: express.Response, next: Function) {
-        User.findOneAndUpdate({_id: req.params.id}, {$set: {loc: req.body.loc, locStamp: req.body.locStamp}}, {new: true}, (err, user) =>{
+        User.findOneAndUpdate({_id: req.params.id}, {$set: req.body}, {new: true}, (err, user) =>{
             if (err) {
                 console.log(err);
                 return next(err);
