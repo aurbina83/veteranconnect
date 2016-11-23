@@ -33,11 +33,9 @@ export function controller(User: mongoose.Model<IUserModel>) {
                 u.imgUrl = req.body.picture;
                 u.facebook.id = req.body.id;
                 u.facebook.token = req.body.token;
-                if(req.body.platform){
-                    u.platform = req.body.platform;
-                    u.appVersion = req.body.appVersion;
-                    u.email = req.body.email;
-                }
+                u.platform = req.body.platform;
+                u.appVersion = req.body.appVersion;
+                u.email = req.body.email;
                 u.save((err, user) => {
                     if (err) {
                         console.log(err);
