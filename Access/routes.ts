@@ -9,6 +9,7 @@ const auth = jwt({
 });
 
 router.get('/', controller.create);
+router.post('/', auth, controller.verify);
 
 router.delete('/:code', auth, controller.remove);
 

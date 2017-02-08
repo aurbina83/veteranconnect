@@ -2,4 +2,4 @@
     <div class="warning-box" ng-show="vm.message">
         <p>{{vm.message}} please go home.</p>
     </div>
-</div> --><div layout="column" layout-align="center center"><md-progress-circular md-mode="indeterminate" class="md-primary md-hue-2" md-diameter="100"></md-progress-circular></div>
+</div> --><div layout="column" layout-align="center center"><md-progress-circular md-mode="indeterminate" class="md-primary md-hue-2" md-diameter="100" ng-show="!vm.button"></md-progress-circular><a href="veteranconnect://app/verify/{{vm.access_code}}" ng-show="vm.button"><md-button align="center" class="loginbtn independence">Success! Head back to Mobile App!</md-button></a></div>

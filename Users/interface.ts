@@ -1,6 +1,7 @@
 namespace app.i {
     export interface IUser {
         _id: any;
+        dateCreated: Date;
         email: string;
         password: string;
         firstName: string;
@@ -14,6 +15,8 @@ namespace app.i {
         imgUrl?: string;
         verified: boolean;
         oneSignal: {id: string, pushToken: string};
+        platform: string;
+        appVersion: string;
 
         events?: Array<string | IEvent>
     }

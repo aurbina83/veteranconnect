@@ -12,7 +12,7 @@ let eventSchema = new mongoose.Schema({
     city:{ type: String, required: true},
     state:{ type: String, required: true},
     dateTime: {type: Date, required: true},
-    dateCreated: {type: Number},
+    dateCreated: {type: Date},
     eventCreator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
 
     attending: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}],

@@ -12,6 +12,18 @@ namespace app.Services {
             return q.promise;
         }
 
+        public verifyUser(body) {
+            let q = this.$q.defer();
+            this.$http.post('/api/v1/access', body).then((res) =>{
+                this.setToken(res.data['token']);
+                this.setUser();
+                q.resolve();
+            }, err => {
+                q.reject(err);
+            })
+            return q.promise;
+        }
+
         public register(id, {email, branch, mos, branchImg}) {
             let q = this.$q.defer();
             this.$http.put('/api/v1/users/register/' + id, { email: email, branch: branch, mos: mos, branchImg: branchImg }).then((res) => {
@@ -36,17 +48,29 @@ namespace app.Services {
             this.$state.go('Login')
         }
 
-        public getAccessCode() {
-            return this.$window.localStorage.getItem('access_code');
-        }
-
-        public setAccessCode(access_code: string) {
-            this.$window.localStorage.setItem('access_code', access_code);
-        }
-
-        public removeAccessCode() {
-            this.$window.localStorage.removeItem('access_code');
-        }
+        // public getMobile() {
+        //     return this.$window.localStorage.getItem('mobile');
+        // }
+        //
+        // public setMobile(mobile: string) {
+        //     this.$window.localStorage.setItem('mobile', mobile);
+        // }
+        //
+        // public removeMobile() {
+        //     this.$window.localStorage.removeItem('mobile');
+        // }
+        //
+        // public getAccessCode() {
+        //     return this.$window.localStorage.getItem('access_code');
+        // }
+        //
+        // public setAccessCode(access_code: string) {
+        //     this.$window.localStorage.setItem('access_code', access_code);
+        // }
+        //
+        // public removeAccessCode() {
+        //     this.$window.localStorage.removeItem('access_code');
+        // }
 
         public setUser() {
             let token = this.getToken();

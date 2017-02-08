@@ -18,7 +18,10 @@ const auth = jwt({
 
 router.get("/search", auth, function(req, res, next){
   yelp.search(req.query, function(error, data) {
-    if(error)return next ({message: "Well this is embarrasing, try again in a couple of minutes"});
+    if(error) {
+        console.log(error);
+        return next ({message: "Well this is embarrasing, try again in a couple of minutes"});
+    }
     res.send(data);
   });
 });

@@ -13,21 +13,34 @@ export function controller(User: mongoose.Model<IUserModel>) {
     }
     function login(req: express.Request, res: express.Response, next: Function) {
         User.findOne({'facebook.id': req.body.id}).exec((err, user) =>{
-            if (err) return next (err);
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
             if (user) {
-                User.findOneAndUpdate({_id: user._id}, {$set: {imgUrl: req.body.picture, 'facebook.token': req.body.token}}, {new: true}, (err, user) =>{
-                    if (err) return next (err);
+                User.findOneAndUpdate({_id: user._id}, {$set: req.body}, {new: true}, (err, user) =>{
+                    if (err) {
+                        console.log(err);
+                        return next(err);
+                    }
                     res.json({token: user.generateJWT()});
                 })
             } else {
                 let u = new User();
+                u.dateCreated = new Date();
                 u.firstName = req.body.first_name;
                 u.lastName = req.body.last_name;
                 u.imgUrl = req.body.picture;
                 u.facebook.id = req.body.id;
                 u.facebook.token = req.body.token;
+                u.platform = req.body.platform;
+                u.appVersion = req.body.appVersion;
+                u.email = req.body.email;
                 u.save((err, user) => {
-                    if (err) return next(err);
+                    if (err) {
+                        console.log(err);
+                        return next(err);
+                    }
                     res.json({token: u.generateJWT()});
                 })
             }
@@ -50,36 +63,42 @@ export function controller(User: mongoose.Model<IUserModel>) {
         User.findOne({_id: req.params.id})
         .select('-facebook -email -attending -events')
         .exec((err, data) => {
-            if (err) return next (err);
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
             res.json(data);
         });
     }
 
 
     function update (req: express.Request, res: express.Response, next: Function) {
-        User.findOneAndUpdate({_id: req.params.id},
-            {$set: {
-            branch: req.body.branch,
-            email: req.body.email,
-            mos: req.body.mos,
-            branchImg: req.body.branchImg
-        }}, {new: true}, (err, user) => {
-            if(err) return next(err);
+        User.findOneAndUpdate({_id: req.params.id}, {$set: req.body}, {new: true}, (err, user) =>{
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
             res.json({token: user.generateJWT()});
-        });
+        })
     }
 
     function updateLoc (req: express.Request, res: express.Response, next: Function) {
-        User.findOneAndUpdate({_id: req.params.id}, {$set: {loc: req.body.loc, locStamp: req.body.locStamp}}, {new: true}, (err, user) =>{
-            if (err) return next (err);
+        User.findOneAndUpdate({_id: req.params.id}, {$set: req.body}, {new: true}, (err, user) =>{
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
             res.json({token: user.generateJWT()});
         })
     }
 
     function updatePush(req: express.Request, res: express.Response, next: Function) {
         User.update({_id: req.params.id}, {$set: {oneSignal: req.body}}, (err, user) => {
-            if (err) return next (err);
-            res.json({message: " Push info Updated!"});
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
+            res.json({message: "Push info updated!"});
         });
     }
 
