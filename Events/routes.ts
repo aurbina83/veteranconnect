@@ -17,29 +17,29 @@ const auth = jwt({
 // Base Route == /api/v1/events
 
 //GET: /api/v1/events
-router.get('/', auth, ctrl.getAll);
+router.get('/', ctrl.getAll);
 
 //GET: /api/v1/events/:id
-router.get('/myevents', auth, ctrl.findMine);
+router.get('/myevents', ctrl.findMine);
 
-router.get('/attending', auth, ctrl.findAttending);
+router.get('/attending', ctrl.findAttending);
 
 //GET: /api/v1/events/:id
 router.get('/:id', ctrl.findOne);
 
 //DELETE: /api/v1/events/:id
-router.delete('/:id', auth, ctrl.remove);
+router.delete('/:id', ctrl.remove);
 
 //POST: /api/v1/events
-router.post('/', auth, ctrl.create);
+router.post('/', ctrl.create);
 
 //PUT: /api/v1/events/attending/:id
-router.put('/attending/:id', auth, ctrl.attending);
+router.put('/attending/:id', ctrl.attending);
 
 //PUT: /api/v1/events/notattending/:id
-router.put('/notattending/:id', auth, ctrl.notAttending);
+router.put('/notattending/:id', ctrl.notAttending);
 
 //PUT: /api/v1/events/:id
-router.put('/:id', auth, ctrl.update);
+router.put('/:id', ctrl.update);
 
 export = router;

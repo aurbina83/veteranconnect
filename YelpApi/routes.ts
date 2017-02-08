@@ -16,7 +16,7 @@ const auth = jwt({
     secret: process.env.JWT_SECRET
 });
 
-router.get("/search", auth, function(req, res, next){
+router.get("/search", function(req, res, next){
   yelp.search(req.query, function(error, data) {
     if(error) {
         console.log(error);

@@ -10,14 +10,14 @@ const auth = jwt({
 
 //BASE API  /api/v1/qrf
 
-router.get("/", auth, controller.getMine);
+router.get("/", controller.getMine);
 
-router.get("/:id", auth, controller.findOne);
+router.get("/:id", controller.findOne);
 
-router.post('/', auth, controller.create);
+router.post('/', controller.create);
 
-router.put('/:id', auth, controller.join);
+router.put('/:id', controller.join);
 
-router.put('/chat/:id', auth, controller.message);
+router.put('/chat/:id', controller.message);
 
 export = router;

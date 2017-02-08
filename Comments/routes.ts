@@ -14,6 +14,6 @@ const auth = jwt({
 // Base route -- /api/v1/comments
 
 // POST: /api/v1/comments
-router.post('/', auth, ctrl.create);
+router.post('/', ctrl.create);
 
 export = router;
